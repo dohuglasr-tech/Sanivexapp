@@ -42,7 +42,7 @@ export const FloatingActions: React.FC = () => {
         </span>
       </a>
 
-      {/* Blue Scroll to Top Button */}
+      {/* Blue Scroll to Top Button (matching reference image bottom right arrow) */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X, Send, CheckCircle2, Sparkles, MessageCircle } from 'lucide-react';
+import { X, Send, CheckCircle2, ShieldAlert, Sparkles, MessageCircle } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 
 interface QuoteModalProps {
@@ -34,6 +34,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
     setLoading(true);
 
     try {
+      // Attempt to save to Supabase "leads" or "cotizaciones" table
       await supabase.from('cotizaciones').insert([
         {
           nombre: formData.name,
@@ -46,7 +47,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
         },
       ]);
     } catch {
-      // Non-blocking fallback
+      // Non-blocking fallback if table not yet created
     } finally {
       setLoading(false);
       setSubmitted(true);
