@@ -81,196 +81,118 @@ export default function Home() {
         {/* ========================================================================= */}
         {/* SECCIÓN 1: HERO PRINCIPAL                                                 */}
         {/* ========================================================================= */}
+        {/* ========================================================================= */}
+        {/* SECCIÓN 1: HERO PRINCIPAL (Idéntico a Imagen 2, fondo azul unificado)     */}
+        {/* ========================================================================= */}
         <section
           id="hero"
           className="relative min-h-screen md:h-screen snap-start snap-always flex flex-col justify-center items-center overflow-hidden bg-[#060b14]"
         >
-          {/* ===================================================================== */}
-          {/* DESKTOP HERO VIEW (Cinematic Centered Presentation)                   */}
-          {/* ===================================================================== */}
-          <div className="hidden md:flex relative h-full w-full flex-col justify-center items-center px-4 sm:px-8 overflow-hidden">
-            {/* Background Image: Specialist in tactical gear with cinematic dark atmosphere */}
-            <div className="absolute inset-0 z-0">
-              <Image
-                src="/images/Propias/principal_black.jpg"
-                alt="Especialista Sanivex en inspección técnica y sanidad ambiental"
-                fill
-                priority
-                quality={95}
-                className="object-cover object-center scale-100"
-              />
-              {/* Center atmospheric spotlight illumination behind technician and text */}
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_70%_at_50%_40%,rgba(34,211,238,0.1)_0%,rgba(6,11,20,0.55)_55%,#060b14_100%)]" />
+          {/* Background Image: Specialist in tactical gear with cinematic dark blue atmosphere */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/Propias/principal_black.jpg"
+              alt="Especialista Sanivex en inspección técnica y sanidad ambiental"
+              fill
+              priority
+              quality={95}
+              className="object-cover object-center scale-100"
+            />
+            {/* Center atmospheric spotlight illumination behind technician and text */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_70%_at_50%_40%,rgba(34,211,238,0.12)_0%,rgba(6,11,20,0.6)_55%,#060b14_100%)]" />
 
-              {/* Deep cinematic vignette overlays */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#060b14] via-transparent to-[#060b14]/90" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#060b14]/90 via-transparent to-[#060b14]/90" />
-              
-              {/* Soft bottom feathered color transition into section 2 */}
-              <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent via-[#060b14]/80 to-[#121e2c]" />
-            </div>
-
-            {/* Hero Content Desktop */}
-            <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center px-4">
-              {/* Top Liquid Pill: "Somos los mejores en" */}
-              <motion.div
-                initial={{ opacity: 0, y: -12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="inline-flex items-center justify-center px-7 py-1.5 rounded-full hero-top-pill text-xs font-normal text-slate-300 tracking-wide mb-5 select-none"
-              >
-                Somos los mejores en
-              </motion.div>
-
-              {/* H1 Heading - Hyperprofessional Responsive Scale */}
-              <motion.h1
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-[50px] font-semibold tracking-tight text-white leading-[1.14] max-w-2xl"
-              >
-                Control de plagas
-                <br />
-                <span className="text-[#7eedee] font-semibold">
-                  y sanidad ambiental
-                </span>
-              </motion.h1>
-
-              {/* Subtitle */}
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-                className="mt-4 text-[13px] text-slate-300/80 max-w-[490px] leading-relaxed font-light drop-shadow"
-              >
-                Tu operación segura, nuestra razón de ser, somos tu aliado estratégico en control de plagas para que tu y tu empresa estén seguros.
-              </motion.p>
-
-              {/* Red Alert Pill */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="mt-5 inline-flex items-center justify-center px-7 py-1.5 rounded-full hero-alert-pill text-xs font-medium text-red-200/90 tracking-wide"
-              >
-                ¡Alerta de ROEDORES en tu area!
-              </motion.div>
-
-              {/* Action Buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.4 }}
-                className="mt-6 flex flex-row items-center justify-center gap-4"
-              >
-                {/* Primary Mint Cyan Button */}
-                <button
-                  onClick={() => handleOpenQuote('Cotización General')}
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl hero-primary-btn font-semibold text-[13px] cursor-pointer"
-                >
-                  <span>Pedir un presupuesto</span>
-                  <span className="text-sm font-bold">→</span>
-                </button>
-
-                {/* Secondary Slate Button */}
-                <a
-                  href="tel:+573009123456"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl hero-secondary-btn font-medium text-[13px] cursor-pointer"
-                >
-                  <span>Llamar directamente</span>
-                </a>
-              </motion.div>
-
-              {/* WhatsApp Helper link */}
-              <motion.a
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.7, delay: 0.5 }}
-                href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3.5 text-[11px] text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
-              >
-                <span>Puedes comunicarte con nosotros vía <span className="font-semibold text-slate-300">WHATSAPP</span></span>
-                <span className="font-bold">→</span>
-              </motion.a>
-            </div>
+            {/* Deep cinematic vignette overlays */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060b14] via-transparent to-[#060b14]/90" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#060b14]/90 via-transparent to-[#060b14]/90" />
+            
+            {/* Soft bottom feathered color transition into section 2 */}
+            <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent via-[#060b14]/80 to-[#121e2c]" />
           </div>
 
-          {/* ===================================================================== */}
-          {/* MOBILE HERO VIEW (Homogeneous Sanivex Dark Branding & Fluid Flow)    */}
-          {/* ===================================================================== */}
-          <div className="flex md:hidden relative w-full flex-col bg-[#060b14] pt-[96px] pb-12 overflow-hidden text-white">
-            {/* Top Atmospheric Radial Glow */}
-            <div className="absolute top-0 inset-x-0 h-96 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(34,211,238,0.12)_0%,rgba(6,11,20,0.6)_60%,transparent_100%)] pointer-events-none" />
+          {/* Hero Content (Exact replica of Image 2, responsive for Mobile & Desktop) */}
+          <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center px-4 pt-24 pb-20 md:py-0">
+            {/* Top Liquid Pill: "Somos los mejores en" */}
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center justify-center px-6 py-1.5 rounded-full hero-top-pill text-xs font-normal text-slate-300 tracking-wide mb-4 md:mb-5 select-none"
+            >
+              Somos los mejores en
+            </motion.div>
 
-            {/* 1. Upper Hero Content: Exact Sanivex Authentic Typography & Copy */}
-            <div className="relative z-10 w-full px-5 pt-4 pb-4 text-left">
-              {/* Top Liquid Pill */}
-              <div className="inline-flex items-center justify-center px-4 py-1.5 rounded-full hero-top-pill text-[11px] font-normal text-slate-300 tracking-wide mb-3.5 select-none">
-                Somos los mejores en
-              </div>
+            {/* H1 Heading - Exact Authentic Sanivex Copy from Image 2 */}
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="text-[34px] xs:text-[40px] md:text-5xl lg:text-[50px] font-semibold tracking-tight text-white leading-[1.12] md:leading-[1.14] max-w-[280px] xs:max-w-xs md:max-w-2xl"
+            >
+              Control de plagas
+              <br />
+              <span className="text-[#7eedee] font-semibold">
+                y sanidad ambiental
+              </span>
+            </motion.h1>
 
-              {/* H1 Heading - Exact Authentic Sanivex Copy */}
-              <h1 className="text-[32px] xs:text-[36px] font-semibold tracking-tight text-white leading-[1.14]">
-                Control de plagas
-                <br />
-                <span className="text-[#7eedee] font-semibold">
-                  y sanidad ambiental
-                </span>
-              </h1>
+            {/* Subtitle - Exact Authentic Sanivex Copy */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="mt-3.5 md:mt-4 text-[12.5px] md:text-[13px] text-slate-300/85 max-w-[340px] xs:max-w-md md:max-w-[490px] leading-relaxed font-light drop-shadow"
+            >
+              Tu operación segura, nuestra razón de ser, somos tu aliado estratégico en control de plagas para que tu y tu empresa estén seguros.
+            </motion.p>
 
-              {/* Subtitle - Exact Authentic Sanivex Copy */}
-              <p className="mt-3 text-[13px] text-slate-300/85 leading-relaxed font-light max-w-md">
-                Tu operación segura, nuestra razón de ser, somos tu aliado estratégico en control de plagas para que tu y tu empresa estén seguros.
-              </p>
+            {/* Red Alert Pill - Exact from Image 2 */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="mt-4 md:mt-5 inline-flex items-center justify-center px-6 md:px-7 py-1.5 rounded-full hero-alert-pill text-xs font-medium text-red-200/90 tracking-wide"
+            >
+              ¡Alerta de ROEDORES en tu area!
+            </motion.div>
 
-              {/* Red Alert Pill */}
-              <div className="mt-4 inline-flex items-center justify-center px-4 py-1.5 rounded-full hero-alert-pill text-[11px] font-medium text-red-200/90 tracking-wide">
-                ¡Alerta de ROEDORES en tu area!
-              </div>
-
-              {/* Direct Call Button */}
-              <div className="mt-5 flex items-center gap-3">
-                <a
-                  href="tel:+573009123456"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#0e1726] hover:bg-[#15233a] text-cyan-300 border border-cyan-500/40 font-semibold text-xs tracking-wider uppercase transition-all shadow-[0_0_15px_rgba(34,211,238,0.15)] active:scale-95 cursor-pointer"
-                >
-                  <Phone className="h-4 w-4 text-cyan-400 fill-cyan-400" />
-                  <span>LLAMAR: 300-912-3456</span>
-                </a>
-              </div>
-            </div>
-
-            {/* 2. Visual Frame: Technician photo with seamless dark vignette & Help bubble */}
-            <div className="relative w-full h-[300px] xs:h-[340px] overflow-hidden mt-3">
-              <Image
-                src="/images/hero_technician.jpg"
-                alt="Especialista Sanivex en inspección técnica"
-                fill
-                priority
-                className="object-cover object-[center_35%]"
-              />
-
-              {/* Dark vignette blending seamlessly into background and section 2 */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#060b14] via-transparent to-[#060b14]/70" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#060b14]/80 via-transparent to-[#060b14]/80" />
-              <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-b from-transparent via-[#060b14]/80 to-[#121e2c]" />
-
-              {/* Circular Help / WhatsApp Bubble (Sanivex Glowing Cyan) */}
-              <a
-                href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20necesito%20asistencia%20en%20sanidad."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute bottom-5 right-5 flex flex-col items-center justify-center w-14 h-14 rounded-full bg-gradient-to-tr from-cyan-400 via-teal-400 to-cyan-300 text-slate-950 shadow-[0_0_20px_rgba(34,211,238,0.5)] border-2 border-white/80 active:scale-95 transition-transform cursor-pointer"
-                aria-label="Ayuda por WhatsApp"
+            {/* Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="mt-6 flex flex-col xs:flex-row items-center justify-center gap-3 md:gap-4 w-full xs:w-auto"
+            >
+              {/* Primary Mint Cyan Button */}
+              <button
+                onClick={() => handleOpenQuote('Cotización General')}
+                className="w-full xs:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl hero-primary-btn font-semibold text-[13px] cursor-pointer"
               >
-                <svg className="h-5 w-5 fill-slate-950" viewBox="0 0 24 24">
-                  <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" />
-                </svg>
-                <span className="text-[9px] font-black tracking-tight mt-0.5 uppercase">Ayuda</span>
+                <span>Pedir un presupuesto</span>
+                <span className="text-sm font-bold">→</span>
+              </button>
+
+              {/* Secondary Slate Button */}
+              <a
+                href="tel:+573009123456"
+                className="w-full xs:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl hero-secondary-btn font-medium text-[13px] cursor-pointer"
+              >
+                <span>Llamar directamente</span>
               </a>
-            </div>
+            </motion.div>
+
+            {/* WhatsApp Helper link */}
+            <motion.a
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+              href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 text-[11px] text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+            >
+              <span>Puedes comunicarte con nosotros vía <span className="font-semibold text-slate-300">WHATSAPP</span></span>
+              <span className="font-bold">→</span>
+            </motion.a>
           </div>
         </section>
 
