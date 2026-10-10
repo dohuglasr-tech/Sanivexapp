@@ -1,7 +1,16 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ShieldCheck, Phone, Menu, X, ArrowUpRight } from 'lucide-react';
+import {
+  Search,
+  User,
+  ChevronDown,
+  Menu,
+  X,
+  ShieldCheck,
+  Phone,
+  ArrowRight,
+} from 'lucide-react';
 
 interface NavbarProps {
   onOpenQuote: () => void;
@@ -10,6 +19,10 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
+  const [userModalOpen, setUserModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,106 +36,161 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: 'Inicio', href: '#hero' },
-    { label: 'MIP', href: '#mip' },
-    { label: 'Roedores', href: '#roedores' },
-    { label: 'Insectos', href: '#insectos' },
-    { label: 'Aves', href: '#aves' },
-    { label: 'Termitas', href: '#termitas' },
-    { label: 'Sanitización', href: '#sanitizacion' },
+  const serviceItems = [
+    { label: 'Manejo Integrado de Plagas (MIP)', href: '#mip', desc: 'Protocolo preventivo y normativo' },
+    { label: 'Control de Roedores', href: '#roedores', desc: 'Exclusión y cebado técnico perimetral' },
+    { label: 'Control de Insectos', href: '#insectos', desc: 'Fumigación de rastreros y voladores' },
+    { label: 'Control de Aves', href: '#aves', desc: 'Sistemas disuasorios y redes mecánicas' },
+    { label: 'Termitas y Xilófagos', href: '#termitas', desc: 'Inyección profunda y barrera química' },
+    { label: 'Sanitización Ambiental', href: '#sanitizacion', desc: 'Nebulización contra virus y bacterias' },
   ];
 
   const handleLinkClick = (href: string) => {
     setMobileMenuOpen(false);
+    setServicesDropdownOpen(false);
+    setSearchModalOpen(false);
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
+  const filteredServices = serviceItems.filter((item) =>
+    item.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.desc.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-4 sm:px-8 py-3 sm:py-4 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 sm:px-12 py-5 sm:py-6 ${
           scrolled
-            ? 'bg-slate-950/80 backdrop-blur-xl border-b border-white/10 shadow-2xl py-2.5'
+            ? 'bg-[#060b14]/85 backdrop-blur-xl border-b border-white/10 shadow-2xl py-3.5 sm:py-4'
             : 'bg-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo Wordmark SANIVEX */}
           <a
             href="#hero"
             onClick={(e) => {
               e.preventDefault();
               handleLinkClick('#hero');
             }}
-            className="flex items-center gap-2.5 group cursor-pointer"
+            className="flex items-center gap-2 group cursor-pointer"
           >
-            <div className="h-9 w-9 rounded-2xl bg-gradient-to-tr from-cyan-500 to-sky-400 p-[1px] shadow-[0_0_15px_rgba(6,182,212,0.35)] group-hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] transition-all">
-              <div className="h-full w-full rounded-2xl bg-slate-950 flex items-center justify-center">
-                <ShieldCheck className="h-5 w-5 text-cyan-400 group-hover:scale-110 transition-transform" />
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-xl tracking-wider text-white group-hover:text-cyan-400 transition-colors">
-                SANIVEX
-              </span>
-              <span className="text-[9px] tracking-widest text-slate-400 -mt-1 font-mono uppercase">
-                Sanidad Ambiental
-              </span>
-            </div>
+            <span className="font-extrabold text-xl sm:text-2xl tracking-[0.24em] text-white hover:text-cyan-300 transition-colors select-none">
+              SANIVEX
+            </span>
           </a>
 
-          {/* Desktop Nav Items */}
-          <nav className="hidden lg:flex items-center gap-1 bg-slate-900/60 backdrop-blur-xl border border-white/10 px-4 py-1.5 rounded-full shadow-lg">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick(link.href);
-                }}
-                className="px-3.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-full transition-all"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          {/* Desktop CTA actions */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Desktop Center Navigation Links */}
+          <nav className="hidden md:flex items-center gap-8 lg:gap-10">
             <a
-              href="tel:+573009123456"
-              className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-slate-300 hover:text-white rounded-full bg-slate-900/60 border border-white/10 hover:border-white/20 transition-all backdrop-blur-md"
+              href="#hero"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick('#hero');
+              }}
+              className="text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer"
             >
-              <Phone className="h-3.5 w-3.5 text-cyan-400" />
-              <span>(601) 745 0000</span>
+              Inicio
             </a>
 
-            <button
-              onClick={onOpenQuote}
-              className="relative inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold text-slate-950 bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+            {/* Dropdown for Servicios */}
+            <div
+              className="relative"
+              onMouseEnter={() => setServicesDropdownOpen(true)}
+              onMouseLeave={() => setServicesDropdownOpen(false)}
             >
-              <span>Pedir Presupuesto</span>
-              <ArrowUpRight className="h-3.5 w-3.5 stroke-[2.5]" />
-            </button>
-          </div>
+              <button
+                onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer py-1"
+                aria-haspopup="true"
+                aria-expanded={servicesDropdownOpen}
+              >
+                <span>Servicios</span>
+                <ChevronDown
+                  className={`h-3.5 w-3.5 transition-transform duration-200 text-slate-400 ${
+                    servicesDropdownOpen ? 'rotate-180 text-white' : ''
+                  }`}
+                />
+              </button>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center gap-2 lg:hidden">
-            <button
-              onClick={onOpenQuote}
-              className="sm:hidden px-3 py-1.5 text-xs font-bold rounded-full bg-cyan-400 text-slate-950"
+              {servicesDropdownOpen && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-72 z-50">
+                  <div className="rounded-2xl bg-[#0a1322]/95 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.7)] p-2">
+                    {serviceItems.map((item) => (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleLinkClick(item.href);
+                        }}
+                        className="flex flex-col px-3.5 py-2.5 rounded-xl hover:bg-white/5 transition-colors group cursor-pointer"
+                      >
+                        <span className="text-xs font-semibold text-slate-200 group-hover:text-cyan-300 transition-colors">
+                          {item.label}
+                        </span>
+                        <span className="text-[10px] text-slate-400">
+                          {item.desc}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <a
+              href="#mip"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick('#mip');
+              }}
+              className="text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer"
             >
-              Cotizar
+              ¿Sanivex?
+            </a>
+
+            <a
+              href="#contacto"
+              onClick={(e) => {
+                e.preventDefault();
+                onOpenQuote();
+              }}
+              className="text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer"
+            >
+              Contactanos
+            </a>
+          </nav>
+
+          {/* Desktop Right Action Icons: Search & User */}
+          <div className="flex items-center gap-5 sm:gap-6">
+            <button
+              onClick={() => setSearchModalOpen(true)}
+              className="text-slate-300 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5 cursor-pointer"
+              aria-label="Buscar servicios o vectores"
+              title="Buscar en Sanivex"
+            >
+              <Search className="h-4.5 w-4.5 stroke-[2]" />
             </button>
+
+            <button
+              onClick={() => setUserModalOpen(true)}
+              className="text-slate-300 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5 cursor-pointer"
+              aria-label="Portal de Clientes"
+              title="Portal de Clientes"
+            >
+              <User className="h-4.5 w-4.5 stroke-[2]" />
+            </button>
+
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-2xl bg-slate-900/80 border border-white/10 text-slate-300 hover:text-white"
-              aria-label="Toggle menu"
+              className="md:hidden text-slate-300 hover:text-white p-1.5 rounded-lg hover:bg-white/5 cursor-pointer ml-1"
+              aria-label="Abrir menú"
             >
               {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -132,38 +200,199 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-slate-950/95 backdrop-blur-2xl lg:hidden flex flex-col justify-center px-8">
+        <div className="fixed inset-0 z-40 bg-[#060b14]/95 backdrop-blur-2xl md:hidden flex flex-col justify-center px-8">
           <nav className="flex flex-col gap-4 text-center">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick(link.href);
-                }}
-                className="text-xl font-bold text-slate-200 hover:text-cyan-400 transition"
-              >
-                {link.label}
-              </a>
-            ))}
-            <div className="h-px w-24 mx-auto bg-white/10 my-4" />
             <a
-              href="tel:+573009123456"
-              className="flex items-center justify-center gap-2 text-sm text-cyan-400 font-semibold"
+              href="#hero"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick('#hero');
+              }}
+              className="text-lg font-semibold text-slate-200 hover:text-cyan-300 transition"
             >
-              <Phone className="h-4 w-4" /> Línea Directa Colombia: (601) 745 0000
+              Inicio
             </a>
+
+            <div className="py-2 flex flex-col gap-2 bg-slate-900/50 rounded-2xl p-3 border border-white/5">
+              <span className="text-xs uppercase tracking-wider text-cyan-400 font-bold mb-1">
+                Servicios Especializados
+              </span>
+              {serviceItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLinkClick(item.href);
+                  }}
+                  className="text-sm text-slate-300 hover:text-white py-1"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+
+            <a
+              href="#mip"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick('#mip');
+              }}
+              className="text-lg font-semibold text-slate-200 hover:text-cyan-300 transition"
+            >
+              ¿Sanivex?
+            </a>
+
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 onOpenQuote();
               }}
-              className="mt-4 w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-400 to-sky-400 text-slate-950 font-bold text-sm shadow-[0_0_25px_rgba(6,182,212,0.4)]"
+              className="mt-2 w-full py-3.5 rounded-xl hero-primary-btn font-bold text-sm cursor-pointer"
             >
-              Pedir un Presupuesto Gratuito
+              Pedir un Presupuesto
             </button>
+
+            <a
+              href="tel:+573009123456"
+              className="flex items-center justify-center gap-2 text-sm text-slate-300 font-medium mt-1"
+            >
+              <Phone className="h-4 w-4 text-cyan-400" /> Línea Directa: +57 300 912 3456
+            </a>
           </nav>
+        </div>
+      )}
+
+      {/* Search Modal */}
+      {searchModalOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-start justify-center pt-24 px-4"
+          onClick={() => setSearchModalOpen(false)}
+        >
+          <div
+            className="w-full max-w-xl rounded-2xl bg-[#0a1322] border border-white/15 p-5 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-3 border-b border-white/10 pb-3">
+              <Search className="h-5 w-5 text-cyan-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Buscar servicio, plaga (roedores, insectos, aves)..."
+                className="bg-transparent border-none outline-none text-white w-full text-sm placeholder:text-slate-500"
+                autoFocus
+              />
+              <button
+                onClick={() => setSearchModalOpen(false)}
+                className="text-slate-400 hover:text-white text-xs px-2 py-1 rounded bg-white/5"
+              >
+                ESC
+              </button>
+            </div>
+
+            <div className="mt-4 max-h-72 overflow-y-auto flex flex-col gap-2">
+              {filteredServices.length > 0 ? (
+                filteredServices.map((service) => (
+                  <button
+                    key={service.label}
+                    onClick={() => handleLinkClick(service.href)}
+                    className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors text-left group"
+                  >
+                    <div>
+                      <div className="text-sm font-semibold text-slate-200 group-hover:text-cyan-300">
+                        {service.label}
+                      </div>
+                      <div className="text-xs text-slate-400">{service.desc}</div>
+                    </div>
+                    <ArrowRight className="h-4 w-4 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
+                  </button>
+                ))
+              ) : (
+                <div className="text-center py-6 text-sm text-slate-400">
+                  No se encontraron resultados para &quot;{searchQuery}&quot;
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* User / Client Portal Modal */}
+      {userModalOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4"
+          onClick={() => setUserModalOpen(false)}
+        >
+          <div
+            className="w-full max-w-md rounded-2xl bg-[#0a1322] border border-white/15 p-6 shadow-2xl relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setUserModalOpen(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-white"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-10 w-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                <ShieldCheck className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="text-base font-bold text-white">Portal de Clientes Sanivex</h3>
+                <p className="text-xs text-slate-400">Consulta de actas y certificados de sanidad</p>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-300 mb-4 leading-relaxed">
+              Ingresa el NIT de tu empresa o el código de tu acta técnica de servicio para consultar trazabilidad, cronogramas y certificaciones sanitarias vigentes.
+            </p>
+
+            <div className="space-y-3">
+              <div>
+                <label className="text-[11px] font-semibold text-slate-400 block mb-1">
+                  NIT o Documento
+                </label>
+                <input
+                  type="text"
+                  placeholder="Ej: 900.123.456-7"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white text-xs focus:border-cyan-400 outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="text-[11px] font-semibold text-slate-400 block mb-1">
+                  Código de Acta Técnica / Servicio
+                </label>
+                <input
+                  type="text"
+                  placeholder="Ej: SNX-2026-9812"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white text-xs focus:border-cyan-400 outline-none"
+                />
+              </div>
+
+              <button
+                onClick={() => {
+                  alert('Consultando base de datos de certificados Sanivex...');
+                }}
+                className="w-full py-3 rounded-xl hero-primary-btn font-bold text-xs mt-2"
+              >
+                Consultar Certificado de Sanidad
+              </button>
+
+              <div className="text-center pt-2">
+                <a
+                  href="https://wa.me/573009123456?text=Hola%20Sanivex,%20requiero%20asistencia%20con%20mi%20acta%20técnica%20de%20servicio."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] text-cyan-400 hover:underline"
+                >
+                  ¿Necesitas ayuda con tu servicio? Contactar soporte directo vía WhatsApp →
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </>

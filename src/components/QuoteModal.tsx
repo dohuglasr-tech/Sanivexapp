@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X, Send, CheckCircle2, ShieldAlert, Sparkles, MessageCircle } from 'lucide-react';
+import { X, Send, CheckCircle2, Sparkles, MessageCircle } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 
 interface QuoteModalProps {

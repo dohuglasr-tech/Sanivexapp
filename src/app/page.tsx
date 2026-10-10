@@ -6,8 +6,6 @@ import { motion } from 'framer-motion';
 import {
   ShieldAlert,
   Sparkles,
-  Phone,
-  ArrowRight,
   ShieldCheck,
   Activity,
   Building2,
@@ -21,10 +19,7 @@ import {
   Syringe,
   Biohazard,
   Users,
-  CheckCircle,
   Bug,
-  Compass,
-  ArrowUpRight,
 } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 import { GlassCard } from '@/components/GlassCard';
@@ -76,38 +71,39 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="hero"
-          className="relative h-screen snap-start snap-always flex flex-col justify-center items-center px-4 sm:px-8 overflow-hidden bg-[#070e17]"
+          className="relative h-screen snap-start snap-always flex flex-col justify-center items-center px-4 sm:px-8 overflow-hidden bg-[#060b14]"
         >
-          {/* Background Image: Specialist in tactical gear */}
+          {/* Background Image: Specialist in tactical gear with cinematic dark atmosphere */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/images/Propias/WEBPRIN.jpg"
+              src="/images/Propias/principal_black.jpg"
               alt="Especialista Sanivex en inspección técnica y sanidad ambiental"
               fill
               priority
-              quality={90}
-              className="object-cover object-center scale-105"
+              quality={95}
+              className="object-cover object-center scale-100"
             />
-            {/* Multi-layer Liquid Glass gradient overlays for seamless color blending */}
-            <div className="absolute inset-0 bg-[#070e17]/65 backdrop-blur-[1px]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#101b27] via-[#070e17]/30 to-[#070e17]/85" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#070e17]/90 via-transparent to-[#070e17]/80" />
+            {/* Center atmospheric spotlight illumination behind technician and text */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_65%_at_50%_45%,rgba(34,211,238,0.12)_0%,rgba(6,11,20,0.55)_55%,#060b14_100%)]" />
+
+            {/* Deep cinematic vignette overlays */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#09111c] via-transparent to-[#060b14]/90" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#060b14]/90 via-transparent to-[#060b14]/90" />
             
             {/* Soft bottom feathered color transition into section 2 */}
-            <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent via-[#101b27]/80 to-[#121e2c]" />
+            <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent via-[#09111c]/80 to-[#121e2c]" />
           </div>
 
           {/* Hero Content */}
-          <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center mt-8 sm:mt-0">
+          <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center mt-6 sm:mt-0">
             {/* Top Liquid Pill: "Somos los mejores en" */}
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: -15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full liquid-pill text-xs sm:text-sm font-semibold text-cyan-300 shadow-xl mb-6"
+              className="inline-flex items-center px-5 py-1.5 rounded-full hero-top-pill text-xs sm:text-sm font-medium text-slate-200 tracking-wide mb-6"
             >
-              <Sparkles className="h-4 w-4 text-cyan-400 animate-pulse" />
-              <span>Sanidad Ambiental & Bioseguridad Certificada</span>
+              Somos los mejores en
             </motion.div>
 
             {/* H1 Heading */}
@@ -115,36 +111,33 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08] max-w-3xl drop-shadow-2xl"
+              className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08] max-w-4xl drop-shadow-2xl"
             >
-              Control de plagas{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-teal-300">
+              Control de plagas
+              <br />
+              <span className="text-[#7eedee] drop-shadow-[0_0_35px_rgba(126,237,238,0.35)]">
                 y sanidad ambiental
               </span>
             </motion.h1>
 
-            {/* Subtitle */}
+            {/* Subtitle matching exact reference copy */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="mt-6 text-sm sm:text-lg text-slate-200/90 max-w-2xl leading-relaxed font-light drop-shadow"
+              className="mt-5 text-xs sm:text-sm md:text-base text-slate-300/85 max-w-xl leading-relaxed font-normal drop-shadow"
             >
-              Tu operación segura, nuestra razón de ser. Somos tu aliado estratégico en control de plagas para que tú y tu empresa estén protegidos con tecnología de vanguardia y respaldo técnico en Colombia.
+              Tu operación segura, nuestra razón de ser, somos tu aliado estratégico en control de plagas para que tu y tu empresa estén seguros.
             </motion.p>
 
-            {/* Red Alert Liquid Pill */}
+            {/* Red Alert Pill */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-6 inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-red-950/60 border border-red-500/40 text-red-200 text-xs sm:text-sm font-semibold shadow-[0_0_25px_rgba(239,68,68,0.25)] backdrop-blur-xl"
+              className="mt-6 inline-flex items-center px-5 py-2 rounded-full hero-alert-pill text-xs sm:text-sm font-medium text-red-200/95"
             >
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
-              </span>
-              <span>¡Alerta sanitaria: proliferación de ROEDORES e insectos en tu área!</span>
+              ¡Alerta de ROEDORES en tu area!
             </motion.div>
 
             {/* Action Buttons */}
@@ -152,28 +145,27 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
-              className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
+              className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
             >
-              {/* Primary Cyan Liquid Glass Button */}
+              {/* Primary Mint Cyan Button */}
               <button
                 onClick={() => handleOpenQuote('Cotización General')}
-                className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 text-slate-950 font-extrabold text-sm shadow-[0_0_35px_rgba(6,182,212,0.45)] hover:shadow-[0_0_45px_rgba(6,182,212,0.7)] transition-all transform hover:-translate-y-0.5"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl hero-primary-btn font-semibold text-sm sm:text-base cursor-pointer"
               >
                 <span>Pedir un presupuesto</span>
-                <ArrowRight className="h-4 w-4 stroke-[3] group-hover:translate-x-1 transition-transform" />
+                <span className="text-base font-bold">→</span>
               </button>
 
-              {/* Secondary Liquid Glass Button */}
+              {/* Secondary Slate Button */}
               <a
                 href="tel:+573009123456"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full liquid-pill hover:bg-white/10 text-white font-semibold text-sm transition-all hover:border-cyan-400/50 shadow-lg"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl hero-secondary-btn text-sm sm:text-base cursor-pointer"
               >
-                <Phone className="h-4 w-4 text-cyan-400" />
                 <span>Llamar directamente</span>
               </a>
             </motion.div>
 
-            {/* WhatsApp Helper link */}
+            {/* WhatsApp Helper link matching exact reference copy */}
             <motion.a
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -181,10 +173,10 @@ export default function Home() {
               href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-5 text-xs text-slate-300/80 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5"
+              className="mt-5 text-[11px] sm:text-xs text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
             >
-              <span>Puedes comunicarte con nosotros vía WHATSAPP</span>
-              <span className="text-cyan-400 font-bold">→</span>
+              <span>Puedes comunicarte con nosotros vía <span className="font-semibold text-slate-300">WHATSAPP</span></span>
+              <span className="font-bold">→</span>
             </motion.a>
           </div>
         </section>
