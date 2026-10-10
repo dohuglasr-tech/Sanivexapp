@@ -187,92 +187,67 @@ export default function Home() {
           </div>
 
           {/* ===================================================================== */}
-          {/* MOBILE HERO VIEW (Orkin Distribution Replication)                     */}
+          {/* MOBILE HERO VIEW (Exact Orkin Distribution & Design Replication)      */}
           {/* ===================================================================== */}
-          <div className="flex md:hidden relative min-h-screen w-full flex-col justify-between pt-24 pb-4 px-4 bg-[#060b14] overflow-hidden">
-            {/* Ambient subtle spotlight */}
-            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full bg-cyan-500/10 blur-[100px] pointer-events-none" />
-
-            {/* 1. Header Text Area (Left-aligned, prominent typography matching Orkin) */}
-            <div className="relative z-10 flex flex-col items-start text-left w-full max-w-sm mx-auto">
-              {/* Badge: Somos los mejores en */}
-              <div className="inline-flex items-center justify-center px-4 py-1 rounded-full hero-top-pill text-[10px] font-normal text-slate-300 tracking-wide mb-2.5 select-none">
-                Somos los mejores en
-              </div>
-
-              {/* Title: Big, Bold, Left-Aligned like Orkin */}
-              <h1 className="text-[28px] xs:text-[32px] font-extrabold tracking-tight text-white leading-[1.12]">
-                Control de plagas
+          <div className="flex md:hidden relative w-full flex-col bg-white pt-[96px] overflow-hidden text-slate-950">
+            {/* 1. Upper Hero Content: Pure White, Left-aligned, Giant Condensed Typography */}
+            <div className="w-full bg-white px-6 pt-5 pb-6 text-left">
+              <h1 className="text-[42px] xs:text-[46px] font-black tracking-[-0.04em] uppercase leading-[0.88] text-[#111111]">
+                LOS
                 <br />
-                <span className="text-[#7eedee]">y sanidad ambiental</span>
+                PROS DE SANIVEX.
+                <br />
+                LOS MEJORES EN
+                <br />
+                <span className="text-[#c8102e]">PLAGAS.™</span>
               </h1>
 
               {/* Subtitle */}
-              <p className="mt-2 text-[11.5px] text-slate-300/80 leading-relaxed font-light">
-                Tu operación segura, nuestra razón de ser, somos tu aliado estratégico en control de plagas para que tu y tu empresa estén seguros.
+              <p className="mt-3 text-[11px] font-bold tracking-wider text-slate-500 uppercase">
+                Control de plagas y sanidad ambiental
               </p>
 
-              {/* Red Alert Pill */}
-              <div className="mt-2.5 inline-flex items-center justify-center px-4 py-1 rounded-full hero-alert-pill text-[10px] font-medium text-red-200/90 tracking-wide">
-                ¡Alerta de ROEDORES en tu area!
-              </div>
-
-              {/* Direct Call Button (Matching Orkin's CALL 855-556-1942) */}
+              {/* Rectangular Solid Red Call Button (Exact Orkin button) */}
               <a
                 href="tel:+573009123456"
-                className="mt-3.5 w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold text-xs tracking-wider uppercase shadow-[0_4px_20px_rgba(225,29,72,0.35)] transition-all active:scale-[0.98]"
+                className="mt-5 inline-flex items-center justify-center px-6 py-3.5 bg-[#c8102e] hover:bg-[#b00d27] text-white font-black text-xs tracking-wider uppercase transition-all shadow-sm active:scale-95 cursor-pointer"
               >
-                <Phone className="h-4 w-4 fill-white" />
-                <span>Llamar directamente</span>
+                CALL 300-912-3456
               </a>
             </div>
 
-            {/* 2. Visual Frame: Specialist on site + Floating circular Help button */}
-            <div className="relative z-10 w-full max-w-sm mx-auto h-[220px] xs:h-[260px] rounded-2xl overflow-hidden my-3 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] bg-slate-900/60">
+            {/* 2. Visual Frame: Full-bleed edge-to-edge technician photo */}
+            <div className="relative w-full h-[320px] xs:h-[360px] overflow-hidden bg-slate-100">
               <Image
-                src="/images/Propias/principal_black.jpg"
-                alt="Especialista Sanivex en inspección técnica y sanidad ambiental"
+                src="/images/hero_technician.jpg"
+                alt="Especialista Sanivex en inspección técnica"
                 fill
                 priority
-                className="object-cover object-[center_30%]"
+                className="object-cover object-[center_35%]"
               />
-              {/* Subtle bottom gradient vignette */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#060b14]/75 via-transparent to-transparent pointer-events-none" />
 
-              {/* Floating circular Help / WhatsApp button (Matching Orkin's round "Help" button in bottom right of photo) */}
+              {/* Circular Help / WhatsApp Bubble (Exact Orkin circular Help button) */}
               <a
                 href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20necesito%20asistencia%20en%20sanidad."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute bottom-3 right-3 flex flex-col items-center justify-center w-13 h-13 rounded-full bg-[#a5f3fc] text-slate-950 font-bold shadow-[0_4px_20px_rgba(6,182,212,0.5)] border-2 border-white/60 active:scale-95 transition-transform cursor-pointer"
+                className="absolute bottom-4 right-4 flex flex-col items-center justify-center w-16 h-16 rounded-full bg-[#b8e6e6] hover:bg-[#9fe0e0] text-slate-900 shadow-xl border-2 border-white active:scale-95 transition-transform cursor-pointer"
                 aria-label="Ayuda por WhatsApp"
               >
-                <svg className="h-5 w-5 fill-slate-950" viewBox="0 0 24 24">
-                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                <svg className="h-6 w-6 fill-slate-900" viewBox="0 0 24 24">
+                  <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" />
                 </svg>
-                <span className="text-[9px] font-black uppercase tracking-tight">Ayuda</span>
+                <span className="text-[10px] font-black tracking-tight mt-0.5 leading-none">Help</span>
               </a>
             </div>
 
-            {/* 3. Bottom Action Bar (Matching Orkin's "GET A QUOTE" full-width button) */}
-            <div className="relative z-10 w-full max-w-sm mx-auto pt-1 pb-1 flex flex-col items-center">
-              <button
-                onClick={() => handleOpenQuote('Cotización General')}
-                className="w-full py-3.5 rounded-xl hero-primary-btn font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-[0_4px_25px_rgba(34,211,238,0.3)] active:scale-[0.98]"
-              >
-                <span>Pedir un presupuesto</span>
-                <span className="text-sm font-bold">→</span>
-              </button>
-              <a
-                href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 text-[10.5px] text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
-              >
-                <span>Puedes comunicarte con nosotros vía <span className="font-semibold text-slate-300">WHATSAPP</span></span>
-                <span className="font-bold">→</span>
-              </a>
-            </div>
+            {/* 3. Full-bleed Red Bottom Bar (Exact Orkin "GET A QUOTE" button) */}
+            <button
+              onClick={() => handleOpenQuote('Cotización General')}
+              className="w-full py-4.5 bg-[#c8102e] hover:bg-[#b00d27] text-white font-black text-sm tracking-widest uppercase transition-colors flex items-center justify-center cursor-pointer shadow-lg active:opacity-90"
+            >
+              GET A QUOTE
+            </button>
           </div>
         </section>
 
