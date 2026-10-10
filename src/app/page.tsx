@@ -81,38 +81,37 @@ export default function Home() {
               fill
               priority
               quality={95}
-              className="object-cover object-center scale-100"
+              className="object-cover object-[center_35%] sm:object-center scale-100"
             />
             {/* Center atmospheric spotlight illumination behind technician and text */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_65%_at_50%_45%,rgba(34,211,238,0.12)_0%,rgba(6,11,20,0.55)_55%,#060b14_100%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_70%_at_50%_40%,rgba(34,211,238,0.1)_0%,rgba(6,11,20,0.55)_55%,#060b14_100%)]" />
 
             {/* Deep cinematic vignette overlays */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#09111c] via-transparent to-[#060b14]/90" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060b14] via-transparent to-[#060b14]/90" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#060b14]/90 via-transparent to-[#060b14]/90" />
             
             {/* Soft bottom feathered color transition into section 2 */}
-            <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent via-[#09111c]/80 to-[#121e2c]" />
+            <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent via-[#060b14]/80 to-[#121e2c]" />
           </div>
 
           {/* Hero Content */}
-          <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center mt-6 sm:mt-0">
-            {/* Top Liquid Pill: "Somos los mejores en" */}
+          <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center px-4 mt-4 sm:mt-0">
             {/* Top Liquid Pill: "Somos los mejores en" */}
             <motion.div
-              initial={{ opacity: 0, y: -15 }}
+              initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center justify-center px-6 sm:px-7 py-1.5 rounded-full hero-top-pill text-[11px] sm:text-xs font-normal text-slate-200 tracking-wide mb-4 sm:mb-5"
+              className="inline-flex items-center justify-center px-5 sm:px-7 py-1 sm:py-1.5 rounded-full hero-top-pill text-[10px] sm:text-xs font-normal text-slate-300 tracking-wide mb-3 sm:mb-5 select-none"
             >
               Somos los mejores en
             </motion.div>
 
-            {/* H1 Heading - Real scale matching Image 1 */}
+            {/* H1 Heading - Hyperprofessional Responsive Scale */}
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-semibold tracking-tight text-white leading-[1.14] max-w-2xl"
+              className="text-[27px] xs:text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-semibold tracking-tight text-white leading-[1.18] sm:leading-[1.14] max-w-2xl"
             >
               Control de plagas
               <br />
@@ -123,30 +122,30 @@ export default function Home() {
 
             {/* Subtitle matching exact Image 1 line breaks and proportions */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="mt-3.5 sm:mt-4 text-xs sm:text-[13px] text-slate-300/85 max-w-[490px] leading-relaxed font-light drop-shadow"
+              className="mt-3 sm:mt-4 text-[12px] sm:text-[13px] text-slate-300/80 max-w-[340px] sm:max-w-[490px] leading-relaxed font-light drop-shadow"
             >
               Tu operación segura, nuestra razón de ser, somos tu aliado estratégico en control de plagas para que tu y tu empresa estén seguros.
             </motion.p>
 
             {/* Red Alert Pill */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-4 sm:mt-5 inline-flex items-center justify-center px-6 sm:px-7 py-1.5 rounded-full hero-alert-pill text-[11px] sm:text-xs font-semibold text-red-200/90 tracking-wide"
+              className="mt-3.5 sm:mt-5 inline-flex items-center justify-center px-5 sm:px-7 py-1 sm:py-1.5 rounded-full hero-alert-pill text-[10.5px] sm:text-xs font-medium text-red-200/90 tracking-wide"
             >
               ¡Alerta de ROEDORES en tu area!
             </motion.div>
 
-            {/* Action Buttons */}
+            {/* Action Buttons - Refined mobile width so they don't stretch into giant blocks */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
-              className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full sm:w-auto"
+              className="mt-5 sm:mt-6 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 w-full sm:w-auto max-w-[280px] sm:max-w-none"
             >
               {/* Primary Mint Cyan Button */}
               <button
@@ -174,7 +173,7 @@ export default function Home() {
               href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3.5 text-[10px] sm:text-[11px] text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+              className="mt-3 sm:mt-3.5 text-[10px] sm:text-[11px] text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
             >
               <span>Puedes comunicarte con nosotros vía <span className="font-semibold text-slate-300">WHATSAPP</span></span>
               <span className="font-bold">→</span>

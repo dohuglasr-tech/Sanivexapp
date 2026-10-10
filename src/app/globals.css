@@ -150,46 +150,46 @@ body {
 
 /* Exact hero design replication styles matching Image 1 real proportions */
 .hero-top-pill {
-  background: rgba(15, 23, 42, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 0 16px rgba(56, 189, 248, 0.18);
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.15);
 }
 
 .hero-alert-pill {
-  background: rgba(45, 12, 18, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(239, 68, 68, 0.4);
-  box-shadow: 0 0 20px rgba(220, 38, 38, 0.25);
+  background: rgba(35, 10, 16, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  box-shadow: 0 0 18px rgba(220, 38, 38, 0.2);
 }
 
 .hero-primary-btn {
-  background: #7eedee;
-  color: #08111d;
-  box-shadow: 0 0 25px rgba(126, 237, 238, 0.4);
+  background: linear-gradient(135deg, #7eedee 0%, #5eead4 100%);
+  color: #07131e;
+  box-shadow: 0 0 24px rgba(126, 237, 238, 0.35);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero-primary-btn:hover {
-  background: #90f3f3;
-  box-shadow: 0 0 35px rgba(126, 237, 238, 0.65);
+  background: linear-gradient(135deg, #90f4f4 0%, #76f1dd 100%);
+  box-shadow: 0 0 32px rgba(126, 237, 238, 0.55);
   transform: translateY(-1.5px);
 }
 
 .hero-secondary-btn {
-  background: rgba(28, 42, 56, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(18, 30, 44, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(148, 163, 184, 0.2);
   color: #f1f5f9;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero-secondary-btn:hover {
-  background: rgba(38, 56, 75, 0.85);
-  border-color: rgba(148, 163, 184, 0.45);
+  background: rgba(28, 44, 62, 0.85);
+  border-color: rgba(148, 163, 184, 0.35);
   transform: translateY(-1.5px);
 }
 

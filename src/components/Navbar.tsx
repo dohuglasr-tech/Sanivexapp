@@ -172,10 +172,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
           </nav>
 
           {/* Desktop Right Action Icons: Search & User */}
-          <div className="flex items-center gap-4 sm:gap-5">
+          <div className="flex items-center gap-3 sm:gap-5">
             <button
               onClick={() => setSearchModalOpen(true)}
-              className="text-slate-300 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5 cursor-pointer"
+              className="hidden md:flex text-slate-300 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5 cursor-pointer"
               aria-label="Buscar servicios o vectores"
               title="Buscar en Sanivex"
             >
@@ -184,20 +184,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
 
             <button
               onClick={() => setUserModalOpen(true)}
-              className="text-slate-300 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5 cursor-pointer"
+              className="hidden md:flex text-slate-300 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5 cursor-pointer"
               aria-label="Portal de Clientes"
               title="Portal de Clientes"
             >
               <User className="h-3.5 w-3.5 sm:h-4 sm:w-4 stroke-[2]" />
             </button>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Sleek & minimal */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden text-slate-300 hover:text-white p-1.5 rounded-lg hover:bg-white/5 cursor-pointer ml-1"
+              className="md:hidden text-slate-200 hover:text-white p-2 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-all cursor-pointer"
               aria-label="Abrir menú"
             >
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {mobileMenuOpen ? <X className="h-4.5 w-4.5" /> : <Menu className="h-4.5 w-4.5" />}
             </button>
           </div>
         </div>
@@ -205,21 +205,33 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-[#060b14]/95 backdrop-blur-2xl md:hidden flex flex-col justify-center px-8">
-          <nav className="flex flex-col gap-4 text-center">
+        <div className="fixed inset-0 z-40 bg-[#060b14]/98 backdrop-blur-3xl md:hidden flex flex-col justify-center px-6 py-16 animate-in fade-in duration-200">
+          <div className="flex flex-col gap-4 text-center max-w-sm mx-auto w-full">
+            {/* Quick search input */}
+            <div
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setSearchModalOpen(true);
+              }}
+              className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-slate-900/80 border border-white/10 text-slate-400 text-xs cursor-pointer"
+            >
+              <Search className="h-4 w-4 text-cyan-400" />
+              <span>Buscar plagas o servicios...</span>
+            </div>
+
             <a
               href="#hero"
               onClick={(e) => {
                 e.preventDefault();
                 handleLinkClick('#hero');
               }}
-              className="text-lg font-semibold text-slate-200 hover:text-cyan-300 transition"
+              className="text-sm font-semibold text-slate-200 hover:text-cyan-300 transition py-1"
             >
               Inicio
             </a>
 
-            <div className="py-2 flex flex-col gap-2 bg-slate-900/50 rounded-2xl p-3 border border-white/5">
-              <span className="text-xs uppercase tracking-wider text-cyan-400 font-bold mb-1">
+            <div className="py-2 flex flex-col gap-1 bg-slate-900/50 rounded-2xl p-3 border border-white/5 text-left">
+              <span className="text-[10px] uppercase tracking-wider text-cyan-400 font-bold mb-1 px-1">
                 Servicios Especializados
               </span>
               {serviceItems.map((item) => (
@@ -230,7 +242,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                     e.preventDefault();
                     handleLinkClick(item.href);
                   }}
-                  className="text-sm text-slate-300 hover:text-white py-1"
+                  className="text-xs text-slate-300 hover:text-white py-1 px-1 rounded hover:bg-white/5"
                 >
                   {item.label}
                 </a>
@@ -243,7 +255,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 e.preventDefault();
                 handleLinkClick('#mip');
               }}
-              className="text-lg font-semibold text-slate-200 hover:text-cyan-300 transition"
+              className="text-sm font-semibold text-slate-200 hover:text-cyan-300 transition py-1"
             >
               ¿Sanivex?
             </a>
@@ -251,20 +263,31 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
+                setUserModalOpen(true);
+              }}
+              className="text-xs text-slate-300 hover:text-white py-2.5 flex items-center justify-center gap-2 rounded-xl bg-white/5 border border-white/10"
+            >
+              <User className="h-3.5 w-3.5 text-cyan-400" />
+              <span>Portal de Clientes (Actas / NIT)</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
                 onOpenQuote();
               }}
-              className="mt-2 w-full py-3.5 rounded-xl hero-primary-btn font-bold text-sm cursor-pointer"
+              className="w-full py-3 rounded-xl hero-primary-btn font-bold text-xs cursor-pointer shadow-lg mt-1"
             >
-              Pedir un Presupuesto
+              Pedir un Presupuesto Gratuito
             </button>
 
             <a
               href="tel:+573009123456"
-              className="flex items-center justify-center gap-2 text-sm text-slate-300 font-medium mt-1"
+              className="flex items-center justify-center gap-2 text-xs text-slate-400 font-medium pt-1"
             >
-              <Phone className="h-4 w-4 text-cyan-400" /> Línea Directa: +57 300 912 3456
+              <Phone className="h-3.5 w-3.5 text-cyan-400" /> Línea: +57 300 912 3456
             </a>
-          </nav>
+          </div>
         </div>
       )}
 
