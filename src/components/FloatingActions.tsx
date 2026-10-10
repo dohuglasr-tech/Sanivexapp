@@ -28,7 +28,7 @@ export const FloatingActions: React.FC = () => {
   if (!showFloating) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 animate-in fade-in duration-300">
+    <div className="fixed bottom-20 sm:bottom-6 right-6 z-40 flex flex-col items-end gap-3 animate-in fade-in duration-300">
       {/* WhatsApp Floating Button */}
       <a
         href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20solicitar%20informaci%C3%B3n%20sobre%20sus%20servicios%20de%20sanidad%20ambiental."

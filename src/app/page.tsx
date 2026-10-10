@@ -50,6 +50,17 @@ export default function Home() {
       {/* Floating Actions (WhatsApp & Scroll-to-top) */}
       <FloatingActions />
 
+      {/* Mobile Sticky Bottom CTA Bar (Solicitar Presupuesto) */}
+      <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-[#060b14]/95 backdrop-blur-xl border-t border-cyan-500/25 px-4 py-3 shadow-[0_-10px_35px_rgba(0,0,0,0.7)] animate-in fade-in duration-300">
+        <button
+          onClick={() => handleOpenQuote('Cotización General')}
+          className="w-full py-3.5 px-6 rounded-xl hero-primary-btn font-black text-xs sm:text-sm tracking-widest uppercase transition-all shadow-[0_0_25px_rgba(34,211,238,0.4)] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer text-slate-950"
+        >
+          <span>SOLICITAR PRESUPUESTO</span>
+          <span className="text-base font-black">→</span>
+        </button>
+      </div>
+
       {/* Modal for Quotations */}
       <QuoteModal
         isOpen={quoteModalOpen}
@@ -187,32 +198,33 @@ export default function Home() {
           </div>
 
           {/* ===================================================================== */}
-          {/* MOBILE HERO VIEW (Exact Orkin Distribution & Design Replication)      */}
+          {/* MOBILE HERO VIEW (Sanivex Branded Distribution & Design)              */}
           {/* ===================================================================== */}
-          <div className="flex md:hidden relative w-full flex-col bg-white pt-[96px] overflow-hidden text-slate-950">
+          <div className="flex md:hidden relative w-full flex-col bg-white pt-[96px] pb-20 overflow-hidden text-slate-950">
             {/* 1. Upper Hero Content: Pure White, Left-aligned, Giant Condensed Typography */}
             <div className="w-full bg-white px-6 pt-5 pb-6 text-left">
-              <h1 className="text-[42px] xs:text-[46px] font-black tracking-[-0.04em] uppercase leading-[0.88] text-[#111111]">
+              <h1 className="text-[38px] xs:text-[44px] font-black tracking-[-0.04em] uppercase leading-[0.88] text-[#09111c]">
                 LOS
                 <br />
                 PROS DE SANIVEX.
                 <br />
                 LOS MEJORES EN
                 <br />
-                <span className="text-[#c8102e]">PLAGAS.™</span>
+                <span className="text-cyan-600">CONTROL DE PLAGAS.™</span>
               </h1>
 
               {/* Subtitle */}
-              <p className="mt-3 text-[11px] font-bold tracking-wider text-slate-500 uppercase">
+              <p className="mt-2.5 text-[11px] font-bold tracking-wider text-slate-500 uppercase">
                 Control de plagas y sanidad ambiental
               </p>
 
-              {/* Rectangular Solid Red Call Button (Exact Orkin button) */}
+              {/* Rectangular Solid Sanivex Call Button */}
               <a
                 href="tel:+573009123456"
-                className="mt-5 inline-flex items-center justify-center px-6 py-3.5 bg-[#c8102e] hover:bg-[#b00d27] text-white font-black text-xs tracking-wider uppercase transition-all shadow-sm active:scale-95 cursor-pointer"
+                className="mt-5 inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#09111c] hover:bg-[#142336] text-white border-2 border-cyan-500/40 font-black text-xs tracking-wider uppercase transition-all shadow-md active:scale-95 cursor-pointer"
               >
-                CALL 300-912-3456
+                <Phone className="h-4 w-4 text-cyan-400 fill-cyan-400" />
+                <span>LLAMAR: 300-912-3456</span>
               </a>
             </div>
 
@@ -226,28 +238,20 @@ export default function Home() {
                 className="object-cover object-[center_35%]"
               />
 
-              {/* Circular Help / WhatsApp Bubble (Exact Orkin circular Help button) */}
+              {/* Circular Help / WhatsApp Bubble (Sanivex Mint Cyan) */}
               <a
                 href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20necesito%20asistencia%20en%20sanidad."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute bottom-4 right-4 flex flex-col items-center justify-center w-16 h-16 rounded-full bg-[#b8e6e6] hover:bg-[#9fe0e0] text-slate-900 shadow-xl border-2 border-white active:scale-95 transition-transform cursor-pointer"
+                className="absolute bottom-4 right-4 flex flex-col items-center justify-center w-16 h-16 rounded-full bg-[#a5f3fc] hover:bg-[#67e8f9] text-slate-950 shadow-xl border-2 border-white active:scale-95 transition-transform cursor-pointer"
                 aria-label="Ayuda por WhatsApp"
               >
-                <svg className="h-6 w-6 fill-slate-900" viewBox="0 0 24 24">
+                <svg className="h-6 w-6 fill-slate-950" viewBox="0 0 24 24">
                   <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" />
                 </svg>
                 <span className="text-[10px] font-black tracking-tight mt-0.5 leading-none">Help</span>
               </a>
             </div>
-
-            {/* 3. Full-bleed Red Bottom Bar (Exact Orkin "GET A QUOTE" button) */}
-            <button
-              onClick={() => handleOpenQuote('Cotización General')}
-              className="w-full py-4.5 bg-[#c8102e] hover:bg-[#b00d27] text-white font-black text-sm tracking-widest uppercase transition-colors flex items-center justify-center cursor-pointer shadow-lg active:opacity-90"
-            >
-              GET A QUOTE
-            </button>
           </div>
         </section>
 

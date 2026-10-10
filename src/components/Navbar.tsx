@@ -75,37 +75,37 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
         {/* ================================================================= */}
         <div className="flex md:hidden flex-col w-full">
           {/* Top Segmented Tab Switcher */}
-          <div className="flex w-full bg-[#1e242b]">
+          <div className="flex w-full bg-[#0c1524]">
             <button
               onClick={() => setActiveSegment('residencial')}
-              className={`relative flex-1 py-2.5 text-center text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
+              className={`relative flex-1 py-2.5 text-center text-xs font-black tracking-wider uppercase transition-all cursor-pointer ${
                 activeSegment === 'residencial'
-                  ? 'bg-[#c8102e] text-white shadow-sm'
-                  : 'bg-[#1e242b] text-slate-300 hover:text-white'
+                  ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 shadow-sm'
+                  : 'bg-[#0c1524] text-slate-400 hover:text-white'
               }`}
             >
               <span>Residencial</span>
               {activeSegment === 'residencial' && (
-                <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-x-[6px] border-x-transparent border-t-[6px] border-t-[#c8102e] z-20 pointer-events-none" />
+                <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-x-[6px] border-x-transparent border-t-[6px] border-t-cyan-500 z-20 pointer-events-none" />
               )}
             </button>
             <button
               onClick={() => setActiveSegment('comercial')}
-              className={`relative flex-1 py-2.5 text-center text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
+              className={`relative flex-1 py-2.5 text-center text-xs font-black tracking-wider uppercase transition-all cursor-pointer ${
                 activeSegment === 'comercial'
-                  ? 'bg-[#c8102e] text-white shadow-sm'
-                  : 'bg-[#1e242b] text-slate-300 hover:text-white'
+                  ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 shadow-sm'
+                  : 'bg-[#0c1524] text-slate-400 hover:text-white'
               }`}
             >
               <span>Comercial</span>
               {activeSegment === 'comercial' && (
-                <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-x-[6px] border-x-transparent border-t-[6px] border-t-[#c8102e] z-20 pointer-events-none" />
+                <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-x-[6px] border-x-transparent border-t-[6px] border-t-cyan-500 z-20 pointer-events-none" />
               )}
             </button>
           </div>
 
           {/* White Header Bar */}
-          <div className="relative flex items-center justify-between px-5 py-3.5 bg-white border-b border-neutral-200">
+          <div className="relative flex items-center justify-between px-5 py-3.5 bg-white border-b border-slate-200">
             <div className="w-16" /> {/* Balance spacer */}
 
             {/* Centered Brand Logo */}
@@ -133,7 +133,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-900 hover:text-[#c8102e] transition-colors p-1"
+                className="text-emerald-600 hover:text-emerald-500 transition-colors p-1"
                 aria-label="Contactar por WhatsApp"
                 title="WhatsApp"
               >
@@ -144,7 +144,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="text-slate-900 hover:text-[#c8102e] transition-colors p-1 cursor-pointer"
+                className="text-slate-900 hover:text-cyan-600 transition-colors p-1 cursor-pointer"
                 aria-label="Abrir menú"
               >
                 {mobileMenuOpen ? <X className="h-6 w-6 stroke-[2]" /> : <Menu className="h-6 w-6 stroke-[2]" />}
