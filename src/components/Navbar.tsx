@@ -63,14 +63,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 sm:px-12 py-5 sm:py-6 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-8 sm:px-14 py-5 sm:py-6 ${
           scrolled
             ? 'bg-[#060b14]/85 backdrop-blur-xl border-b border-white/10 shadow-2xl py-3.5 sm:py-4'
             : 'bg-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Official SANIVEX Brand Logo */}
+          {/* Official SANIVEX Brand Logo - Scaled to match Image 1 */}
           <a
             href="#hero"
             onClick={(e) => {
@@ -82,22 +82,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
             <Image
               src="/logos/logo-white.webp"
               alt="SANIVEX"
-              width={130}
-              height={26}
+              width={115}
+              height={22}
               priority
-              className="h-6 sm:h-7 w-auto object-contain transition-opacity group-hover:opacity-85"
+              className="h-4.5 sm:h-5 w-auto object-contain transition-opacity group-hover:opacity-85"
             />
           </a>
 
           {/* Desktop Center Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8 lg:gap-10">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
             <a
               href="#hero"
               onClick={(e) => {
                 e.preventDefault();
                 handleLinkClick('#hero');
               }}
-              className="text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer"
+              className="text-xs sm:text-[13px] font-normal text-slate-300/90 hover:text-white transition-colors cursor-pointer"
             >
               Inicio
             </a>
@@ -110,13 +110,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
             >
               <button
                 onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer py-1"
+                className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-normal text-slate-300/90 hover:text-white transition-colors cursor-pointer py-1"
                 aria-haspopup="true"
                 aria-expanded={servicesDropdownOpen}
               >
                 <span>Servicios</span>
                 <ChevronDown
-                  className={`h-3.5 w-3.5 transition-transform duration-200 text-slate-400 ${
+                  className={`h-3 w-3 transition-transform duration-200 text-slate-400 ${
                     servicesDropdownOpen ? 'rotate-180 text-white' : ''
                   }`}
                 />
@@ -154,7 +154,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 e.preventDefault();
                 handleLinkClick('#mip');
               }}
-              className="text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer"
+              className="text-xs sm:text-[13px] font-normal text-slate-300/90 hover:text-white transition-colors cursor-pointer"
             >
               ¿Sanivex?
             </a>
@@ -165,21 +165,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 e.preventDefault();
                 onOpenQuote();
               }}
-              className="text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer"
+              className="text-xs sm:text-[13px] font-normal text-slate-300/90 hover:text-white transition-colors cursor-pointer"
             >
               Contactanos
             </a>
           </nav>
 
           {/* Desktop Right Action Icons: Search & User */}
-          <div className="flex items-center gap-5 sm:gap-6">
+          <div className="flex items-center gap-4 sm:gap-5">
             <button
               onClick={() => setSearchModalOpen(true)}
               className="text-slate-300 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5 cursor-pointer"
               aria-label="Buscar servicios o vectores"
               title="Buscar en Sanivex"
             >
-              <Search className="h-4.5 w-4.5 stroke-[2]" />
+              <Search className="h-3.5 w-3.5 sm:h-4 sm:w-4 stroke-[2]" />
             </button>
 
             <button
@@ -188,7 +188,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               aria-label="Portal de Clientes"
               title="Portal de Clientes"
             >
-              <User className="h-4.5 w-4.5 stroke-[2]" />
+              <User className="h-3.5 w-3.5 sm:h-4 sm:w-4 stroke-[2]" />
             </button>
 
             {/* Mobile Menu Button */}

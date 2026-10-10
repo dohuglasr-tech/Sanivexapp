@@ -4,13 +4,16 @@ import React, { useState, useEffect } from 'react';
 import { ChevronUp, MessageCircle } from 'lucide-react';
 
 export const FloatingActions: React.FC = () => {
+  const [showFloating, setShowFloating] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     const checkScroll = () => {
-      if (window.scrollY > 400) {
+      if (window.scrollY > 300) {
+        setShowFloating(true);
         setShowScrollTop(true);
       } else {
+        setShowFloating(false);
         setShowScrollTop(false);
       }
     };
@@ -22,8 +25,10 @@ export const FloatingActions: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  if (!showFloating) return null;
+
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3">
+    <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 animate-in fade-in duration-300">
       {/* WhatsApp Floating Button */}
       <a
         href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20solicitar%20informaci%C3%B3n%20sobre%20sus%20servicios%20de%20sanidad%20ambiental."

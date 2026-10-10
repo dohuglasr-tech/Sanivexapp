@@ -45,7 +45,11 @@ export const ScrollDots: React.FC = () => {
   };
 
   return (
-    <aside className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-center gap-3 p-2 rounded-full bg-slate-950/40 backdrop-blur-xl border border-white/10 shadow-2xl">
+    <aside
+      className={`fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-center gap-3 p-2 rounded-full bg-slate-950/40 backdrop-blur-xl border border-white/10 shadow-2xl transition-opacity duration-500 ${
+        activeSection === 'hero' ? 'opacity-0 pointer-events-none' : 'opacity-100'
+      }`}
+    >
       {sections.map((section) => {
         const isActive = activeSection === section.id;
         return (

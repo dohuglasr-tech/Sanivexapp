@@ -97,46 +97,46 @@ export default function Home() {
           {/* Hero Content */}
           <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center mt-6 sm:mt-0">
             {/* Top Liquid Pill: "Somos los mejores en" */}
-            {/* Top Liquid Pill: "Somos los mejores en" (elongated pill) */}
+            {/* Top Liquid Pill: "Somos los mejores en" */}
             <motion.div
               initial={{ opacity: 0, y: -15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center justify-center px-10 sm:px-14 py-2 sm:py-2.5 rounded-full hero-top-pill text-xs sm:text-sm font-light text-slate-200 tracking-wider mb-6"
+              className="inline-flex items-center justify-center px-6 sm:px-7 py-1.5 rounded-full hero-top-pill text-[11px] sm:text-xs font-normal text-slate-200 tracking-wide mb-4 sm:mb-5"
             >
               Somos los mejores en
             </motion.div>
 
-            {/* H1 Heading - Slender, lighter weight matching the reference */}
+            {/* H1 Heading - Real scale matching Image 1 */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-4xl sm:text-6xl md:text-7xl font-medium sm:font-semibold tracking-tight text-white leading-[1.12] max-w-4xl"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-semibold tracking-tight text-white leading-[1.14] max-w-2xl"
             >
               Control de plagas
               <br />
-              <span className="text-[#7eedee] font-medium sm:font-semibold">
+              <span className="text-[#7eedee] font-semibold">
                 y sanidad ambiental
               </span>
             </motion.h1>
 
-            {/* Subtitle matching exact reference copy */}
+            {/* Subtitle matching exact Image 1 line breaks and proportions */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="mt-5 text-xs sm:text-sm md:text-base text-slate-300/85 max-w-xl leading-relaxed font-light drop-shadow"
+              className="mt-3.5 sm:mt-4 text-xs sm:text-[13px] text-slate-300/85 max-w-[490px] leading-relaxed font-light drop-shadow"
             >
               Tu operación segura, nuestra razón de ser, somos tu aliado estratégico en control de plagas para que tu y tu empresa estén seguros.
             </motion.p>
 
-            {/* Red Alert Pill (elongated pill) */}
+            {/* Red Alert Pill */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-6 inline-flex items-center justify-center px-10 sm:px-14 py-2.5 rounded-full hero-alert-pill text-xs sm:text-sm font-medium text-red-200/95 tracking-wide"
+              className="mt-4 sm:mt-5 inline-flex items-center justify-center px-6 sm:px-7 py-1.5 rounded-full hero-alert-pill text-[11px] sm:text-xs font-semibold text-red-200/90 tracking-wide"
             >
               ¡Alerta de ROEDORES en tu area!
             </motion.div>
@@ -146,27 +146,27 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
-              className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
+              className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full sm:w-auto"
             >
               {/* Primary Mint Cyan Button */}
               <button
                 onClick={() => handleOpenQuote('Cotización General')}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl hero-primary-btn font-semibold text-sm sm:text-base cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-2.5 sm:py-3 rounded-xl hero-primary-btn font-semibold text-xs sm:text-[13px] cursor-pointer"
               >
                 <span>Pedir un presupuesto</span>
-                <span className="text-base font-bold">→</span>
+                <span className="text-sm font-bold">→</span>
               </button>
 
               {/* Secondary Slate Button */}
               <a
                 href="tel:+573009123456"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl hero-secondary-btn text-sm sm:text-base cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-2.5 sm:py-3 rounded-xl hero-secondary-btn font-medium text-xs sm:text-[13px] cursor-pointer"
               >
                 <span>Llamar directamente</span>
               </a>
             </motion.div>
 
-            {/* WhatsApp Helper link matching exact reference copy */}
+            {/* WhatsApp Helper link matching Image 1 */}
             <motion.a
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -174,7 +174,7 @@ export default function Home() {
               href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-5 text-[11px] sm:text-xs text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+              className="mt-3.5 text-[10px] sm:text-[11px] text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
             >
               <span>Puedes comunicarte con nosotros vía <span className="font-semibold text-slate-300">WHATSAPP</span></span>
               <span className="font-bold">→</span>

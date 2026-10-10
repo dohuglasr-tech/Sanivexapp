@@ -148,14 +148,13 @@ body {
   animation: floatOrb 12s infinite ease-in-out;
 }
 
-/* Exact hero design replication styles */
+/* Exact hero design replication styles matching Image 1 real proportions */
 .hero-top-pill {
   background: rgba(15, 23, 42, 0.45);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.12);
-  min-width: 250px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.18);
 }
 
 .hero-alert-pill {
@@ -163,35 +162,34 @@ body {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(239, 68, 68, 0.4);
-  box-shadow: 0 0 25px rgba(220, 38, 38, 0.3);
-  min-width: 320px;
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.25);
 }
 
 .hero-primary-btn {
   background: #7eedee;
   color: #08111d;
-  box-shadow: 0 0 32px rgba(126, 237, 238, 0.45);
+  box-shadow: 0 0 25px rgba(126, 237, 238, 0.4);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero-primary-btn:hover {
   background: #90f3f3;
-  box-shadow: 0 0 42px rgba(126, 237, 238, 0.7);
-  transform: translateY(-2px);
+  box-shadow: 0 0 35px rgba(126, 237, 238, 0.65);
+  transform: translateY(-1.5px);
 }
 
 .hero-secondary-btn {
-  background: rgba(30, 44, 59, 0.8);
+  background: rgba(28, 42, 56, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(148, 163, 184, 0.28);
-  color: #f8fafc;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: #f1f5f9;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero-secondary-btn:hover {
-  background: rgba(42, 60, 80, 0.9);
-  border-color: rgba(148, 163, 184, 0.5);
-  transform: translateY(-2px);
+  background: rgba(38, 56, 75, 0.85);
+  border-color: rgba(148, 163, 184, 0.45);
+  transform: translateY(-1.5px);
 }
 
