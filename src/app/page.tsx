@@ -20,6 +20,7 @@ import {
   Biohazard,
   Users,
   Bug,
+  Phone,
 } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 import { GlassCard } from '@/components/GlassCard';
@@ -71,113 +72,207 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="hero"
-          className="relative h-screen snap-start snap-always flex flex-col justify-center items-center px-4 sm:px-8 overflow-hidden bg-[#060b14]"
+          className="relative min-h-screen md:h-screen snap-start snap-always flex flex-col justify-center items-center overflow-hidden bg-[#060b14]"
         >
-          {/* Background Image: Specialist in tactical gear with cinematic dark atmosphere */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/images/Propias/principal_black.jpg"
-              alt="Especialista Sanivex en inspección técnica y sanidad ambiental"
-              fill
-              priority
-              quality={95}
-              className="object-cover object-[center_35%] sm:object-center scale-100"
-            />
-            {/* Center atmospheric spotlight illumination behind technician and text */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_70%_at_50%_40%,rgba(34,211,238,0.1)_0%,rgba(6,11,20,0.55)_55%,#060b14_100%)]" />
+          {/* ===================================================================== */}
+          {/* DESKTOP HERO VIEW (Cinematic Centered Presentation)                   */}
+          {/* ===================================================================== */}
+          <div className="hidden md:flex relative h-full w-full flex-col justify-center items-center px-4 sm:px-8 overflow-hidden">
+            {/* Background Image: Specialist in tactical gear with cinematic dark atmosphere */}
+            <div className="absolute inset-0 z-0">
+              <Image
+                src="/images/Propias/principal_black.jpg"
+                alt="Especialista Sanivex en inspección técnica y sanidad ambiental"
+                fill
+                priority
+                quality={95}
+                className="object-cover object-center scale-100"
+              />
+              {/* Center atmospheric spotlight illumination behind technician and text */}
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_70%_at_50%_40%,rgba(34,211,238,0.1)_0%,rgba(6,11,20,0.55)_55%,#060b14_100%)]" />
 
-            {/* Deep cinematic vignette overlays */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#060b14] via-transparent to-[#060b14]/90" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#060b14]/90 via-transparent to-[#060b14]/90" />
-            
-            {/* Soft bottom feathered color transition into section 2 */}
-            <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent via-[#060b14]/80 to-[#121e2c]" />
+              {/* Deep cinematic vignette overlays */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#060b14] via-transparent to-[#060b14]/90" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#060b14]/90 via-transparent to-[#060b14]/90" />
+              
+              {/* Soft bottom feathered color transition into section 2 */}
+              <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent via-[#060b14]/80 to-[#121e2c]" />
+            </div>
+
+            {/* Hero Content Desktop */}
+            <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center px-4">
+              {/* Top Liquid Pill: "Somos los mejores en" */}
+              <motion.div
+                initial={{ opacity: 0, y: -12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="inline-flex items-center justify-center px-7 py-1.5 rounded-full hero-top-pill text-xs font-normal text-slate-300 tracking-wide mb-5 select-none"
+              >
+                Somos los mejores en
+              </motion.div>
+
+              {/* H1 Heading - Hyperprofessional Responsive Scale */}
+              <motion.h1
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+                className="text-4xl md:text-5xl lg:text-[50px] font-semibold tracking-tight text-white leading-[1.14] max-w-2xl"
+              >
+                Control de plagas
+                <br />
+                <span className="text-[#7eedee] font-semibold">
+                  y sanidad ambiental
+                </span>
+              </motion.h1>
+
+              {/* Subtitle */}
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+                className="mt-4 text-[13px] text-slate-300/80 max-w-[490px] leading-relaxed font-light drop-shadow"
+              >
+                Tu operación segura, nuestra razón de ser, somos tu aliado estratégico en control de plagas para que tu y tu empresa estén seguros.
+              </motion.p>
+
+              {/* Red Alert Pill */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="mt-5 inline-flex items-center justify-center px-7 py-1.5 rounded-full hero-alert-pill text-xs font-medium text-red-200/90 tracking-wide"
+              >
+                ¡Alerta de ROEDORES en tu area!
+              </motion.div>
+
+              {/* Action Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.4 }}
+                className="mt-6 flex flex-row items-center justify-center gap-4"
+              >
+                {/* Primary Mint Cyan Button */}
+                <button
+                  onClick={() => handleOpenQuote('Cotización General')}
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl hero-primary-btn font-semibold text-[13px] cursor-pointer"
+                >
+                  <span>Pedir un presupuesto</span>
+                  <span className="text-sm font-bold">→</span>
+                </button>
+
+                {/* Secondary Slate Button */}
+                <a
+                  href="tel:+573009123456"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl hero-secondary-btn font-medium text-[13px] cursor-pointer"
+                >
+                  <span>Llamar directamente</span>
+                </a>
+              </motion.div>
+
+              {/* WhatsApp Helper link */}
+              <motion.a
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.7, delay: 0.5 }}
+                href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3.5 text-[11px] text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+              >
+                <span>Puedes comunicarte con nosotros vía <span className="font-semibold text-slate-300">WHATSAPP</span></span>
+                <span className="font-bold">→</span>
+              </motion.a>
+            </div>
           </div>
 
-          {/* Hero Content */}
-          <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center px-4 mt-4 sm:mt-0">
-            {/* Top Liquid Pill: "Somos los mejores en" */}
-            <motion.div
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center justify-center px-5 sm:px-7 py-1 sm:py-1.5 rounded-full hero-top-pill text-[10px] sm:text-xs font-normal text-slate-300 tracking-wide mb-3 sm:mb-5 select-none"
-            >
-              Somos los mejores en
-            </motion.div>
+          {/* ===================================================================== */}
+          {/* MOBILE HERO VIEW (Orkin Distribution Replication)                     */}
+          {/* ===================================================================== */}
+          <div className="flex md:hidden relative min-h-screen w-full flex-col justify-between pt-24 pb-4 px-4 bg-[#060b14] overflow-hidden">
+            {/* Ambient subtle spotlight */}
+            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full bg-cyan-500/10 blur-[100px] pointer-events-none" />
 
-            {/* H1 Heading - Hyperprofessional Responsive Scale */}
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-[27px] xs:text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-semibold tracking-tight text-white leading-[1.18] sm:leading-[1.14] max-w-2xl"
-            >
-              Control de plagas
-              <br />
-              <span className="text-[#7eedee] font-semibold">
-                y sanidad ambiental
-              </span>
-            </motion.h1>
+            {/* 1. Header Text Area (Left-aligned, prominent typography matching Orkin) */}
+            <div className="relative z-10 flex flex-col items-start text-left w-full max-w-sm mx-auto">
+              {/* Badge: Somos los mejores en */}
+              <div className="inline-flex items-center justify-center px-4 py-1 rounded-full hero-top-pill text-[10px] font-normal text-slate-300 tracking-wide mb-2.5 select-none">
+                Somos los mejores en
+              </div>
 
-            {/* Subtitle matching exact Image 1 line breaks and proportions */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="mt-3 sm:mt-4 text-[12px] sm:text-[13px] text-slate-300/80 max-w-[340px] sm:max-w-[490px] leading-relaxed font-light drop-shadow"
-            >
-              Tu operación segura, nuestra razón de ser, somos tu aliado estratégico en control de plagas para que tu y tu empresa estén seguros.
-            </motion.p>
+              {/* Title: Big, Bold, Left-Aligned like Orkin */}
+              <h1 className="text-[28px] xs:text-[32px] font-extrabold tracking-tight text-white leading-[1.12]">
+                Control de plagas
+                <br />
+                <span className="text-[#7eedee]">y sanidad ambiental</span>
+              </h1>
 
-            {/* Red Alert Pill */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-3.5 sm:mt-5 inline-flex items-center justify-center px-5 sm:px-7 py-1 sm:py-1.5 rounded-full hero-alert-pill text-[10.5px] sm:text-xs font-medium text-red-200/90 tracking-wide"
-            >
-              ¡Alerta de ROEDORES en tu area!
-            </motion.div>
+              {/* Subtitle */}
+              <p className="mt-2 text-[11.5px] text-slate-300/80 leading-relaxed font-light">
+                Tu operación segura, nuestra razón de ser, somos tu aliado estratégico en control de plagas para que tu y tu empresa estén seguros.
+              </p>
 
-            {/* Action Buttons - Refined mobile width so they don't stretch into giant blocks */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="mt-5 sm:mt-6 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 w-full sm:w-auto max-w-[280px] sm:max-w-none"
-            >
-              {/* Primary Mint Cyan Button */}
+              {/* Red Alert Pill */}
+              <div className="mt-2.5 inline-flex items-center justify-center px-4 py-1 rounded-full hero-alert-pill text-[10px] font-medium text-red-200/90 tracking-wide">
+                ¡Alerta de ROEDORES en tu area!
+              </div>
+
+              {/* Direct Call Button (Matching Orkin's CALL 855-556-1942) */}
+              <a
+                href="tel:+573009123456"
+                className="mt-3.5 w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold text-xs tracking-wider uppercase shadow-[0_4px_20px_rgba(225,29,72,0.35)] transition-all active:scale-[0.98]"
+              >
+                <Phone className="h-4 w-4 fill-white" />
+                <span>Llamar directamente</span>
+              </a>
+            </div>
+
+            {/* 2. Visual Frame: Specialist on site + Floating circular Help button */}
+            <div className="relative z-10 w-full max-w-sm mx-auto h-[220px] xs:h-[260px] rounded-2xl overflow-hidden my-3 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] bg-slate-900/60">
+              <Image
+                src="/images/Propias/principal_black.jpg"
+                alt="Especialista Sanivex en inspección técnica y sanidad ambiental"
+                fill
+                priority
+                className="object-cover object-[center_30%]"
+              />
+              {/* Subtle bottom gradient vignette */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#060b14]/75 via-transparent to-transparent pointer-events-none" />
+
+              {/* Floating circular Help / WhatsApp button (Matching Orkin's round "Help" button in bottom right of photo) */}
+              <a
+                href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20necesito%20asistencia%20en%20sanidad."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute bottom-3 right-3 flex flex-col items-center justify-center w-13 h-13 rounded-full bg-[#a5f3fc] text-slate-950 font-bold shadow-[0_4px_20px_rgba(6,182,212,0.5)] border-2 border-white/60 active:scale-95 transition-transform cursor-pointer"
+                aria-label="Ayuda por WhatsApp"
+              >
+                <svg className="h-5 w-5 fill-slate-950" viewBox="0 0 24 24">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
+                <span className="text-[9px] font-black uppercase tracking-tight">Ayuda</span>
+              </a>
+            </div>
+
+            {/* 3. Bottom Action Bar (Matching Orkin's "GET A QUOTE" full-width button) */}
+            <div className="relative z-10 w-full max-w-sm mx-auto pt-1 pb-1 flex flex-col items-center">
               <button
                 onClick={() => handleOpenQuote('Cotización General')}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-2.5 sm:py-3 rounded-xl hero-primary-btn font-semibold text-xs sm:text-[13px] cursor-pointer"
+                className="w-full py-3.5 rounded-xl hero-primary-btn font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-[0_4px_25px_rgba(34,211,238,0.3)] active:scale-[0.98]"
               >
                 <span>Pedir un presupuesto</span>
                 <span className="text-sm font-bold">→</span>
               </button>
-
-              {/* Secondary Slate Button */}
               <a
-                href="tel:+573009123456"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-2.5 sm:py-3 rounded-xl hero-secondary-btn font-medium text-xs sm:text-[13px] cursor-pointer"
+                href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 text-[10.5px] text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
               >
-                <span>Llamar directamente</span>
+                <span>Puedes comunicarte con nosotros vía <span className="font-semibold text-slate-300">WHATSAPP</span></span>
+                <span className="font-bold">→</span>
               </a>
-            </motion.div>
-
-            {/* WhatsApp Helper link matching Image 1 */}
-            <motion.a
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.5 }}
-              href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 sm:mt-3.5 text-[10px] sm:text-[11px] text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
-            >
-              <span>Puedes comunicarte con nosotros vía <span className="font-semibold text-slate-300">WHATSAPP</span></span>
-              <span className="font-bold">→</span>
-            </motion.a>
+            </div>
           </div>
         </section>
 
