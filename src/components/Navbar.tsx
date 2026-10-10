@@ -27,6 +27,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
     { label: 'Inicio', href: '#hero' },
     { label: 'MIP', href: '#mip' },
     { label: 'Roedores', href: '#roedores' },
+    { label: 'Insectos', href: '#insectos' },
     { label: 'Aves', href: '#aves' },
     { label: 'Termitas', href: '#termitas' },
     { label: 'Sanitización', href: '#sanitizacion' },

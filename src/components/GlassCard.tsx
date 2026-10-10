@@ -31,10 +31,11 @@ export const GlassCard: React.FC<GlassCardProps> = ({
 }) => {
   return (
     <div
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl bg-slate-900/60 p-6 sm:p-7 backdrop-blur-2xl border border-white/10 transition-all duration-500 hover:border-cyan-400/40 hover:bg-slate-900/80 hover:shadow-[0_0_35px_rgba(6,182,212,0.18)] hover:-translate-y-1.5 ${className}`}
+      className={`group relative flex flex-col justify-between overflow-hidden rounded-[2rem] bg-gradient-to-b from-white/[0.08] via-slate-900/60 to-slate-950/80 p-6 sm:p-7 backdrop-blur-3xl border border-white/15 border-t-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),_0_20px_45px_-10px_rgba(0,0,0,0.5)] transition-all duration-500 hover:border-cyan-400/50 hover:border-t-cyan-300/80 hover:bg-slate-900/80 hover:shadow-[0_0_35px_rgba(6,182,212,0.22),_inset_0_1px_2px_rgba(255,255,255,0.4)] hover:-translate-y-2 ${className}`}
     >
-      {/* Top subtle light sheen highlight */}
-      <div className="pointer-events-none absolute -top-24 -left-24 h-48 w-48 rounded-full bg-cyan-500/10 blur-3xl transition duration-500 group-hover:bg-cyan-400/20" />
+      {/* Top subtle liquid light reflection */}
+      <div className="pointer-events-none absolute -top-24 -left-24 h-48 w-48 rounded-full bg-cyan-400/15 blur-3xl transition duration-700 group-hover:bg-cyan-300/25 group-hover:scale-125" />
+      <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
 
       <div>
         {/* Optional Image Header */}

@@ -6,6 +6,7 @@ const sections = [
   { id: 'hero', label: 'Inicio' },
   { id: 'mip', label: 'MIP' },
   { id: 'roedores', label: 'Roedores' },
+  { id: 'insectos', label: 'Insectos' },
   { id: 'aves', label: 'Control Aves' },
   { id: 'termitas', label: 'Termitas' },
   { id: 'sanitizacion', label: 'Sanitización' },
