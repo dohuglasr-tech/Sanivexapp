@@ -97,25 +97,26 @@ export default function Home() {
           {/* Hero Content */}
           <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center mt-6 sm:mt-0">
             {/* Top Liquid Pill: "Somos los mejores en" */}
+            {/* Top Liquid Pill: "Somos los mejores en" (elongated pill) */}
             <motion.div
               initial={{ opacity: 0, y: -15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center px-5 py-1.5 rounded-full hero-top-pill text-xs sm:text-sm font-medium text-slate-200 tracking-wide mb-6"
+              className="inline-flex items-center justify-center px-10 sm:px-14 py-2 sm:py-2.5 rounded-full hero-top-pill text-xs sm:text-sm font-light text-slate-200 tracking-wider mb-6"
             >
               Somos los mejores en
             </motion.div>
 
-            {/* H1 Heading */}
+            {/* H1 Heading - Slender, lighter weight matching the reference */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08] max-w-4xl drop-shadow-2xl"
+              className="text-4xl sm:text-6xl md:text-7xl font-medium sm:font-semibold tracking-tight text-white leading-[1.12] max-w-4xl"
             >
               Control de plagas
               <br />
-              <span className="text-[#7eedee] drop-shadow-[0_0_35px_rgba(126,237,238,0.35)]">
+              <span className="text-[#7eedee] font-medium sm:font-semibold">
                 y sanidad ambiental
               </span>
             </motion.h1>
@@ -125,17 +126,17 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="mt-5 text-xs sm:text-sm md:text-base text-slate-300/85 max-w-xl leading-relaxed font-normal drop-shadow"
+              className="mt-5 text-xs sm:text-sm md:text-base text-slate-300/85 max-w-xl leading-relaxed font-light drop-shadow"
             >
               Tu operación segura, nuestra razón de ser, somos tu aliado estratégico en control de plagas para que tu y tu empresa estén seguros.
             </motion.p>
 
-            {/* Red Alert Pill */}
+            {/* Red Alert Pill (elongated pill) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-6 inline-flex items-center px-5 py-2 rounded-full hero-alert-pill text-xs sm:text-sm font-medium text-red-200/95"
+              className="mt-6 inline-flex items-center justify-center px-10 sm:px-14 py-2.5 rounded-full hero-alert-pill text-xs sm:text-sm font-medium text-red-200/95 tracking-wide"
             >
               ¡Alerta de ROEDORES en tu area!
             </motion.div>
