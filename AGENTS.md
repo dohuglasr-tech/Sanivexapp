@@ -7,3 +7,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+# Project Design & Typography Rules
+
+- **Typography**: The entire application MUST use **Poppins** as the primary font, or in its defect **Montserrat** as fallback font (`var(--font-poppins), var(--font-montserrat), sans-serif`).
+- Never replace Poppins or Montserrat with Geist or browser defaults.
