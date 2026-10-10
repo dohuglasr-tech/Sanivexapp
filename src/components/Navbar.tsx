@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import {
   Search,
   User,
   ChevronDown,
   Menu,
   X,
-  ShieldCheck,
   Phone,
   ArrowRight,
 } from 'lucide-react';
@@ -70,7 +70,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Logo Wordmark SANIVEX */}
+          {/* Official SANIVEX Brand Logo */}
           <a
             href="#hero"
             onClick={(e) => {
@@ -79,9 +79,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
             }}
             className="flex items-center gap-2 group cursor-pointer"
           >
-            <span className="font-extrabold text-xl sm:text-2xl tracking-[0.24em] text-white hover:text-cyan-300 transition-colors select-none">
-              SANIVEX
-            </span>
+            <Image
+              src="/logos/logo-white.webp"
+              alt="SANIVEX"
+              width={130}
+              height={26}
+              priority
+              className="h-6 sm:h-7 w-auto object-contain transition-opacity group-hover:opacity-85"
+            />
           </a>
 
           {/* Desktop Center Navigation Links */}
@@ -336,8 +341,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
             </button>
 
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-10 w-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
-                <ShieldCheck className="h-6 w-6" />
+              <div className="h-10 w-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center p-2">
+                <Image
+                  src="/logos/icon-white.webp"
+                  alt="Icono Sanivex"
+                  width={24}
+                  height={24}
+                  className="h-6 w-auto object-contain"
+                />
               </div>
               <div>
                 <h3 className="text-base font-bold text-white">Portal de Clientes Sanivex</h3>

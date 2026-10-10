@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { X, Send, CheckCircle2, Sparkles, MessageCircle } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 
@@ -91,9 +92,18 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                 <Sparkles className="h-3.5 w-3.5" />
                 Presupuesto Técnico Sin Compromiso
               </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-                Protege tu Infraestructura
-              </h2>
+              <div className="flex items-center gap-2.5">
+                <Image
+                  src="/logos/icon-white.webp"
+                  alt="Sanivex Icon"
+                  width={24}
+                  height={24}
+                  className="h-6 w-auto object-contain"
+                />
+                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+                  Protege tu Infraestructura
+                </h2>
+              </div>
               <p className="mt-1 text-xs sm:text-sm text-slate-400">
                 Nuestros especialistas evaluarán tu caso con estrictos estándares de sanidad ambiental.
               </p>

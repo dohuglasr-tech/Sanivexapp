@@ -18,6 +18,17 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "Sanivex - Control de Plagas y Sanidad Ambiental",
   description: "Tu operación segura, nuestra razón de ser. Soluciones avanzadas en bioseguridad, control de vectores y sanidad ambiental en Colombia.",
+  icons: {
+    icon: [
+      { url: "/logos/favicon-brand.png", sizes: "512x512", type: "image/png" },
+      { url: "/logos/icon-white.png", sizes: "256x256", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: [
+      { url: "/logos/favicon-brand.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/logos/favicon-brand.png",
+  },
 };
 
 export default function RootLayout({
