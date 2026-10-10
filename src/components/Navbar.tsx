@@ -66,46 +66,40 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-white md:bg-[#060b14]/90 md:backdrop-blur-xl md:border-b md:border-white/10 md:shadow-2xl shadow-sm'
-            : 'bg-white md:bg-transparent md:border-b-0 border-b border-neutral-200 md:border-transparent'
+            ? 'bg-[#060b14]/95 backdrop-blur-xl border-b border-white/10 shadow-2xl'
+            : 'bg-[#060b14]/90 backdrop-blur-md md:bg-transparent md:border-b-0 border-b border-white/10 md:border-transparent'
         }`}
       >
         {/* ================================================================= */}
-        {/* MOBILE ORKIN-STYLE NAVBAR (Tabs + White Header + Centered Logo)   */}
+        {/* MOBILE SANIVEX NAVBAR (Tabs + Dark Glass Header + Brand Logo)     */}
         {/* ================================================================= */}
         <div className="flex md:hidden flex-col w-full">
           {/* Top Segmented Tab Switcher */}
-          <div className="flex w-full bg-[#0c1524]">
+          <div className="flex w-full bg-[#060b14] border-b border-white/10">
             <button
               onClick={() => setActiveSegment('residencial')}
-              className={`relative flex-1 py-2.5 text-center text-xs font-black tracking-wider uppercase transition-all cursor-pointer ${
+              className={`relative flex-1 py-2 text-center text-xs font-semibold tracking-wider uppercase transition-all cursor-pointer ${
                 activeSegment === 'residencial'
-                  ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 shadow-sm'
-                  : 'bg-[#0c1524] text-slate-400 hover:text-white'
+                  ? 'bg-cyan-500/15 text-cyan-300 border-b-2 border-cyan-400'
+                  : 'bg-transparent text-slate-400 hover:text-white'
               }`}
             >
               <span>Residencial</span>
-              {activeSegment === 'residencial' && (
-                <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-x-[6px] border-x-transparent border-t-[6px] border-t-cyan-500 z-20 pointer-events-none" />
-              )}
             </button>
             <button
               onClick={() => setActiveSegment('comercial')}
-              className={`relative flex-1 py-2.5 text-center text-xs font-black tracking-wider uppercase transition-all cursor-pointer ${
+              className={`relative flex-1 py-2 text-center text-xs font-semibold tracking-wider uppercase transition-all cursor-pointer ${
                 activeSegment === 'comercial'
-                  ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 shadow-sm'
-                  : 'bg-[#0c1524] text-slate-400 hover:text-white'
+                  ? 'bg-cyan-500/15 text-cyan-300 border-b-2 border-cyan-400'
+                  : 'bg-transparent text-slate-400 hover:text-white'
               }`}
             >
               <span>Comercial</span>
-              {activeSegment === 'comercial' && (
-                <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-x-[6px] border-x-transparent border-t-[6px] border-t-cyan-500 z-20 pointer-events-none" />
-              )}
             </button>
           </div>
 
-          {/* White Header Bar */}
-          <div className="relative flex items-center justify-between px-5 py-3.5 bg-white border-b border-slate-200">
+          {/* Dark Glass Header Bar */}
+          <div className="relative flex items-center justify-between px-5 py-3 bg-[#060b14]/95 backdrop-blur-xl border-b border-white/10">
             <div className="w-16" /> {/* Balance spacer */}
 
             {/* Centered Brand Logo */}
@@ -118,7 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center cursor-pointer"
             >
               <Image
-                src="/logos/logo-dark.png"
+                src="/logos/logo-white.webp"
                 alt="SANIVEX"
                 width={130}
                 height={26}
@@ -128,12 +122,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
             </a>
 
             {/* Right Mobile Actions: WhatsApp Icon + 3-Stripes Hamburger Menu */}
-            <div className="flex items-center gap-3 z-10 text-slate-900">
+            <div className="flex items-center gap-3.5 z-10 text-white">
               <a
                 href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-emerald-600 hover:text-emerald-500 transition-colors p-1"
+                className="text-emerald-400 hover:text-emerald-300 transition-colors p-1"
                 aria-label="Contactar por WhatsApp"
                 title="WhatsApp"
               >
@@ -144,7 +138,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="text-slate-900 hover:text-cyan-600 transition-colors p-1 cursor-pointer"
+                className="text-slate-200 hover:text-cyan-400 transition-colors p-1 cursor-pointer"
                 aria-label="Abrir menú"
               >
                 {mobileMenuOpen ? <X className="h-6 w-6 stroke-[2]" /> : <Menu className="h-6 w-6 stroke-[2]" />}

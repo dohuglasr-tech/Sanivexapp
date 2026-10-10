@@ -198,38 +198,52 @@ export default function Home() {
           </div>
 
           {/* ===================================================================== */}
-          {/* MOBILE HERO VIEW (Sanivex Branded Distribution & Design)              */}
+          {/* MOBILE HERO VIEW (Homogeneous Sanivex Dark Branding & Fluid Flow)    */}
           {/* ===================================================================== */}
-          <div className="flex md:hidden relative w-full flex-col bg-white pt-[96px] pb-20 overflow-hidden text-slate-950">
-            {/* 1. Upper Hero Content: Pure White, Left-aligned, Giant Condensed Typography */}
-            <div className="w-full bg-white px-6 pt-5 pb-6 text-left">
-              <h1 className="text-[38px] xs:text-[44px] font-black tracking-[-0.04em] uppercase leading-[0.88] text-[#09111c]">
-                LOS
+          <div className="flex md:hidden relative w-full flex-col bg-[#060b14] pt-[96px] pb-12 overflow-hidden text-white">
+            {/* Top Atmospheric Radial Glow */}
+            <div className="absolute top-0 inset-x-0 h-96 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(34,211,238,0.12)_0%,rgba(6,11,20,0.6)_60%,transparent_100%)] pointer-events-none" />
+
+            {/* 1. Upper Hero Content: Exact Sanivex Authentic Typography & Copy */}
+            <div className="relative z-10 w-full px-5 pt-4 pb-4 text-left">
+              {/* Top Liquid Pill */}
+              <div className="inline-flex items-center justify-center px-4 py-1.5 rounded-full hero-top-pill text-[11px] font-normal text-slate-300 tracking-wide mb-3.5 select-none">
+                Somos los mejores en
+              </div>
+
+              {/* H1 Heading - Exact Authentic Sanivex Copy */}
+              <h1 className="text-[32px] xs:text-[36px] font-semibold tracking-tight text-white leading-[1.14]">
+                Control de plagas
                 <br />
-                PROS DE SANIVEX.
-                <br />
-                LOS MEJORES EN
-                <br />
-                <span className="text-cyan-600">CONTROL DE PLAGAS.™</span>
+                <span className="text-[#7eedee] font-semibold">
+                  y sanidad ambiental
+                </span>
               </h1>
 
-              {/* Subtitle */}
-              <p className="mt-2.5 text-[11px] font-bold tracking-wider text-slate-500 uppercase">
-                Control de plagas y sanidad ambiental
+              {/* Subtitle - Exact Authentic Sanivex Copy */}
+              <p className="mt-3 text-[13px] text-slate-300/85 leading-relaxed font-light max-w-md">
+                Tu operación segura, nuestra razón de ser, somos tu aliado estratégico en control de plagas para que tu y tu empresa estén seguros.
               </p>
 
-              {/* Rectangular Solid Sanivex Call Button */}
-              <a
-                href="tel:+573009123456"
-                className="mt-5 inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#09111c] hover:bg-[#142336] text-white border-2 border-cyan-500/40 font-black text-xs tracking-wider uppercase transition-all shadow-md active:scale-95 cursor-pointer"
-              >
-                <Phone className="h-4 w-4 text-cyan-400 fill-cyan-400" />
-                <span>LLAMAR: 300-912-3456</span>
-              </a>
+              {/* Red Alert Pill */}
+              <div className="mt-4 inline-flex items-center justify-center px-4 py-1.5 rounded-full hero-alert-pill text-[11px] font-medium text-red-200/90 tracking-wide">
+                ¡Alerta de ROEDORES en tu area!
+              </div>
+
+              {/* Direct Call Button */}
+              <div className="mt-5 flex items-center gap-3">
+                <a
+                  href="tel:+573009123456"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#0e1726] hover:bg-[#15233a] text-cyan-300 border border-cyan-500/40 font-semibold text-xs tracking-wider uppercase transition-all shadow-[0_0_15px_rgba(34,211,238,0.15)] active:scale-95 cursor-pointer"
+                >
+                  <Phone className="h-4 w-4 text-cyan-400 fill-cyan-400" />
+                  <span>LLAMAR: 300-912-3456</span>
+                </a>
+              </div>
             </div>
 
-            {/* 2. Visual Frame: Full-bleed edge-to-edge technician photo */}
-            <div className="relative w-full h-[320px] xs:h-[360px] overflow-hidden bg-slate-100">
+            {/* 2. Visual Frame: Technician photo with seamless dark vignette & Help bubble */}
+            <div className="relative w-full h-[300px] xs:h-[340px] overflow-hidden mt-3">
               <Image
                 src="/images/hero_technician.jpg"
                 alt="Especialista Sanivex en inspección técnica"
@@ -238,18 +252,23 @@ export default function Home() {
                 className="object-cover object-[center_35%]"
               />
 
-              {/* Circular Help / WhatsApp Bubble (Sanivex Mint Cyan) */}
+              {/* Dark vignette blending seamlessly into background and section 2 */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#060b14] via-transparent to-[#060b14]/70" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#060b14]/80 via-transparent to-[#060b14]/80" />
+              <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-b from-transparent via-[#060b14]/80 to-[#121e2c]" />
+
+              {/* Circular Help / WhatsApp Bubble (Sanivex Glowing Cyan) */}
               <a
                 href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20necesito%20asistencia%20en%20sanidad."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute bottom-4 right-4 flex flex-col items-center justify-center w-16 h-16 rounded-full bg-[#a5f3fc] hover:bg-[#67e8f9] text-slate-950 shadow-xl border-2 border-white active:scale-95 transition-transform cursor-pointer"
+                className="absolute bottom-5 right-5 flex flex-col items-center justify-center w-14 h-14 rounded-full bg-gradient-to-tr from-cyan-400 via-teal-400 to-cyan-300 text-slate-950 shadow-[0_0_20px_rgba(34,211,238,0.5)] border-2 border-white/80 active:scale-95 transition-transform cursor-pointer"
                 aria-label="Ayuda por WhatsApp"
               >
-                <svg className="h-6 w-6 fill-slate-950" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 fill-slate-950" viewBox="0 0 24 24">
                   <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" />
                 </svg>
-                <span className="text-[10px] font-black tracking-tight mt-0.5 leading-none">Help</span>
+                <span className="text-[9px] font-black tracking-tight mt-0.5 uppercase">Ayuda</span>
               </a>
             </div>
           </div>
