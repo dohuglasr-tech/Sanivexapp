@@ -110,7 +110,7 @@ export default function Home() {
           </div>
 
           {/* Hero Content (Exact replica of Image 2, responsive for Mobile & Desktop) */}
-          <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center px-4 pt-32 xs:pt-36 sm:pt-28 md:py-0 pb-20">
+          <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-start text-left md:items-center md:text-center px-6 md:px-4 pt-36 sm:pt-40 md:pt-0 pb-24 md:pb-0">
             {/* Top Liquid Pill: "Somos los mejores en" */}
             <motion.div
               initial={{ opacity: 0, y: -12 }}
@@ -126,10 +126,10 @@ export default function Home() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-[34px] xs:text-[42px] sm:text-5xl lg:text-[54px] font-bold tracking-tight text-white leading-[1.1] sm:leading-[1.12] max-w-[360px] xs:max-w-md sm:max-w-2xl mx-auto text-center"
+              className="w-full text-[clamp(2.5rem,13.5vw,3.75rem)] md:text-5xl lg:text-[54px] uppercase md:normal-case font-black md:font-bold text-white leading-[0.95] md:leading-[1.12] tracking-[-0.025em] md:tracking-tight md:max-w-2xl"
             >
-              <span className="block">Control de plagas</span>
-              <span className="block text-[#7eedee] font-bold">y sanidad ambiental</span>
+              <span className="block">Control de<br className="md:hidden" /> plagas</span>
+              <span className="block text-[#22d3ee] md:text-[#7eedee]">y sanidad<br className="md:hidden" /> ambiental</span>
             </motion.h1>
 
             {/* Subtitle - Exact Authentic Sanivex Copy */}
@@ -137,7 +137,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="mt-3.5 md:mt-4 text-[12.5px] md:text-[13.5px] text-slate-300/85 max-w-[340px] xs:max-w-md md:max-w-[500px] leading-relaxed font-light drop-shadow"
+              className="mt-4 md:mt-4 text-[13px] md:text-[13.5px] text-slate-300/85 max-w-[340px] sm:max-w-md md:max-w-[500px] leading-relaxed font-light drop-shadow"
             >
               Tu operación segura, nuestra razón de ser, somos tu aliado estratégico en control de plagas para que tu y tu empresa estén seguros.
             </motion.p>
@@ -157,7 +157,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
-              className="mt-6 flex flex-col items-center justify-center w-full max-w-[320px] xs:max-w-[360px]"
+              className="mt-6 flex flex-col items-center justify-center w-full max-w-[340px]"
             >
               <a
                 href="tel:+573009123456"
