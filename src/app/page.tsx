@@ -451,17 +451,17 @@ export default function Home() {
           {/* Subtle Ambient Glow behind the bird */}
           <div className="absolute top-1/3 right-10 h-[450px] w-[450px] rounded-full bg-[#5c7090]/15 blur-[150px] pointer-events-none" />
 
-          {/* User's Paloma Asset on Right Side (Pigeon macro facing left) - Clean defringed webp */}
-          <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[48%] opacity-50 lg:opacity-85 pointer-events-none z-0">
+          {/* User's Paloma Asset on Right Side (Pigeon macro facing left) - Cinematic Studio Quality matching asas.jpg */}
+          <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[50%] opacity-75 lg:opacity-100 pointer-events-none z-0">
             <Image
-              src="/images/Propias/PalomaSanivex_trans.webp"
+              src="/images/Propias/PalomaSanivex_dark.jpg"
               alt="Manejo y Exclusión de Aves Urbanas Sanivex"
               fill
               quality={95}
               className="object-cover object-right"
             />
-            {/* Subtle Gradient Blend Masks without dirty borders */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#142131] via-[#142131]/60 to-transparent" />
+            {/* Subtle Gradient Blend Masks on left edge only */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#142131] via-[#142131]/40 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#101b28] via-transparent to-[#121e2c]" />
           </div>
 
