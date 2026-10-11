@@ -19,17 +19,13 @@ export const ScrollDots: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollEl = document.getElementById('main-scroll');
-      const scrollTop = scrollEl ? scrollEl.scrollTop : window.scrollY;
-      const clientH = scrollEl ? scrollEl.clientHeight : window.innerHeight;
-      const scrollPosition = scrollTop + clientH / 3;
+      const middleY = window.innerHeight * 0.45;
 
       for (const section of sections) {
         const el = document.getElementById(section.id);
         if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= middleY && rect.bottom >= middleY) {
             setActiveSection(section.id);
             break;
           }
@@ -55,7 +51,7 @@ export const ScrollDots: React.FC = () => {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
