@@ -104,26 +104,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isLightSection
-            ? 'liquid-glass-nav-light'
-            : 'liquid-glass-nav-dark'
-        }`}
-      >
+      <header className="fixed top-2.5 sm:top-4 inset-x-0 z-50 pointer-events-none transition-all duration-500">
         {/* ================================================================= */}
-        {/* MOBILE SANIVEX NAVBAR (Header + Brand Logo + Actions + Tabs)      */}
+        {/* MOBILE LIQUID GLASS DOCK                                          */}
         {/* ================================================================= */}
-        <div className="flex md:hidden flex-col w-full">
-          {/* Top Row: Official Logo + WhatsApp + Hamburger Menu */}
-          <div
-            className={`flex items-center justify-between px-5 py-3.5 transition-colors ${
-              isLightSection
-                ? 'bg-white/80 backdrop-blur-xl border-b border-slate-200/90'
-                : 'bg-[#060b14]/90 backdrop-blur-xl border-b border-white/10'
-            }`}
-          >
-            {/* Official Brand Logo */}
+        <div
+          className={`pointer-events-auto md:hidden mx-auto w-[94%] rounded-2xl overflow-hidden transition-all duration-500 relative shadow-2xl ${
+            isLightSection ? 'liquid-glass-nav-light' : 'liquid-glass-nav-dark'
+          }`}
+        >
+          {/* Top Specular Caustic Highlight Line */}
+          <div className="pointer-events-none absolute inset-x-4 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent" />
+
+          {/* Top Row: Brand Logo + WhatsApp + Hamburger */}
+          <div className="flex items-center justify-between px-4 py-3">
             <a
               href="#hero"
               onClick={(e) => {
@@ -135,74 +129,71 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               <Image
                 src={isLightSection ? '/logos/logo-dark.webp' : '/logos/logo-white.webp'}
                 alt="SANIVEX"
-                width={130}
-                height={26}
+                width={120}
+                height={24}
                 priority
-                className="h-6 w-auto object-contain transition-opacity"
+                className="h-5.5 w-auto object-contain transition-opacity"
               />
             </a>
 
-            {/* Right Mobile Actions: WhatsApp Icon + 3-Stripes Hamburger Menu */}
-            <div className="flex items-center gap-3.5 z-10">
+            <div className="flex items-center gap-2.5">
               <a
                 href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-emerald-500 hover:text-emerald-400 transition-colors p-1"
-                aria-label="Contactar por WhatsApp"
+                className="h-8 w-8 rounded-full flex items-center justify-center bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:text-emerald-300 transition-colors"
+                aria-label="WhatsApp"
                 title="WhatsApp"
               >
-                <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
+                <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
                   <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
                 </svg>
               </a>
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`transition-colors p-1 cursor-pointer ${
+                className={`h-8 w-8 rounded-full flex items-center justify-center transition-colors cursor-pointer ${
                   isLightSection
-                    ? 'text-[#09111c] hover:text-[#5c7090]'
-                    : 'text-slate-200 hover:text-[#5c7090]'
+                    ? 'bg-slate-200/60 text-[#0a3871] hover:bg-slate-300'
+                    : 'bg-white/10 text-white hover:bg-white/20'
                 }`}
                 aria-label="Abrir menú"
               >
-                {mobileMenuOpen ? <X className="h-6 w-6 stroke-[2]" /> : <Menu className="h-6 w-6 stroke-[2]" />}
+                {mobileMenuOpen ? <X className="h-5 w-5 stroke-[2.2]" /> : <Menu className="h-5 w-5 stroke-[2.2]" />}
               </button>
             </div>
           </div>
 
-          {/* Bottom Row (Below Logo & Menu): Two Segmented Buttons (Residencial / Comercial) */}
+          {/* Bottom Row: Segmented Buttons */}
           <div
-            className={`flex w-full border-b transition-colors ${
-              isLightSection
-                ? 'border-slate-200/90 bg-slate-100/90'
-                : 'border-white/10 bg-[#060b14]'
+            className={`flex w-full p-1 border-t transition-colors ${
+              isLightSection ? 'border-slate-200/80 bg-slate-100/60' : 'border-white/10 bg-black/25'
             }`}
           >
             <button
               onClick={() => setActiveSegment('residencial')}
-              className={`flex-1 py-3 text-center text-xs sm:text-[13px] font-black tracking-wider uppercase transition-all cursor-pointer ${
+              className={`flex-1 py-1.5 text-center text-xs font-bold tracking-wider uppercase rounded-xl transition-all cursor-pointer ${
                 activeSegment === 'residencial'
                   ? isLightSection
-                    ? 'bg-[#09111c] text-white shadow-md'
+                    ? 'bg-[#0a3871] text-white shadow-md'
                     : 'bg-[#5c7090] text-white shadow-inner'
                   : isLightSection
-                    ? 'bg-transparent text-[#09111c]/75 hover:text-[#09111c]'
-                    : 'bg-[#09111c] text-white/80 hover:text-white'
+                    ? 'text-[#0a3871]/75 hover:text-[#0a3871]'
+                    : 'text-white/70 hover:text-white'
               }`}
             >
               <span>Residencial</span>
             </button>
             <button
               onClick={() => setActiveSegment('comercial')}
-              className={`flex-1 py-3 text-center text-xs sm:text-[13px] font-black tracking-wider uppercase transition-all cursor-pointer ${
+              className={`flex-1 py-1.5 text-center text-xs font-bold tracking-wider uppercase rounded-xl transition-all cursor-pointer ${
                 activeSegment === 'comercial'
                   ? isLightSection
-                    ? 'bg-[#09111c] text-white shadow-md'
+                    ? 'bg-[#0a3871] text-white shadow-md'
                     : 'bg-[#5c7090] text-white shadow-inner'
                   : isLightSection
-                    ? 'bg-transparent text-[#09111c]/75 hover:text-[#09111c]'
-                    : 'bg-[#09111c] text-white/80 hover:text-white'
+                    ? 'text-[#0a3871]/75 hover:text-[#0a3871]'
+                    : 'text-white/70 hover:text-white'
               }`}
             >
               <span>Comercial</span>
@@ -211,17 +202,24 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
         </div>
 
         {/* ================================================================= */}
-        {/* DESKTOP NAVBAR (Sticky Liquid Glass + Adaptive Typography)         */}
+        {/* DESKTOP FLOATING LIQUID GLASS DOCK                                 */}
         {/* ================================================================= */}
-        <div className="hidden md:flex max-w-7xl mx-auto items-center justify-between px-8 sm:px-14 py-4 sm:py-5">
-          {/* Official SANIVEX Brand Logo (Adapts to dark or white version) */}
+        <div
+          className={`pointer-events-auto hidden md:flex mx-auto w-[94%] max-w-6xl rounded-full items-center justify-between px-6 sm:px-8 py-3 transition-all duration-500 relative overflow-visible shadow-2xl ${
+            isLightSection ? 'liquid-glass-nav-light' : 'liquid-glass-nav-dark'
+          }`}
+        >
+          {/* Top Specular Caustic Highlight Line */}
+          <div className="pointer-events-none absolute inset-x-12 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/55 to-transparent" />
+
+          {/* Official SANIVEX Brand Logo */}
           <a
             href="#hero"
             onClick={(e) => {
               e.preventDefault();
               handleLinkClick('#hero');
             }}
-            className="flex items-center gap-2 group cursor-pointer"
+            className="flex items-center gap-2 group cursor-pointer relative z-10"
           >
             <Image
               src={isLightSection ? '/logos/logo-dark.webp' : '/logos/logo-white.webp'}
@@ -229,22 +227,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               width={115}
               height={22}
               priority
-              className="h-4.5 sm:h-5 w-auto object-contain transition-opacity group-hover:opacity-85"
+              className="h-5 w-auto object-contain transition-opacity group-hover:opacity-85"
             />
           </a>
 
           {/* Desktop Center Navigation Links */}
-          <nav className="flex items-center gap-6 lg:gap-8">
+          <nav className="flex items-center gap-1 lg:gap-2 relative z-10">
             <a
               href="#hero"
               onClick={(e) => {
                 e.preventDefault();
                 handleLinkClick('#hero');
               }}
-              className={`text-xs sm:text-[13px] tracking-wide transition-colors cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] tracking-wide transition-all cursor-pointer font-medium ${
                 isLightSection
-                  ? 'text-[#0a3871] font-semibold hover:text-[#5c7090]'
-                  : 'text-slate-300/90 font-normal hover:text-white'
+                  ? 'text-[#0a3871] hover:bg-slate-200/60 hover:text-[#5c7090]'
+                  : 'text-slate-200 hover:bg-white/10 hover:text-white hover:shadow-inner'
               }`}
             >
               Inicio
@@ -258,10 +256,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
             >
               <button
                 onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
-                className={`inline-flex items-center gap-1.5 text-xs sm:text-[13px] tracking-wide transition-colors cursor-pointer py-1 ${
+                className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] tracking-wide transition-all cursor-pointer font-medium ${
                   isLightSection
-                    ? 'text-[#0a3871] font-semibold hover:text-[#5c7090]'
-                    : 'text-slate-300/90 font-normal hover:text-white'
+                    ? 'text-[#0a3871] hover:bg-slate-200/60 hover:text-[#5c7090]'
+                    : 'text-slate-200 hover:bg-white/10 hover:text-white hover:shadow-inner'
                 }`}
                 aria-haspopup="true"
                 aria-expanded={servicesDropdownOpen}
@@ -273,18 +271,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                   } ${
                     isLightSection
                       ? servicesDropdownOpen ? 'text-[#0a3871]' : 'text-[#5c7090]'
-                      : servicesDropdownOpen ? 'text-white' : 'text-slate-400'
+                      : servicesDropdownOpen ? 'text-white' : 'text-slate-300'
                   }`}
                 />
               </button>
 
               {servicesDropdownOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-72 z-50">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-72 z-50 animate-in fade-in zoom-in-95 duration-200">
                   <div
-                    className={`rounded-2xl backdrop-blur-2xl p-2 transition-all ${
-                      isLightSection
-                        ? 'bg-white/95 border border-slate-200/90 shadow-[0_20px_50px_rgba(9,17,28,0.15)]'
-                        : 'bg-[#0a1322]/95 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.7)]'
+                    className={`rounded-2xl p-2.5 transition-all shadow-[0_25px_60px_rgba(0,0,0,0.6)] ${
+                      isLightSection ? 'liquid-glass-nav-light' : 'liquid-glass-nav-dark'
                     }`}
                   >
                     {serviceItems.map((item) => (
@@ -295,24 +291,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                           e.preventDefault();
                           handleLinkClick(item.href);
                         }}
-                        className={`flex flex-col px-3.5 py-2.5 rounded-xl transition-colors group cursor-pointer ${
-                          isLightSection
-                            ? 'hover:bg-slate-100/80'
-                            : 'hover:bg-white/5'
+                        className={`flex flex-col px-3.5 py-2.5 rounded-xl transition-all group cursor-pointer ${
+                          isLightSection ? 'hover:bg-slate-200/60' : 'hover:bg-white/10'
                         }`}
                       >
                         <span
-                          className={`text-xs font-semibold transition-colors ${
+                          className={`text-xs font-bold transition-colors ${
                             isLightSection
                               ? 'text-[#0a3871] group-hover:text-[#5c7090]'
-                              : 'text-slate-200 group-hover:text-[#5c7090]'
+                              : 'text-white group-hover:text-[#38bdf8]'
                           }`}
                         >
                           {item.label}
                         </span>
                         <span
                           className={`text-[10px] ${
-                            isLightSection ? 'text-slate-500' : 'text-slate-400'
+                            isLightSection ? 'text-slate-600' : 'text-slate-300'
                           }`}
                         >
                           {item.desc}
@@ -330,10 +324,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 e.preventDefault();
                 handleLinkClick('#mip');
               }}
-              className={`text-xs sm:text-[13px] tracking-wide transition-colors cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] tracking-wide transition-all cursor-pointer font-medium ${
                 isLightSection
-                  ? 'text-[#0a3871] font-semibold hover:text-[#5c7090]'
-                  : 'text-slate-300/90 font-normal hover:text-white'
+                  ? 'text-[#0a3871] hover:bg-slate-200/60 hover:text-[#5c7090]'
+                  : 'text-slate-200 hover:bg-white/10 hover:text-white hover:shadow-inner'
               }`}
             >
               ¿Sanivex?
@@ -345,42 +339,42 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 e.preventDefault();
                 onOpenQuote();
               }}
-              className={`text-xs sm:text-[13px] tracking-wide transition-colors cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] tracking-wide transition-all cursor-pointer font-medium ${
                 isLightSection
-                  ? 'text-[#0a3871] font-semibold hover:text-[#5c7090]'
-                  : 'text-slate-300/90 font-normal hover:text-white'
+                  ? 'text-[#0a3871] hover:bg-slate-200/60 hover:text-[#5c7090]'
+                  : 'text-slate-200 hover:bg-white/10 hover:text-white hover:shadow-inner'
               }`}
             >
               Contactanos
             </a>
           </nav>
 
-          {/* Desktop Right Action Icons: Search & User */}
-          <div className="flex items-center gap-3 sm:gap-5">
+          {/* Desktop Right Action Icons: Search & User in Glass Circles */}
+          <div className="flex items-center gap-2 sm:gap-2.5 relative z-10">
             <button
               onClick={() => setSearchModalOpen(true)}
-              className={`transition-colors p-1.5 rounded-lg cursor-pointer ${
+              className={`h-9 w-9 rounded-full flex items-center justify-center transition-all cursor-pointer ${
                 isLightSection
-                  ? 'text-[#0a3871] hover:text-[#5c7090] hover:bg-slate-100/70'
-                  : 'text-slate-300 hover:text-white hover:bg-white/5'
+                  ? 'bg-slate-100 hover:bg-slate-200 text-[#0a3871] hover:text-[#5c7090] border border-slate-200'
+                  : 'bg-white/5 hover:bg-white/15 text-slate-200 hover:text-white border border-white/10 shadow-inner'
               }`}
               aria-label="Buscar servicios o vectores"
               title="Buscar en Sanivex"
             >
-              <Search className="h-3.5 w-3.5 sm:h-4 sm:w-4 stroke-[2]" />
+              <Search className="h-4 w-4 stroke-[2]" />
             </button>
 
             <button
               onClick={() => setUserModalOpen(true)}
-              className={`transition-colors p-1.5 rounded-lg cursor-pointer ${
+              className={`h-9 w-9 rounded-full flex items-center justify-center transition-all cursor-pointer ${
                 isLightSection
-                  ? 'text-[#0a3871] hover:text-[#5c7090] hover:bg-slate-100/70'
-                  : 'text-slate-300 hover:text-white hover:bg-white/5'
+                  ? 'bg-slate-100 hover:bg-slate-200 text-[#0a3871] hover:text-[#5c7090] border border-slate-200'
+                  : 'bg-white/5 hover:bg-white/15 text-slate-200 hover:text-white border border-white/10 shadow-inner'
               }`}
               aria-label="Portal de Clientes"
               title="Portal de Clientes"
             >
-              <User className="h-3.5 w-3.5 sm:h-4 sm:w-4 stroke-[2]" />
+              <User className="h-4 w-4 stroke-[2]" />
             </button>
           </div>
         </div>
