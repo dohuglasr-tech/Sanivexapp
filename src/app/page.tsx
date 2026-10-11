@@ -520,6 +520,7 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="termitas"
+          data-theme="light"
           className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-12 lg:py-0 overflow-hidden bg-white text-slate-900"
         >
           {/* User's Termita Asset on Left Side - Macro limpia abarcando lateral */}
