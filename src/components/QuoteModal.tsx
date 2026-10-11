@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { X, Send, CheckCircle2, Sparkles, MessageCircle } from 'lucide-react';
+import confetti from 'canvas-confetti';
+import { toast } from 'sonner';
 import { supabase } from '@/lib/supabaseClient';
 
 interface QuoteModalProps {
@@ -52,6 +54,19 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
     } finally {
       setLoading(false);
       setSubmitted(true);
+      try {
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#5c7090', '#38bdf8', '#22d3ee', '#ffffff'],
+        });
+      } catch {
+        // Fallback if canvas is unavailable
+      }
+      toast.success('¡Solicitud de presupuesto enviada con éxito!', {
+        description: 'Un asesor técnico de Sanivex se comunicará contigo en breve.',
+      });
     }
   };
 
