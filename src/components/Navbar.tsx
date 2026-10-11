@@ -103,8 +103,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
 
   useEffect(() => {
     const checkScrollState = () => {
-      const scrollEl = document.getElementById('main-scroll');
-      const scrollTop = scrollEl ? scrollEl.scrollTop : window.scrollY;
+      const scrollTop = window.scrollY || (document.getElementById('main-scroll')?.scrollTop ?? 0);
       setScrolled(scrollTop > 20);
 
       // Check if any light theme section is currently intersecting the sticky navbar
@@ -188,11 +187,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
         {/* MOBILE LIQUID GLASS DOCK                                          */}
         {/* ================================================================= */}
         <div
-          className={`pointer-events-auto md:hidden mx-auto w-[94%] rounded-2xl overflow-hidden transition-all duration-500 relative shadow-2xl ${
+          className={`pointer-events-auto md:hidden mx-auto w-[94%] rounded-2xl overflow-hidden transition-all duration-300 relative shadow-2xl ${
             isLightSection
               ? 'liquid-glass-nav-light'
               : scrolled
-              ? 'liquid-glass-nav-dark !bg-[#070e1b]/85 backdrop-blur-[42px]'
+              ? 'liquid-glass-nav-dark-scrolled'
               : 'liquid-glass-nav-dark'
           }`}
         >
@@ -277,11 +276,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
         {/* DESKTOP FLOATING LIQUID GLASS DOCK                                 */}
         {/* ================================================================= */}
         <div
-          className={`pointer-events-auto hidden md:flex mx-auto w-[96%] max-w-[1720px] rounded-full items-center justify-between px-4 md:px-6 lg:px-10 xl:px-12 py-2.5 md:py-3 lg:py-3.5 transition-all duration-500 relative overflow-visible shadow-2xl ${
+          className={`pointer-events-auto hidden md:flex mx-auto w-[96%] max-w-[1720px] rounded-full items-center justify-between px-4 md:px-6 lg:px-10 xl:px-12 py-2.5 md:py-3 lg:py-3.5 transition-all duration-300 relative overflow-visible shadow-2xl ${
             isLightSection
               ? 'liquid-glass-nav-light'
               : scrolled
-              ? 'liquid-glass-nav-dark !bg-[#070e1b]/65 backdrop-blur-[50px]'
+              ? 'liquid-glass-nav-dark-scrolled'
               : 'liquid-glass-nav-dark'
           }`}
         >
