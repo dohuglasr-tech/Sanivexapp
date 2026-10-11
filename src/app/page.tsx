@@ -223,46 +223,43 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Stepped 3-Phase Process Cards (Aire vertical, compacto y minimalista) */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4 max-w-5xl">
+            {/* 3 Full-Image Process Cards with Opaque Gradient Overlay */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5 max-w-5xl">
               {/* Fase 01 */}
               <GlassCard
-                compact
+                imageSrc="/images/hero_technician.jpg"
                 stepNumber="01"
                 badge="Diagnóstico"
-                icon={ShieldAlert}
-                title="Evaluación de Riesgos y Puntos Críticos"
-                subtitle="Fase Inicial"
+                badgeVariant="blue"
+                title="Evaluación de Riesgos"
+                subtitle="Inspección de Puntos Críticos"
                 description="Inspección no destructiva de puntos ciegos y mapeo digital de vulnerabilidades para evitar infestaciones antes de que ocurran."
-                tags={['Termografía infrarroja', 'Mapeo de accesos', 'Cero tóxicos']}
                 actionLabel="Consultar diagnóstico"
                 onAction={() => handleOpenQuote('MIP - Fase Diagnóstico')}
               />
 
               {/* Fase 02 */}
               <GlassCard
-                compact
+                imageSrc="/images/cards/card_blindaje_roedores.jpg"
                 stepNumber="02"
                 badge="Monitoreo"
-                icon={Activity}
-                title="Conservación Activa de Infraestructura"
-                subtitle="Monitoreo Activo"
+                badgeVariant="amber"
+                title="Conservación Activa"
+                subtitle="Monitoreo de Infraestructura"
                 description="Protegemos cableados y maquinaria pesada con monitoreo continuo, previniendo paradas de planta y costos imprevistos."
-                tags={['Fototrampeo continuo', 'Sensores en tableros', 'Detección acústica']}
                 actionLabel="Ver tecnología"
                 onAction={() => handleOpenQuote('MIP - Fase Monitoreo')}
               />
 
               {/* Fase 03 */}
               <GlassCard
-                compact
+                imageSrc="/images/sanitization_clean.jpg"
                 stepNumber="03"
                 badge="Normatividad"
-                icon={FileCheck2}
-                title="Cumplimiento Normativo BPM & INVIMA"
-                subtitle="Blindaje Legal"
+                badgeVariant="emerald"
+                title="Cumplimiento BPM"
+                subtitle="Blindaje Sanitario & INVIMA"
                 description="Blindaje sanitario ante secretarías de salud con cebos biorracionales selectivos y actas técnicas digitales con trazabilidad al instante."
-                tags={['BPM & HACCP', 'Bajo impacto químico', 'Actas digitales']}
                 actionLabel="Solicitar auditoría"
                 onAction={() => handleOpenQuote('MIP - Fase Normatividad')}
               />
@@ -309,42 +306,43 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Asymmetric Showcase: Spotlight Card + 2 Compact Micro-Cards */}
-            <div className="max-w-2xl space-y-3">
-              {/* Spotlight Card: Seguridad Eléctrica */}
+            {/* 3 Full-Image Cards with Opaque Gradient Overlay (Matching User's Reference Layout) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5 w-full max-w-5xl">
+              {/* Card 1: Roedores (Exact clone of user's image card 1) */}
               <GlassCard
-                compact
-                icon={Flame}
+                imageSrc="/images/cards/card_roedores.jpg"
+                badge="Alta urgencia"
+                badgeVariant="red"
+                title="Roedores"
+                subtitle="Ratas y ratones"
+                description="Control de guatones, ratas de alcantarilla y ratones de tejado. Cebado, trampeo y sellado de accesos."
+                actionLabel="Solicitar tratamiento para Roedores"
+                onAction={() => handleOpenQuote('Control de Roedores')}
+              />
+
+              {/* Card 2: Blindaje de Redes y Cables */}
+              <GlassCard
+                imageSrc="/images/cards/card_blindaje_roedores.jpg"
                 badge="Seguridad Eléctrica"
+                badgeVariant="amber"
+                title="Blindaje Eléctrico"
                 subtitle="Prevención de Incendios"
-                title="Blindaje de Redes, Fibra Óptica y Cableados"
-                description="El hábito constante de roer desgasta los aislamientos de cables de alta tensión y tableros. Prevenimos interrupciones operativas, paradas de planta y riesgos graves de cortocircuito."
-                tags={['Bandejas portacables blindadas', 'Inspección de racks', 'Cero lucro cesante']}
+                description="Protección de bandejas portacables, racks y fibra óptica. Prevenimos paradas de planta y riesgos de cortocircuito."
                 actionLabel="Blindar cableado e infraestructura"
                 onAction={() => handleOpenQuote('Control de Roedores - Redes y Cables')}
               />
 
-              {/* Duo Micro-Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <GlassCard
-                  compact
-                  icon={Biohazard}
-                  badge="Inocuidad"
-                  title="Cero Contaminación Cruzada"
-                  description="Eliminación de focos de Leptospirosis y Salmonelosis en áreas de alimentos, depósitos e insumos."
-                  actionLabel="Proteger áreas"
-                  onAction={() => handleOpenQuote('Control de Roedores - Riesgo Sanitario')}
-                />
-                <GlassCard
-                  compact
-                  icon={Radio}
-                  badge="Dispositivos Seguros"
-                  title="Cebado Georreferenciado QR"
-                  description="Estaciones inviolables termo-formadas con llave de seguridad de doble perno y registro digital en tiempo real."
-                  actionLabel="Ver estaciones QR"
-                  onAction={() => handleOpenQuote('Control de Roedores - Cebado Técnico')}
-                />
-              </div>
+              {/* Card 3: Cebado Georreferenciado QR */}
+              <GlassCard
+                imageSrc="/images/cards/card_cebo_qr.jpg"
+                badge="Monitoreo Digital"
+                badgeVariant="purple"
+                title="Cebado Técnico QR"
+                subtitle="Dispositivos Seguros"
+                description="Estaciones inviolables con llave de seguridad de doble perno y registro digital de consumo en tiempo real."
+                actionLabel="Ver estaciones QR"
+                onAction={() => handleOpenQuote('Control de Roedores - Cebado Técnico')}
+              />
             </div>
           </div>
         </section>
@@ -388,55 +386,43 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Duo-Split Cards (2 Columnas en lugar de 3) + Action Strip */}
-            <div className="w-full lg:max-w-2xl space-y-3">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                {/* Card A: Rastreros */}
-                <GlassCard
-                  compact
-                  badge="Rastreros"
-                  icon={Bug}
-                  title="Cucarachas & Plagas de Cocina"
-                  subtitle="Efecto Cascada Biorracional"
-                  description="Geles con feromonas de transferencia horizontal. Las ninfas mueren en sus nidos sin contaminar alimentos ni requerir desalojo."
-                  tags={['Cucaracha alemana y americana', 'Sin manchas ni olor', 'Seguro en motores']}
-                  actionLabel="Controlar rastreros"
-                  onAction={() => handleOpenQuote('Control de Insectos - Cucarachas')}
-                />
+            {/* 3 Full-Image Cards with Opaque Gradient Overlay (Matching User's Reference Layout) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5 w-full max-w-5xl">
+              {/* Card 1: Cucarachas (Exact clone of user's image card 2) */}
+              <GlassCard
+                imageSrc="/images/cards/card_cucarachas.jpg"
+                badge="Muy común"
+                badgeVariant="amber"
+                title="Cucarachas"
+                subtitle="Alemana y Americana"
+                description="Tratamiento de gel, aspersión y termonebulización para cocinas, alcantarillado y cañerías."
+                actionLabel="Solicitar tratamiento para Cucarachas"
+                onAction={() => handleOpenQuote('Control de Insectos - Cucarachas')}
+              />
 
-                {/* Card B: Voladores */}
-                <GlassCard
-                  compact
-                  badge="Voladores"
-                  icon={Eye}
-                  title="Insectos Voladores & Trampas UV"
-                  subtitle="Monitoreo Lumínico"
-                  description="Lámparas atrapainsectos con tubos UV inastillables y láminas con feromonas. Cero fragmentación sobre líneas de producción."
-                  tags={['Norma alimentaria BPM', 'Captura silenciosa', 'Conteo analítico']}
-                  actionLabel="Instalar lámparas UV"
-                  onAction={() => handleOpenQuote('Control de Insectos - Voladores')}
-                />
-              </div>
+              {/* Card 2: Chinches de Cama (Exact clone of user's image card 3) */}
+              <GlassCard
+                imageSrc="/images/cards/card_chinches.jpg"
+                badge="Tratamiento especializado"
+                badgeVariant="purple"
+                title="Chinches de Cama"
+                subtitle="Cimex lectularius"
+                description="Tratamiento térmico y químico profundo en colchones, marcos, molduras y enchufes."
+                actionLabel="Solicitar tratamiento para Chinches de Cama"
+                onAction={() => handleOpenQuote('Control de Insectos - Chinches')}
+              />
 
-              {/* Action Strip: Micro-aspersión ULV */}
-              <div className="p-3.5 rounded-2xl liquid-glass border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 backdrop-blur-xl">
-                <div className="flex items-center gap-3">
-                  <div className="h-9 w-9 rounded-xl bg-[#5c7090]/20 border border-[#5c7090]/30 flex items-center justify-center text-[#5c7090] shrink-0">
-                    <Syringe className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold text-white">Micro-Aspersión ULV y Choque Perimetral</div>
-                    <div className="text-[11px] text-slate-300 font-light">Moléculas microencapsuladas con hasta 90 días de efecto residual.</div>
-                  </div>
-                </div>
-                <button
-                  onClick={() => handleOpenQuote('Control de Insectos - Aspersión ULV')}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#5c7090] text-white hover:bg-[#6d84a7] transition-colors shrink-0 cursor-pointer flex items-center gap-1.5"
-                >
-                  <span>Solicitar aspersión</span>
-                  <span>→</span>
-                </button>
-              </div>
+              {/* Card 3: Insectos Voladores & Trampas UV */}
+              <GlassCard
+                imageSrc="/images/cards/card_voladores.jpg"
+                badge="Norma BPM"
+                badgeVariant="emerald"
+                title="Insectos Voladores"
+                subtitle="Moscas y Trampas UV"
+                description="Lámparas atrapainsectos con tubos UV inastillables y láminas con feromonas. Cero fragmentación sobre líneas de producción."
+                actionLabel="Instalar lámparas UV"
+                onAction={() => handleOpenQuote('Control de Insectos - Voladores')}
+              />
             </div>
           </div>
         </section>
@@ -480,34 +466,37 @@ export default function Home() {
               </p>
             </div>
 
-            {/* 3 Low-Profile Minimalist Solution Capsules */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 max-w-2xl">
+            {/* 3 Full-Image Solution Cards with Opaque Gradient Overlay */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-5 w-full max-w-4xl">
               <GlassCard
-                compact
+                imageSrc="/images/cards/card_mallas_aves.jpg"
                 badge="100% Hermético"
-                icon={Layers}
-                title="Mallas Anti-Aves de Alta Tenacidad"
-                description="Redes de polietileno UV con cables en acero inox. Bloquean cerchas sin comprometer ventilación."
+                badgeVariant="blue"
+                title="Mallas Anti-Aves"
+                subtitle="Redes Mecánicas de Alta Tenacidad"
+                description="Redes de polietileno UV con cables en acero inox. Bloquean cerchas y marquesinas sin comprometer ventilación."
                 actionLabel="Cotizar mallas"
                 onAction={() => handleOpenQuote('Control de Aves - Mallas')}
               />
 
               <GlassCard
-                compact
+                imageSrc="/images/cards/card_puas_aves.jpg"
                 badge="Sin Daño"
-                icon={ShieldAlert}
-                title="Púas Quirúrgicas Grado 316"
-                description="Varillas con puntas romas sobre policarbonato virgen. Impiden el posamiento en cornisas y marquesinas."
+                badgeVariant="teal"
+                title="Púas Quirúrgicas"
+                subtitle="Acero Inoxidable Grado 316"
+                description="Varillas romas sobre policarbonato virgen. Impiden el posamiento en cornisas, letreros y marquesinas."
                 actionLabel="Solicitar púas"
                 onAction={() => handleOpenQuote('Control de Aves - Púas y Postes')}
               />
 
               <GlassCard
-                compact
+                imageSrc="/images/cards/card_laser_aves.jpg"
                 badge="Bio-tecnología"
-                icon={Eye}
-                title="Sistemas Ópticos y Láser"
-                description="Barreras visuales de peligro automatizadas día y noche. Efecto no habituable para hangares y silos."
+                badgeVariant="purple"
+                title="Disuasión Láser"
+                subtitle="Sistemas Ópticos Automatizados"
+                description="Barreras visuales de peligro automatizadas día y noche. Efecto no habituable para hangares y silos industriales."
                 actionLabel="Ver tecnología láser"
                 onAction={() => handleOpenQuote('Control de Aves - Sistemas Ópticos')}
               />
@@ -552,12 +541,12 @@ export default function Home() {
             </div>
 
             {/* 3 Compact Light Glass Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 w-full lg:max-w-3xl xl:max-w-4xl lg:ml-auto">
+            {/* 3 Full-Image Solution Cards with Opaque Gradient Overlay */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-5 w-full lg:max-w-3xl xl:max-w-4xl lg:ml-auto">
               <GlassCard
-                theme="light"
-                compact
+                imageSrc="/images/cards/card_termitas_diagnostico.jpg"
                 badge="Diagnóstico"
-                icon={Search}
+                badgeVariant="amber"
                 title="Detección No Destructiva"
                 subtitle="Detección Temprana"
                 description="Termografía infrarroja y sensores acústicos para localizar actividad xilófaga oculta en vigas y cielorrasos."
@@ -566,11 +555,10 @@ export default function Home() {
               />
 
               <GlassCard
-                theme="light"
-                compact
+                imageSrc="/images/cards/card_termitas_blindaje.jpg"
                 badge="Blindaje"
-                icon={Building2}
-                title="Blindaje de Elementos Críticos"
+                badgeVariant="blue"
+                title="Blindaje Estructural"
                 subtitle="Cimientos & Madera"
                 description="Tratamiento de madera con sales de boro y sellado de fisuras en cimientos, vigas de soporte y drywall."
                 actionLabel="Proteger estructuras"
@@ -578,11 +566,10 @@ export default function Home() {
               />
 
               <GlassCard
-                theme="light"
-                compact
+                imageSrc="/images/termite_macro.jpg"
                 badge="Erradicación"
-                icon={Syringe}
-                title="Erradicación de Colonias"
+                badgeVariant="red"
+                title="Erradicación Total"
                 subtitle="Cebado & Barreras"
                 description="Sistemas de cebado con inhibidores de quitina (IGR) e inyección sub-suelo para erradicación completa de la reina."
                 actionLabel="Erradicar colonias"
@@ -617,12 +604,12 @@ export default function Home() {
               </p>
             </div>
 
-            {/* 3 Sleek Compact Clinical Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4 max-w-5xl">
+            {/* 3 Full-Image Clinical Cards with Opaque Gradient Overlay */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5 max-w-5xl">
               <GlassCard
-                compact
+                imageSrc="/images/sanitization_clean.jpg"
                 badge="Microbiología"
-                icon={Biohazard}
+                badgeVariant="teal"
                 title="Microorganismos Patógenos"
                 subtitle="Virus, Bacterias & Hongos"
                 description="Eliminación garantizada del 99.999% de patógenos con amonios cuaternarios de 5ª generación y dióxido de cloro inocuos con alimentos."
@@ -631,22 +618,22 @@ export default function Home() {
               />
 
               <GlassCard
-                compact
+                imageSrc="/images/hero_technician.jpg"
                 badge="Salud Laboral"
-                icon={Users}
-                title="Protección del Capital Humano"
-                subtitle="Ambientes Seguros"
+                badgeVariant="blue"
+                title="Protección del Personal"
+                subtitle="Ambientes Corporativos Seguros"
                 description="Reducción del ausentismo laboral. Tiempos rápidos de reingreso seguro (< 2 horas) y monitoreo con bioluminiscencia ATP."
                 actionLabel="Proteger equipo"
                 onAction={() => handleOpenQuote('Sanitización - Capital Humano')}
               />
 
               <GlassCard
-                compact
-                badge="Normativa"
-                icon={FileCheck2}
-                title="Cumplimiento BPM & INVIMA"
-                subtitle="Certificación Oficial"
+                imageSrc="/images/Propias/CoMIP.jpg"
+                badge="Blindaje Legal"
+                badgeVariant="emerald"
+                title="Certificación Sanitaria"
+                subtitle="Cumplimiento BPM & INVIMA"
                 description="Expedimos certificados sanitarios oficiales y fichas técnicas válidos para renovación de licencias ante Secretarías de Salud."
                 actionLabel="Certificar empresa"
                 onAction={() => handleOpenQuote('Sanitización - Normativa y Certificados')}
