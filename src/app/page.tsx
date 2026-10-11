@@ -126,7 +126,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="w-full text-[clamp(2.5rem,13.5vw,3.75rem)] md:text-5xl lg:text-[54px] uppercase md:normal-case font-black md:font-bold text-white leading-[0.95] md:leading-[1.12] tracking-[-0.025em] md:tracking-tight md:max-w-2xl"
+              className="w-full text-[clamp(2.5rem,13.5vw,3.75rem)] md:text-5xl lg:text-[54px] uppercase md:normal-case font-semibold md:font-bold text-white leading-[0.98] md:leading-[1.12] tracking-[-0.02em] md:tracking-tight md:max-w-2xl"
             >
               <span className="block">Control de<br className="md:hidden" /> plagas</span>
               <span className="block text-[#22d3ee] md:text-[#7eedee]">y sanidad<br className="md:hidden" /> ambiental</span>
