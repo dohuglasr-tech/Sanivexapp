@@ -182,12 +182,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
 
   return (
     <>
-      <header className="fixed top-2.5 sm:top-4 inset-x-0 z-50 pointer-events-none transition-all duration-500">
+      <header className="fixed top-2.5 sm:top-4 inset-x-0 z-50 pointer-events-none">
         {/* ================================================================= */}
         {/* MOBILE LIQUID GLASS DOCK                                          */}
         {/* ================================================================= */}
         <div
-          className={`pointer-events-auto md:hidden mx-auto w-[94%] rounded-2xl overflow-hidden transition-all duration-300 relative shadow-2xl ${
+          className={`pointer-events-auto md:hidden mx-auto w-[94%] rounded-2xl overflow-hidden backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 relative shadow-2xl ${
             isLightSection
               ? 'liquid-glass-nav-light'
               : scrolled
@@ -276,7 +276,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
         {/* DESKTOP FLOATING LIQUID GLASS DOCK                                 */}
         {/* ================================================================= */}
         <div
-          className={`pointer-events-auto hidden md:flex mx-auto w-[96%] max-w-[1720px] rounded-full items-center justify-between px-4 md:px-6 lg:px-10 xl:px-12 py-2.5 md:py-3 lg:py-3.5 transition-all duration-300 relative overflow-visible shadow-2xl ${
+          className={`pointer-events-auto hidden md:flex mx-auto w-[96%] max-w-[1720px] rounded-full items-center justify-between px-4 md:px-6 lg:px-10 xl:px-12 py-2.5 md:py-3 lg:py-3.5 backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 relative overflow-visible shadow-2xl ${
             isLightSection
               ? 'liquid-glass-nav-light'
               : scrolled
