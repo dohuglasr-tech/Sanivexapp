@@ -46,11 +46,7 @@ const BrandLogoInteractive: React.FC<BrandLogoProps> = ({ isLightSection, onNavi
           setIsTapped((prev) => !prev);
         }
       }}
-      className={`group/brand flex items-center py-1 px-1.5 -ml-1 rounded-full cursor-pointer relative z-10 transition-all duration-300 ${
-        isLightSection
-          ? 'hover:bg-slate-200/60'
-          : 'hover:bg-white/10'
-      }`}
+      className="group/brand flex items-center cursor-pointer relative z-10 py-1 transition-opacity hover:opacity-90"
       aria-label="SANIVEX - Inicio"
       title="SANIVEX - Soluciones Profesionales en Sanidad Ambiental"
     >
@@ -62,7 +58,7 @@ const BrandLogoInteractive: React.FC<BrandLogoProps> = ({ isLightSection, onNavi
           width={24}
           height={24}
           priority
-          className="h-5 sm:h-5.5 w-auto object-contain transition-transform duration-300 group-hover/brand:scale-110 drop-shadow-sm"
+          className="h-5 sm:h-5.5 w-auto object-contain transition-transform duration-300 group-hover/brand:scale-105"
         />
       </div>
 
