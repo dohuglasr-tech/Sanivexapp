@@ -110,7 +110,7 @@ export default function Home() {
           </div>
 
           {/* Hero Content (Exact replica of Image 2, responsive for Mobile & Desktop) */}
-          <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center px-4 pt-24 pb-20 md:py-0">
+          <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center px-4 pt-32 xs:pt-36 sm:pt-28 md:py-0 pb-20">
             {/* Top Liquid Pill: "Somos los mejores en" */}
             <motion.div
               initial={{ opacity: 0, y: -12 }}
@@ -121,18 +121,15 @@ export default function Home() {
               Somos los mejores en
             </motion.div>
 
-            {/* H1 Heading - Exact Authentic Sanivex Copy from Image 2 */}
+            {/* H1 Heading - Cuadrado, Profesional y en 2 Líneas Equilibradas */}
             <motion.h1
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-[34px] xs:text-[40px] md:text-5xl lg:text-[50px] font-semibold tracking-tight text-white leading-[1.12] md:leading-[1.14] max-w-[280px] xs:max-w-xs md:max-w-2xl"
+              className="text-[34px] xs:text-[42px] sm:text-5xl lg:text-[54px] font-bold tracking-tight text-white leading-[1.1] sm:leading-[1.12] max-w-[360px] xs:max-w-md sm:max-w-2xl mx-auto text-center"
             >
-              Control de plagas
-              <br />
-              <span className="text-[#7eedee] font-semibold">
-                y sanidad ambiental
-              </span>
+              <span className="block">Control de plagas</span>
+              <span className="block text-[#7eedee] font-bold">y sanidad ambiental</span>
             </motion.h1>
 
             {/* Subtitle - Exact Authentic Sanivex Copy */}
@@ -140,7 +137,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="mt-3.5 md:mt-4 text-[12.5px] md:text-[13px] text-slate-300/85 max-w-[340px] xs:max-w-md md:max-w-[490px] leading-relaxed font-light drop-shadow"
+              className="mt-3.5 md:mt-4 text-[12.5px] md:text-[13.5px] text-slate-300/85 max-w-[340px] xs:max-w-md md:max-w-[500px] leading-relaxed font-light drop-shadow"
             >
               Tu operación segura, nuestra razón de ser, somos tu aliado estratégico en control de plagas para que tu y tu empresa estén seguros.
             </motion.p>
@@ -155,28 +152,19 @@ export default function Home() {
               ¡Alerta de ROEDORES en tu area!
             </motion.div>
 
-            {/* Action Buttons */}
+            {/* Action Button: Solo Llamar directamente (eliminado botón redundante de cotización) */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
-              className="mt-6 flex flex-col xs:flex-row items-center justify-center gap-3 md:gap-4 w-full xs:w-auto"
+              className="mt-6 flex flex-col items-center justify-center w-full max-w-[320px] xs:max-w-[360px]"
             >
-              {/* Primary Mint Cyan Button */}
-              <button
-                onClick={() => handleOpenQuote('Cotización General')}
-                className="w-full xs:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl hero-primary-btn font-semibold text-[13px] cursor-pointer"
-              >
-                <span>Pedir un presupuesto</span>
-                <span className="text-sm font-bold">→</span>
-              </button>
-
-              {/* Secondary Slate Button */}
               <a
                 href="tel:+573009123456"
-                className="w-full xs:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl hero-secondary-btn font-medium text-[13px] cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl hero-secondary-btn font-semibold text-xs xs:text-[13px] tracking-wider uppercase transition-all shadow-lg active:scale-95 cursor-pointer text-cyan-300 border border-cyan-500/40 bg-[#0e1726]/90 hover:bg-[#152338]"
               >
-                <span>Llamar directamente</span>
+                <Phone className="h-4 w-4 text-cyan-400 fill-cyan-400" />
+                <span>Llamar directamente: 300-912-3456</span>
               </a>
             </motion.div>
 
@@ -188,7 +176,7 @@ export default function Home() {
               href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 text-[11px] text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+              className="mt-3.5 text-[11px] text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
             >
               <span>Puedes comunicarte con nosotros vía <span className="font-semibold text-slate-300">WHATSAPP</span></span>
               <span className="font-bold">→</span>
