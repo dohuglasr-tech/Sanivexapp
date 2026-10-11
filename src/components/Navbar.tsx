@@ -27,14 +27,27 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 30) {
+      const scrollEl = document.getElementById('main-scroll');
+      const scrollTop = scrollEl ? scrollEl.scrollTop : window.scrollY;
+      if (scrollTop > 30) {
         setScrolled(true);
       } else {
         setScrolled(false);
       }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    const scrollEl = document.getElementById('main-scroll');
+    if (scrollEl) {
+      scrollEl.addEventListener('scroll', handleScroll, { passive: true });
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      if (scrollEl) {
+        scrollEl.removeEventListener('scroll', handleScroll);
+      }
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const serviceItems = [

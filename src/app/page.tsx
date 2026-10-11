@@ -76,7 +76,7 @@ export default function Home() {
       </div>
 
       {/* Main Snap Container */}
-      <div className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth relative z-10">
+      <div id="main-scroll" className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth relative z-10">
 
         {/* ========================================================================= */}
         {/* SECCIÓN 1: HERO PRINCIPAL                                                 */}
@@ -463,26 +463,32 @@ export default function Home() {
         {/* ========================================================================= */}
         {/* SECCIÓN 5: CONTROL DE AVES (With Transparent Paloma Asset)                 */}
         {/* ========================================================================= */}
+        {/* ========================================================================= */}
+        {/* SECCIÓN 5: CONTROL DE AVES (With Transparent Paloma Asset)                 */}
+        {/* ========================================================================= */}
         <section
           id="aves"
           className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-20 lg:py-0 overflow-hidden bg-gradient-to-b from-[#121e2c] via-[#142131] to-[#101b28]"
         >
-          {/* Subtle Ambient Sky-Blue Glow behind the bird */}
+          {/* Subtle Ambient Glow behind the bird */}
           <div className="absolute top-1/3 right-10 h-[450px] w-[450px] rounded-full bg-[#5c7090]/15 blur-[150px] pointer-events-none" />
 
-          {/* User's PalomaSanivex transparent asset positioned seamlessly on the right */}
-          <div className="absolute right-[-2%] bottom-[-5%] w-[420px] sm:w-[580px] lg:w-[680px] h-[55%] lg:h-[80%] opacity-45 lg:opacity-85 pointer-events-none z-0">
+          {/* User's Paloma Asset on Right Side (Pigeon macro facing left) - Escala y presencia idéntica a la rata */}
+          <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[50%] opacity-50 lg:opacity-85 pointer-events-none z-0">
             <Image
               src="/images/Propias/PalomaSanivex_trans.webp"
               alt="Manejo y Exclusión de Aves Urbanas Sanivex"
               fill
               quality={95}
-              className="object-contain object-bottom-right"
+              className="object-cover object-right"
             />
-            {/* Soft subtle bottom/left edge feathering */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#142131] via-transparent to-transparent opacity-80" />
-            <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#101b28] to-transparent" />
+            {/* Subtle Gradient Blend Masks for seamless transition with zero hard lines */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#142131] via-[#142131]/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#101b28] via-transparent to-[#121e2c]" />
           </div>
+
+          {/* Degradado de transición suave hacia la sección blanca de Termitas */}
+          <div className="absolute bottom-0 inset-x-0 h-16 md:h-24 bg-gradient-to-b from-transparent via-[#101b28]/60 to-white pointer-events-none z-0" />
 
           <div className="max-w-7xl mx-auto w-full relative z-10">
             {/* Header */}
@@ -553,48 +559,51 @@ export default function Home() {
         </section>
 
         {/* ========================================================================= */}
-        {/* SECCIÓN 6: CONTROL DE TERMITAS (With Transparent Termita Asset)            */}
+        {/* SECCIÓN 6: CONTROL DE TERMITAS (Fondo Blanco con Termita Gigante y Degradados) */}
         {/* ========================================================================= */}
         <section
           id="termitas"
-          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-20 lg:py-0 overflow-hidden bg-gradient-to-b from-[#101b28] via-[#142131] to-[#101b27]"
+          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 pt-20 pb-12 lg:pt-16 lg:pb-8 overflow-hidden bg-white text-slate-900"
         >
-          {/* Subtle Ambient Amber/Golden Glow behind the termite */}
-          <div className="absolute top-1/3 left-10 h-[450px] w-[450px] rounded-full bg-amber-500/12 blur-[150px] pointer-events-none" />
+          {/* Degradado superior de entrada suave desde el scroll azul anterior */}
+          <div className="absolute top-0 inset-x-0 h-14 md:h-20 bg-gradient-to-b from-[#101b28]/25 via-white/80 to-transparent pointer-events-none z-0" />
 
-          {/* User's TermitaSanivex transparent asset positioned seamlessly on the left */}
-          <div className="absolute left-[-2%] bottom-[-5%] w-[420px] sm:w-[580px] lg:w-[680px] h-[55%] lg:h-[80%] opacity-45 lg:opacity-85 pointer-events-none z-0">
+          {/* User's Termita Asset on Left Side - Abarcando la pantalla del lado izquierdo entera, misma escala que la rata */}
+          <div className="absolute left-0 top-0 bottom-0 w-full lg:w-[48%] pointer-events-none z-0 opacity-30 lg:opacity-100">
             <Image
-              src="/images/Propias/TermitaSanivex_trans.webp"
+              src="/images/Propias/TermitaSanivex.jpg"
               alt="Control Profesional de Termitas Sanivex"
               fill
               quality={95}
-              className="object-contain object-bottom-left"
+              className="object-cover object-left"
             />
-            {/* Soft subtle edge feathering */}
-            <div className="absolute inset-0 bg-gradient-to-l from-[#142131] via-transparent to-transparent opacity-80" />
-            <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#101b27] to-transparent" />
+            {/* Máscara suave hacia la derecha en blanco puro para fundirse con las tarjetas */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-white" />
           </div>
 
-          <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-end">
+          {/* Degradado inferior de salida suave hacia la siguiente sección azul (#sanitizacion) */}
+          <div className="absolute bottom-0 inset-x-0 h-16 md:h-24 bg-gradient-to-b from-transparent via-[#101b27]/70 to-[#101b27] pointer-events-none z-0" />
+
+          <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-end my-auto">
             {/* Header (Aligned to right for visual balance with termite on left) */}
-            <div className="mb-8 max-w-3xl w-full text-left lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-semibold text-amber-300 mb-3 backdrop-blur-md">
-                <Search className="h-3.5 w-3.5 text-amber-400" />
+            <div className="mb-4 lg:mb-5 max-w-3xl w-full text-left lg:text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-300 text-[11px] font-semibold text-amber-900 mb-2 shadow-sm">
+                <Search className="h-3 w-3 text-amber-700" />
                 Protección Invisible de la Infraestructura
               </div>
-              <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              <h2 className="text-2xl sm:text-4xl lg:text-[40px] font-extrabold text-[#09111c] tracking-tight leading-tight">
                 Servicios de Control de Termitas
               </h2>
-              <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-light max-w-3xl">
+              <p className="mt-1.5 text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal max-w-3xl">
                 Las termitas representan una de las plagas más destructivas para la infraestructura, consumiendo celulosa desde el interior y generando un deterioro progresivo e invisible. Implementamos sistemas de detección temprana, barreras químicas perimetrales y cebado en Colombia.
               </p>
             </div>
 
-            {/* 3 Liquid Glass Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 w-full">
+            {/* 3 Liquid Glass Cards con Theme Light adaptado al fondo blanco */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 w-full lg:max-w-4xl xl:max-w-5xl lg:ml-auto">
               {/* Card 1 */}
               <GlassCard
+                theme="light"
                 badge="Diagnóstico"
                 icon={Search}
                 title="Prevención de Daños Invisibles y Sobrecostos"
@@ -611,6 +620,7 @@ export default function Home() {
 
               {/* Card 2 */}
               <GlassCard
+                theme="light"
                 badge="Blindaje"
                 icon={Building2}
                 title="Protección de Elementos Estructurales Críticos"
@@ -627,6 +637,7 @@ export default function Home() {
 
               {/* Card 3 */}
               <GlassCard
+                theme="light"
                 badge="Erradicación"
                 icon={Syringe}
                 title="Sistemas Avanzados de Erradicación"

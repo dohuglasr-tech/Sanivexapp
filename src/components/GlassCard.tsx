@@ -15,6 +15,7 @@ interface GlassCardProps {
   actionLabel?: string;
   onAction?: () => void;
   className?: string;
+  theme?: 'dark' | 'light';
 }
 
 export const GlassCard: React.FC<GlassCardProps> = ({
@@ -28,10 +29,17 @@ export const GlassCard: React.FC<GlassCardProps> = ({
   actionLabel,
   onAction,
   className = '',
+  theme = 'dark',
 }) => {
+  const isLight = theme === 'light';
+
   return (
     <div
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-[2rem] bg-[#0d1624] p-6 sm:p-7 backdrop-blur-xl border border-white/10 shadow-[0_20px_45px_-10px_rgba(0,0,0,0.5)] transition-all duration-300 hover:border-[#5c7090]/60 hover:bg-[#111c2e] hover:shadow-[0_4px_30px_rgba(92,112,144,0.25)] hover:-translate-y-2 ${className}`}
+      className={`group relative flex flex-col justify-between overflow-hidden rounded-[2rem] p-6 sm:p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 ${
+        isLight
+          ? 'bg-white/95 border border-slate-200/90 shadow-[0_15px_35px_-5px_rgba(15,23,42,0.08),_0_0_0_1px_rgba(0,0,0,0.03)] hover:border-[#5c7090]/60 hover:bg-white hover:shadow-[0_20px_40px_-5px_rgba(92,112,144,0.18)]'
+          : 'bg-[#0d1624] border border-white/10 shadow-[0_20px_45px_-10px_rgba(0,0,0,0.5)] hover:border-[#5c7090]/60 hover:bg-[#111c2e] hover:shadow-[0_4px_30px_rgba(92,112,144,0.25)]'
+      } ${className}`}
     >
       {/* Top subtle light reflection */}
       <div className="pointer-events-none absolute -top-24 -left-24 h-48 w-48 rounded-full bg-[#5c7090]/15 blur-3xl transition duration-500 group-hover:bg-[#5c7090]/25 group-hover:scale-125" />
@@ -71,20 +79,37 @@ export const GlassCard: React.FC<GlassCardProps> = ({
         )}
 
         {/* Title */}
-        <h3 className="text-xl font-bold tracking-tight text-white group-hover:text-slate-100 transition-colors">
+        <h3
+          className={`text-xl font-bold tracking-tight transition-colors ${
+            isLight ? 'text-[#09111c] group-hover:text-black' : 'text-white group-hover:text-slate-100'
+          }`}
+        >
           {title}
         </h3>
 
         {/* Description */}
-        <p className="mt-3 text-xs sm:text-sm leading-relaxed text-slate-300/90 font-light">
+        <p
+          className={`mt-3 text-xs sm:text-sm leading-relaxed ${
+            isLight ? 'text-slate-600 font-normal' : 'text-slate-300/90 font-light'
+          }`}
+        >
           {description}
         </p>
 
         {/* Bullet points */}
         {bullets && bullets.length > 0 && (
-          <ul className="mt-4 space-y-2 border-t border-white/5 pt-3">
+          <ul
+            className={`mt-4 space-y-2 border-t pt-3 ${
+              isLight ? 'border-slate-200/80' : 'border-white/5'
+            }`}
+          >
             {bullets.map((bullet, idx) => (
-              <li key={idx} className="flex items-start gap-2 text-xs text-slate-300">
+              <li
+                key={idx}
+                className={`flex items-start gap-2 text-xs ${
+                  isLight ? 'text-slate-700' : 'text-slate-300'
+                }`}
+              >
                 <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[#5c7090]" />
                 <span>{bullet}</span>
               </li>
@@ -97,10 +122,14 @@ export const GlassCard: React.FC<GlassCardProps> = ({
       {actionLabel && (
         <button
           onClick={onAction}
-          className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white/5 py-2.5 text-xs font-semibold text-white border border-white/10 hover:border-[#5c7090]/50 hover:bg-[#5c7090]/20 hover:text-white transition-all duration-300 cursor-pointer"
+          className={`mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl py-2.5 text-xs font-semibold transition-all duration-300 cursor-pointer ${
+            isLight
+              ? 'bg-slate-100 text-slate-800 border border-slate-300/80 hover:bg-[#5c7090] hover:text-white hover:border-[#5c7090]'
+              : 'bg-white/5 text-white border border-white/10 hover:border-[#5c7090]/50 hover:bg-[#5c7090]/20 hover:text-white'
+          }`}
         >
           {actionLabel}
-          <span className="text-[#5c7090] transition-transform group-hover:translate-x-1">→</span>
+          <span className="text-[#5c7090] group-hover:text-current transition-transform group-hover:translate-x-1">→</span>
         </button>
       )}
     </div>
