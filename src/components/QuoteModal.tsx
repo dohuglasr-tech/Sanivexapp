@@ -207,7 +207,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-cyan-400 to-sky-400 py-3.5 text-xs font-bold text-slate-950 shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:from-cyan-300 hover:to-sky-300 transition-all disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-2 rounded-2xl bg-[#22d3ee] hover:bg-[#38bdf8] py-3.5 text-xs font-bold text-slate-950 shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-all disabled:opacity-50"
               >
                 {loading ? (
                   <span>Procesando solicitud...</span>

@@ -166,15 +166,15 @@ body {
 }
 
 .hero-primary-btn {
-  background: linear-gradient(135deg, #7eedee 0%, #5eead4 100%);
+  background: #22d3ee;
   color: #07131e;
-  box-shadow: 0 0 24px rgba(126, 237, 238, 0.35);
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.35);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero-primary-btn:hover {
-  background: linear-gradient(135deg, #90f4f4 0%, #76f1dd 100%);
-  box-shadow: 0 0 32px rgba(126, 237, 238, 0.55);
+  background: #38bdf8;
+  box-shadow: 0 0 28px rgba(34, 211, 238, 0.5);
   transform: translateY(-1.5px);
 }
 

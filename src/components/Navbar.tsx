@@ -126,8 +126,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               onClick={() => setActiveSegment('residencial')}
               className={`flex-1 py-3 text-center text-xs sm:text-[13px] font-black tracking-wider uppercase transition-all cursor-pointer ${
                 activeSegment === 'residencial'
-                  ? 'bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-500 text-slate-950 shadow-md border-b-2 border-cyan-300'
-                  : 'bg-[#09111c] text-slate-400 hover:text-white border-b-2 border-transparent'
+                  ? 'bg-[#22d3ee] text-[#060b14]'
+                  : 'bg-[#09111c] text-white/80 hover:text-white'
               }`}
             >
               <span>Residencial</span>
@@ -136,8 +136,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               onClick={() => setActiveSegment('comercial')}
               className={`flex-1 py-3 text-center text-xs sm:text-[13px] font-black tracking-wider uppercase transition-all cursor-pointer ${
                 activeSegment === 'comercial'
-                  ? 'bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-500 text-slate-950 shadow-md border-b-2 border-cyan-300'
-                  : 'bg-[#09111c] text-slate-400 hover:text-white border-b-2 border-transparent'
+                  ? 'bg-[#22d3ee] text-[#060b14]'
+                  : 'bg-[#09111c] text-white/80 hover:text-white'
               }`}
             >
               <span>Comercial</span>
