@@ -148,6 +148,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
     { label: 'Control de Aves', href: '#aves', desc: 'Sistemas disuasorios y redes mecánicas' },
     { label: 'Termitas y Xilófagos', href: '#termitas', desc: 'Inyección profunda y barrera química' },
     { label: 'Sanitización Ambiental', href: '#sanitizacion', desc: 'Nebulización contra virus y bacterias' },
+    { label: 'Sobre Sanivex (¿Quiénes somos?)', href: '#sanivex', desc: 'Estándares internacionales BPM/HACCP, equipo y diagnóstico' },
   ];
 
   const handleLinkClick = (href: string) => {
@@ -380,10 +381,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
             </div>
 
             <a
-              href="#mip"
+              href="#sanivex"
               onClick={(e) => {
                 e.preventDefault();
-                handleLinkClick('#mip');
+                handleLinkClick('#sanivex');
               }}
               className={`px-4 py-2 rounded-full text-xs sm:text-[13px] tracking-wide transition-all cursor-pointer font-medium ${
                 isLightSection
@@ -488,10 +489,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
             </div>
 
             <a
-              href="#mip"
+              href="#sanivex"
               onClick={(e) => {
                 e.preventDefault();
-                handleLinkClick('#mip');
+                handleLinkClick('#sanivex');
               }}
               className="text-sm font-semibold text-slate-200 hover:text-[#5c7090] transition py-1"
             >

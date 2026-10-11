@@ -35,6 +35,7 @@ import { InsectsMatrix } from '@/components/interactive/InsectsMatrix';
 import { BirdsShowcase } from '@/components/interactive/BirdsShowcase';
 import { TermitesRadar } from '@/components/interactive/TermitesRadar';
 import { SanitizationEstimator } from '@/components/interactive/SanitizationEstimator';
+import { AboutSanivex } from '@/components/interactive/AboutSanivex';
 
 // Azul institucional Sanivex
 const SANIVEX_BLUE = 0x0a3871;
@@ -777,16 +778,16 @@ export default function Home() {
         </section>
 
         {/* ========================================================================= */}
-        {/* SECCIÓN 7: SANITIZACIÓN Y DESINFECCIÓN (Diseño Clínico con Aire y Footer) */}
+        {/* SECCIÓN 7: SANITIZACIÓN Y DESINFECCIÓN (Diseño Clínico con Mucho Aire)    */}
         {/* ========================================================================= */}
         <section
           id="sanitizacion"
-          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-between px-4 sm:px-8 lg:px-16 pt-16 pb-8 overflow-hidden bg-gradient-to-b from-[#101b27] via-[#0d1622] to-[#070d17]"
+          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-12 lg:py-0 overflow-hidden bg-gradient-to-b from-[#101b27] via-[#0d1622] to-[#0c1522]"
         >
           {/* Subtle Ambient Teal/Cyan Glow */}
           <div className="absolute top-1/3 left-1/3 h-96 w-96 rounded-full bg-teal-500/10 blur-[150px] pointer-events-none" />
 
-          <div className="max-w-7xl mx-auto w-full relative z-10 flex-1 flex flex-col justify-center my-auto">
+          <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col my-auto">
             {/* Header */}
             <div className="mb-3 lg:mb-4 max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-[11px] font-semibold text-teal-300 mb-2">
@@ -806,31 +807,22 @@ export default function Home() {
               <SanitizationEstimator onOpenQuote={handleOpenQuote} />
             </div>
           </div>
+        </section>
 
-          {/* Integrated Footer with Liquid Glass border */}
-          <footer className="w-full max-w-7xl mx-auto pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 gap-4 relative z-10">
-            <div className="flex items-center gap-3">
-              <span className="font-extrabold text-white tracking-wider">SANIVEX COLOMBIA</span>
-              <span>&bull;</span>
-              <span>Líder en Sanidad Ambiental & MIP</span>
-            </div>
+        {/* ========================================================================= */}
+        {/* SECCIÓN 8: ¿QUIÉNES SOMOS? / SOBRE SANIVEX (Equipo y Máximos Estándares)  */}
+        {/* ========================================================================= */}
+        <section
+          id="sanivex"
+          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 pt-16 sm:pt-20 lg:pt-14 pb-4 sm:pb-6 overflow-hidden bg-gradient-to-b from-[#0c1522] via-[#09111c] to-[#05080e]"
+        >
+          {/* Subtle Ambient Glows */}
+          <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-cyan-500/10 blur-[160px] pointer-events-none" />
+          <div className="absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-blue-600/10 blur-[160px] pointer-events-none" />
 
-            <div className="flex flex-wrap items-center justify-center gap-4 text-slate-400">
-              <span className="text-[#5c7090]">Bogotá D.C.</span>
-              <span>&bull;</span>
-              <span className="text-[#5c7090]">Medellín</span>
-              <span>&bull;</span>
-              <span className="text-[#5c7090]">Cali</span>
-              <span>&bull;</span>
-              <span className="text-[#5c7090]">Barranquilla</span>
-              <span>&bull;</span>
-              <span className="text-[#5c7090]">Bucaramanga</span>
-            </div>
-
-            <div className="flex items-center gap-3 text-slate-400">
-              <span>&copy; {new Date().getFullYear()} SANIVEX SAS. Todos los derechos reservados.</span>
-            </div>
-          </footer>
+          <div className="max-w-7xl mx-auto w-full h-full relative z-10 flex flex-col justify-center my-auto">
+            <AboutSanivex onOpenQuote={handleOpenQuote} />
+          </div>
         </section>
       </div>
     </div>

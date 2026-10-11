@@ -10,6 +10,7 @@ const sections = [
   { id: 'aves', label: 'Control Aves' },
   { id: 'termitas', label: 'Termitas' },
   { id: 'sanitizacion', label: 'Sanitización' },
+  { id: 'sanivex', label: '¿Sanivex?' },
 ];
 
 export const ScrollDots: React.FC = () => {
@@ -17,7 +18,10 @@ export const ScrollDots: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
+      const scrollEl = document.getElementById('main-scroll');
+      const scrollTop = scrollEl ? scrollEl.scrollTop : window.scrollY;
+      const clientH = scrollEl ? scrollEl.clientHeight : window.innerHeight;
+      const scrollPosition = scrollTop + clientH / 3;
 
       for (const section of sections) {
         const el = document.getElementById(section.id);
@@ -32,9 +36,19 @@ export const ScrollDots: React.FC = () => {
       }
     };
 
+    const scrollEl = document.getElementById('main-scroll');
+    if (scrollEl) {
+      scrollEl.addEventListener('scroll', handleScroll, { passive: true });
+    }
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    return () => {
+      if (scrollEl) {
+        scrollEl.removeEventListener('scroll', handleScroll);
+      }
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const scrollTo = (id: string) => {
