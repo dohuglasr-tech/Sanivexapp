@@ -137,7 +137,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Ej. Carlos Mendoza"
-                    className="w-full rounded-2xl bg-slate-950/70 border border-white/10 px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:border-[#5c7090] focus:outline-none focus:ring-1 focus:ring-[#5c7090] transition"
+                    className="w-full rounded-2xl bg-slate-950/70 border border-white/10 px-4 py-2.5 text-base sm:text-xs text-white placeholder-slate-500 focus:border-[#5c7090] focus:outline-none focus:ring-1 focus:ring-[#5c7090] transition"
                   />
                 </div>
                 <div>
@@ -149,7 +149,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     placeholder="Ej. Almacenes & Logística SAS"
-                    className="w-full rounded-2xl bg-slate-950/70 border border-white/10 px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:border-[#5c7090] focus:outline-none focus:ring-1 focus:ring-[#5c7090] transition"
+                    className="w-full rounded-2xl bg-slate-950/70 border border-white/10 px-4 py-2.5 text-base sm:text-xs text-white placeholder-slate-500 focus:border-[#5c7090] focus:outline-none focus:ring-1 focus:ring-[#5c7090] transition"
                   />
                 </div>
               </div>
@@ -165,7 +165,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="+57 300 000 0000"
-                    className="w-full rounded-2xl bg-slate-950/70 border border-white/10 px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:border-[#5c7090] focus:outline-none focus:ring-1 focus:ring-[#5c7090] transition"
+                    className="w-full rounded-2xl bg-slate-950/70 border border-white/10 px-4 py-2.5 text-base sm:text-xs text-white placeholder-slate-500 focus:border-[#5c7090] focus:outline-none focus:ring-1 focus:ring-[#5c7090] transition"
                   />
                 </div>
                 <div>
@@ -175,7 +175,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                   <select
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    className="w-full rounded-2xl bg-slate-950/70 border border-white/10 px-4 py-2.5 text-xs text-white focus:border-[#5c7090] focus:outline-none focus:ring-1 focus:ring-[#5c7090] transition"
+                    className="w-full rounded-2xl bg-slate-950/70 border border-white/10 px-4 py-2.5 text-base sm:text-xs text-white focus:border-[#5c7090] focus:outline-none focus:ring-1 focus:ring-[#5c7090] transition"
                   >
                     <option value="Bogotá D.C.">Bogotá D.C. y Sabana</option>
                     <option value="Medellín">Medellín y Valle de Aburrá</option>
@@ -195,7 +195,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                 <select
                   value={formData.service}
                   onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                  className="w-full rounded-2xl bg-slate-950/70 border border-white/10 px-4 py-2.5 text-xs text-white focus:border-[#5c7090] focus:outline-none focus:ring-1 focus:ring-[#5c7090] transition"
+                  className="w-full rounded-2xl bg-slate-950/70 border border-white/10 px-4 py-2.5 text-base sm:text-xs text-white focus:border-[#5c7090] focus:outline-none focus:ring-1 focus:ring-[#5c7090] transition"
                 >
                   <option value="Manejo Integrado de Plagas (MIP)">Manejo Integrado de Plagas (MIP)</option>
                   <option value="Control de Roedores">Control de Roedores de Importancia Sanitaria</option>
@@ -215,7 +215,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                   value={formData.details}
                   onChange={(e) => setFormData({ ...formData, details: e.target.value })}
                   placeholder="Describe brevemente el tipo de instalación, nivel de infestación o urgencia..."
-                  className="w-full rounded-2xl bg-slate-950/70 border border-white/10 px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:border-[#5c7090] focus:outline-none focus:ring-1 focus:ring-[#5c7090] transition resize-none"
+                  className="w-full rounded-2xl bg-slate-950/70 border border-white/10 px-4 py-2.5 text-base sm:text-xs text-white placeholder-slate-500 focus:border-[#5c7090] focus:outline-none focus:ring-1 focus:ring-[#5c7090] transition resize-none"
                 />
               </div>
 

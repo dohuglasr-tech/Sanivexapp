@@ -182,7 +182,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
 
   return (
     <>
-      <header className="fixed top-2.5 sm:top-4 inset-x-0 z-50 pointer-events-none">
+      <header className="fixed top-[calc(0.625rem+env(safe-area-inset-top,0px))] sm:top-4 inset-x-0 z-50 pointer-events-none">
         {/* ================================================================= */}
         {/* MOBILE LIQUID GLASS DOCK                                          */}
         {/* ================================================================= */}
@@ -558,7 +558,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Buscar servicio, plaga (roedores, insectos, aves)..."
-                className="bg-transparent border-none outline-none text-white w-full text-sm placeholder:text-slate-500"
+                className="bg-transparent border-none outline-none text-white w-full text-base sm:text-sm placeholder:text-slate-500"
                 autoFocus
               />
               <button
@@ -641,7 +641,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 <input
                   type="text"
                   placeholder="Ej: 900.123.456-7"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white text-xs focus:border-[#5c7090] outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white text-base sm:text-xs focus:border-[#5c7090] outline-none"
                 />
               </div>
 
@@ -652,7 +652,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 <input
                   type="text"
                   placeholder="Ej: SNX-2026-9812"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white text-xs focus:border-[#5c7090] outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white text-base sm:text-xs focus:border-[#5c7090] outline-none"
                 />
               </div>
 

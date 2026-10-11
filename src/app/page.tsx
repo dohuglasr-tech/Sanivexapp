@@ -406,7 +406,7 @@ export default function Home() {
       <FloatingActions />
 
       {/* Mobile Sticky Bottom CTA Bar (Solicitar Presupuesto) */}
-      <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-[#060b14]/95 backdrop-blur-xl border-t border-[#5c7090]/30 px-4 py-3 shadow-[0_-10px_35px_rgba(0,0,0,0.7)] animate-in fade-in duration-300">
+      <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-[#060b14]/95 backdrop-blur-xl border-t border-[#5c7090]/30 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] shadow-[0_-10px_35px_rgba(0,0,0,0.7)] animate-in fade-in duration-300">
         <button
           onClick={() => handleOpenQuote('Cotización General')}
           className="w-full py-3.5 px-6 rounded-xl hero-primary-btn font-black text-xs sm:text-sm tracking-widest uppercase transition-all shadow-[0_4px_20px_rgba(92,112,144,0.4)] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer text-white"
@@ -438,7 +438,7 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="hero"
-          className="relative min-h-[92vh] lg:min-h-screen flex flex-col justify-center overflow-hidden bg-[#05070b] px-4 sm:px-8 lg:px-16 pt-[104px] sm:pt-[120px] lg:pt-0 pb-16 lg:pb-0"
+          className="relative min-h-[92vh] lg:min-h-screen flex flex-col justify-center overflow-hidden bg-[#05070b] px-4 sm:px-8 lg:px-16 pt-[calc(104px+env(safe-area-inset-top,0px))] sm:pt-[120px] lg:pt-0 pb-16 lg:pb-0"
         >
           {/* Ambient Lighting, Techno Grid & Top Header Glow */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -831,7 +831,7 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="contacto"
-          className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 pt-16 sm:pt-20 lg:pt-24 pb-24 sm:pb-20 lg:pb-16 overflow-hidden bg-gradient-to-b from-[#09111c] via-[#060b13] to-[#03060a]"
+          className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 pt-16 sm:pt-20 lg:pt-24 pb-[calc(7.5rem+env(safe-area-inset-bottom,0px))] sm:pb-20 lg:pb-16 overflow-hidden bg-gradient-to-b from-[#09111c] via-[#060b13] to-[#03060a]"
         >
           {/* Subtle Ambient Glows */}
           <div className="absolute top-1/4 right-1/4 h-96 w-96 rounded-full bg-cyan-500/10 blur-[170px] pointer-events-none" />

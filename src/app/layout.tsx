@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins, Montserrat } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
@@ -16,9 +16,22 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+  themeColor: "#09111c",
+};
+
 export const metadata: Metadata = {
   title: "Sanivex - Control de Plagas y Sanidad Ambiental",
   description: "Tu operación segura, nuestra razón de ser. Soluciones avanzadas en bioseguridad, control de vectores y sanidad ambiental en Colombia.",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Sanivex",
+  },
   icons: {
     icon: [
       { url: "/logos/favicon-brand.png", sizes: "512x512", type: "image/png" },
