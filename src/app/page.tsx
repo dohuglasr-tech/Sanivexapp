@@ -629,7 +629,7 @@ export default function Home() {
               />
 
               <GlassCard
-                imageSrc="/images/Propias/CoMIP.jpg"
+                imageSrc="/images/Propias/principal_black.jpg"
                 badge="Blindaje Legal"
                 badgeVariant="emerald"
                 title="Certificación Sanitaria"
