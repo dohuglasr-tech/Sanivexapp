@@ -23,16 +23,16 @@ interface BrandLogoProps {
 }
 
 const BrandLogoInteractive: React.FC<BrandLogoProps> = ({ isLightSection, onNavigate, isMobile }) => {
-  const [isTapped, setIsTapped] = useState(false);
   const [isIntroduced, setIsIntroduced] = useState(false);
 
   useEffect(() => {
-    // Initial welcome peek: reveal wordmark for 2.2s on first load so users recognize the brand, then smoothly collapse to permanent icon
+    if (isMobile) return;
+    // Initial welcome peek for desktop: reveal wordmark for 2.2s on first load, then collapse to hover-only
     const timer = setTimeout(() => {
       setIsIntroduced(true);
     }, 2200);
     return () => clearTimeout(timer);
-  }, []);
+  }, [isMobile]);
 
   return (
     <a
@@ -41,35 +41,41 @@ const BrandLogoInteractive: React.FC<BrandLogoProps> = ({ isLightSection, onNavi
         e.preventDefault();
         onNavigate();
       }}
-      onClickCapture={() => {
-        if (isMobile) {
-          setIsTapped((prev) => !prev);
-        }
-      }}
       className="group/brand flex items-center cursor-pointer relative z-10 py-1 transition-opacity hover:opacity-90"
       aria-label="SANIVEX - Inicio"
       title="SANIVEX - Soluciones Profesionales en Sanidad Ambiental"
     >
-      {/* Permanent Brand Icon (Isolated PNG symbol uploaded by user) */}
-      <div className="relative flex items-center justify-center shrink-0">
-        <Image
-          src={isLightSection ? '/logos/brand-icon-prop-dark.webp' : '/logos/brand-icon-prop-white.webp'}
-          alt="Sanivex Icono"
-          width={24}
-          height={24}
-          priority
-          className="h-5 sm:h-5.5 w-auto object-contain transition-transform duration-300 group-hover/brand:scale-105"
-        />
+      {/* Permanent Brand Icon (Isolated PNG symbol with GPU 3D Y-axis spin on mobile) */}
+      <div
+        className="relative flex items-center justify-center shrink-0"
+        style={{ perspective: '500px' }}
+      >
+        <div
+          className={`flex items-center justify-center ${
+            isMobile ? 'animate-mobile-logo-icon' : ''
+          }`}
+        >
+          <Image
+            src={isLightSection ? '/logos/brand-icon-prop-dark.webp' : '/logos/brand-icon-prop-white.webp'}
+            alt="Sanivex Icono"
+            width={24}
+            height={24}
+            priority
+            className="h-5 sm:h-5.5 w-auto object-contain transition-transform duration-300 group-hover/brand:scale-105"
+          />
+        </div>
       </div>
 
-      {/* Dynamic Island Expandable Wordmark (Full logo text PNG) */}
+      {/* Dynamic Expandable Wordmark (Mobile 3-phase loop / Desktop hover expand) */}
       <div
-        className={`overflow-hidden flex items-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          !isIntroduced
-            ? 'max-w-[130px] opacity-100 ml-1.5'
-            : isTapped
-            ? 'max-w-[130px] opacity-100 ml-1.5'
-            : 'max-w-0 opacity-0 ml-0 pointer-events-none group-hover/brand:max-w-[130px] group-hover/brand:opacity-100 group-hover/brand:ml-1.5 group-hover/brand:pointer-events-auto'
+        className={`flex items-center ${
+          isMobile
+            ? 'animate-mobile-logo-wordmark'
+            : `overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                !isIntroduced
+                  ? 'max-w-[130px] opacity-100 ml-1.5'
+                  : 'max-w-0 opacity-0 ml-0 pointer-events-none group-hover/brand:max-w-[130px] group-hover/brand:opacity-100 group-hover/brand:ml-1.5 group-hover/brand:pointer-events-auto'
+              }`
         }`}
       >
         <Image
@@ -163,6 +169,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
         });
         setIsLightSection(isLight);
       }, 500);
+    } else if (typeof window !== 'undefined') {
+      window.location.href = href === '#hero' ? '/' : `/${href}`;
     }
   };
 
@@ -179,7 +187,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
         {/* ================================================================= */}
         <div
           className={`pointer-events-auto md:hidden mx-auto w-[94%] rounded-2xl overflow-hidden transition-all duration-500 relative shadow-2xl ${
-            isLightSection ? 'liquid-glass-nav-light' : 'liquid-glass-nav-dark'
+            isLightSection
+              ? 'liquid-glass-nav-light'
+              : scrolled
+              ? 'liquid-glass-nav-dark !bg-[#070e1b]/85 backdrop-blur-[42px]'
+              : 'liquid-glass-nav-dark'
           }`}
         >
           {/* Top Specular Caustic Highlight Line */}
@@ -263,12 +275,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
         {/* DESKTOP FLOATING LIQUID GLASS DOCK                                 */}
         {/* ================================================================= */}
         <div
-          className={`pointer-events-auto hidden md:flex mx-auto w-[94%] max-w-6xl rounded-full items-center justify-between px-6 sm:px-8 py-3 transition-all duration-500 relative overflow-visible shadow-2xl ${
-            isLightSection ? 'liquid-glass-nav-light' : 'liquid-glass-nav-dark'
+          className={`pointer-events-auto hidden md:flex mx-auto w-[96%] max-w-[1720px] rounded-full items-center justify-between px-8 sm:px-12 py-3.5 sm:py-4 transition-all duration-500 relative overflow-visible shadow-2xl ${
+            isLightSection
+              ? 'liquid-glass-nav-light'
+              : scrolled
+              ? 'liquid-glass-nav-dark !bg-[#070e1b]/65 backdrop-blur-[50px]'
+              : 'liquid-glass-nav-dark'
           }`}
         >
           {/* Top Specular Caustic Highlight Line */}
-          <div className="pointer-events-none absolute inset-x-12 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/55 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-20 sm:inset-x-32 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/55 to-transparent" />
 
           {/* Official SANIVEX Brand Logo with Dynamic Island Expand Animation */}
           <BrandLogoInteractive
@@ -277,14 +293,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
           />
 
           {/* Desktop Center Navigation Links */}
-          <nav className="flex items-center gap-1 lg:gap-2 relative z-10">
+          <nav className="flex items-center gap-3 lg:gap-6 xl:gap-8 relative z-10">
             <a
               href="#hero"
               onClick={(e) => {
                 e.preventDefault();
                 handleLinkClick('#hero');
               }}
-              className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] tracking-wide transition-all cursor-pointer font-medium ${
+              className={`px-4 py-2 rounded-full text-xs sm:text-[13px] tracking-wide transition-all cursor-pointer font-medium ${
                 isLightSection
                   ? 'text-[#0a3871] hover:bg-slate-200/60 hover:text-[#5c7090]'
                   : 'text-slate-200 hover:bg-white/10 hover:text-white hover:shadow-inner'
@@ -301,7 +317,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
             >
               <button
                 onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
-                className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] tracking-wide transition-all cursor-pointer font-medium ${
+                className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs sm:text-[13px] tracking-wide transition-all cursor-pointer font-medium ${
                   isLightSection
                     ? 'text-[#0a3871] hover:bg-slate-200/60 hover:text-[#5c7090]'
                     : 'text-slate-200 hover:bg-white/10 hover:text-white hover:shadow-inner'
@@ -369,7 +385,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 e.preventDefault();
                 handleLinkClick('#mip');
               }}
-              className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] tracking-wide transition-all cursor-pointer font-medium ${
+              className={`px-4 py-2 rounded-full text-xs sm:text-[13px] tracking-wide transition-all cursor-pointer font-medium ${
                 isLightSection
                   ? 'text-[#0a3871] hover:bg-slate-200/60 hover:text-[#5c7090]'
                   : 'text-slate-200 hover:bg-white/10 hover:text-white hover:shadow-inner'
@@ -384,7 +400,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 e.preventDefault();
                 onOpenQuote();
               }}
-              className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] tracking-wide transition-all cursor-pointer font-medium ${
+              className={`px-4 py-2 rounded-full text-xs sm:text-[13px] tracking-wide transition-all cursor-pointer font-medium ${
                 isLightSection
                   ? 'text-[#0a3871] hover:bg-slate-200/60 hover:text-[#5c7090]'
                   : 'text-slate-200 hover:bg-white/10 hover:text-white hover:shadow-inner'

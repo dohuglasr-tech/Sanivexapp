@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import {
   ShieldAlert,
   Sparkles,
@@ -28,9 +30,354 @@ import { ScrollDots } from '@/components/ScrollDots';
 import { QuoteModal } from '@/components/QuoteModal';
 import { FloatingActions } from '@/components/FloatingActions';
 
+// Azul institucional Sanivex
+const SANIVEX_BLUE = 0x0a3871;
+
 export default function Home() {
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState('Manejo Integrado de Plagas (MIP)');
+  const mountRef = useRef<HTMLDivElement | null>(null);
+  const isPlayingRef = useRef(true);
+
+  // 3D Sanivex emblem (se renderiza en desktop >= 1024px, 0% consumo en móvil)
+  useEffect(() => {
+    const container = mountRef.current;
+    if (!container) return;
+
+    const scene = new THREE.Scene();
+
+    const width = container.clientWidth || 600;
+    const height = container.clientHeight || 600;
+
+    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
+    camera.position.set(0, 0.8, 21);
+
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance',
+    });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.15;
+    container.appendChild(renderer.domElement);
+
+    // Soft studio reflections (environment map)
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    const envTexture = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environment = envTexture;
+
+    // Lighting (cool rim + key light + moving highlight)
+    scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+
+    const keyLight = new THREE.DirectionalLight(0xe2e8f0, 2.6);
+    keyLight.position.set(12, 16, 18);
+    scene.add(keyLight);
+
+    const rimLight = new THREE.PointLight(0x94a3b8, 3.5, 34);
+    rimLight.position.set(-16, -10, -12);
+    scene.add(rimLight);
+
+    const cyanBack = new THREE.PointLight(0x61dafb, 2.2, 28);
+    cyanBack.position.set(0, -12, -8);
+    scene.add(cyanBack);
+
+    // Traveling highlight that sweeps across the surface
+    const sweepLight = new THREE.PointLight(0xffffff, 40, 26, 1.6);
+    scene.add(sweepLight);
+
+    // ---------------------------------------------------------------
+    // Emblem geometry (faithful to official logo)
+    // ---------------------------------------------------------------
+    const emblem = new THREE.Group();
+    emblem.rotation.z = (8 * Math.PI) / 180;
+    scene.add(emblem);
+
+    const blueMat = new THREE.MeshPhysicalMaterial({
+      color: SANIVEX_BLUE,
+      metalness: 0.55,
+      roughness: 0.22,
+      clearcoat: 1,
+      clearcoatRoughness: 0.12,
+      envMapIntensity: 1.15,
+      emissive: SANIVEX_BLUE,
+      emissiveIntensity: 0.2,
+    });
+
+    const buildHalfShape = (side: 1 | -1) => {
+      const x = (v: number) => v * side;
+      const s = new THREE.Shape();
+
+      s.moveTo(x(-3.2), 3.6);
+      s.lineTo(x(-0.3), 0.75);
+      s.bezierCurveTo(x(-0.16), 0.5, x(-0.06), 0.26, x(-0.06), 0);
+      s.bezierCurveTo(x(-0.06), -0.26, x(-0.16), -0.5, x(-0.3), -0.75);
+      s.lineTo(x(-3.2), -3.6);
+      s.lineTo(x(-3.2), -1.85);
+      s.bezierCurveTo(x(-3.2), -1.2, x(-2.66), -0.67, x(-2.0), -0.67);
+      s.lineTo(x(-0.68), -0.67);
+      s.bezierCurveTo(x(-0.42), -0.67, x(-0.19), -0.38, x(-0.19), 0);
+      s.bezierCurveTo(x(-0.19), 0.38, x(-0.42), 0.67, x(-0.68), 0.67);
+      s.lineTo(x(-2.0), 0.67);
+      s.bezierCurveTo(x(-2.66), 0.67, x(-3.2), 1.2, x(-3.2), 1.85);
+      s.lineTo(x(-3.2), 3.6);
+
+      return s;
+    };
+
+    const extrude: THREE.ExtrudeGeometryOptions = {
+      depth: 0.4,
+      curveSegments: 48,
+      bevelEnabled: true,
+      bevelSegments: 10,
+      bevelThickness: 0.1,
+      bevelSize: 0.035,
+      bevelOffset: 0,
+    };
+
+    const leftGeo = new THREE.ExtrudeGeometry(buildHalfShape(1), extrude);
+    leftGeo.translate(0, 0, -extrude.depth! / 2);
+    leftGeo.computeVertexNormals();
+
+    const rightGeo = new THREE.ExtrudeGeometry(buildHalfShape(-1), extrude);
+    rightGeo.translate(0, 0, -extrude.depth! / 2);
+    rightGeo.computeVertexNormals();
+
+    // Pest images inside emblem (subtle macro photography)
+    const texCanvas = document.createElement('canvas');
+    texCanvas.width = 2048;
+    texCanvas.height = 2304;
+    const tctx = texCanvas.getContext('2d')!;
+
+    const hexBlue = '#0a3871';
+    const paintBase = () => {
+      tctx.globalAlpha = 1;
+      tctx.filter = 'none';
+      tctx.fillStyle = hexBlue;
+      tctx.fillRect(0, 0, texCanvas.width, texCanvas.height);
+    };
+    paintBase();
+
+    const pestTexture = new THREE.CanvasTexture(texCanvas);
+    pestTexture.colorSpace = THREE.SRGBColorSpace;
+    pestTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    pestTexture.repeat.set(1 / 6.4, 1 / 7.2);
+    pestTexture.offset.set(0.5, 0.5);
+
+    const pestSources = [
+      {
+        src: '/images/pests/rata_studio.jpg',
+        col: 0,
+        row: 0,
+        fx: 0.52,
+        fy: 0.04,
+        fw: 0.48,
+        fh: 0.94,
+        mirrorX: false,
+      },
+      {
+        src: '/images/pests/paloma_studio.jpg',
+        col: 1,
+        row: 0,
+        fx: 0.53,
+        fy: 0.02,
+        fw: 0.47,
+        fh: 0.98,
+        mirrorX: false,
+      },
+      {
+        src: '/images/pests/cucaracha_studio.jpg',
+        col: 0,
+        row: 1,
+        fx: 0.0,
+        fy: 0.0,
+        fw: 0.5,
+        fh: 0.98,
+        mirrorX: false,
+      },
+      {
+        src: '/images/pests/plagas_trio.jpg',
+        col: 1,
+        row: 1,
+        fx: 0.0,
+        fy: 0.0,
+        fw: 0.35,
+        fh: 0.48,
+        mirrorX: true,
+      },
+    ];
+
+    let disposed = false;
+    const loaded: { img: HTMLImageElement; cfg: (typeof pestSources)[number] }[] = [];
+
+    const repaint = () => {
+      paintBase();
+      const qw = texCanvas.width / 2;
+      const qh = texCanvas.height / 2;
+
+      loaded.forEach(({ img, cfg }) => {
+        const sx = cfg.fx * img.naturalWidth;
+        const sy = cfg.fy * img.naturalHeight;
+        const sw = cfg.fw * img.naturalWidth;
+        const sh = cfg.fh * img.naturalHeight;
+
+        tctx.save();
+        const dx = cfg.col * qw;
+        const dy = cfg.row * qh;
+
+        if (cfg.mirrorX) {
+          tctx.translate(dx + qw, dy);
+          tctx.scale(-1, 1);
+        } else {
+          tctx.translate(dx, dy);
+        }
+
+        // Studio macro photography clarity with subtle atmospheric integration
+        tctx.filter = 'contrast(1.15) saturate(1.1)';
+        tctx.globalAlpha = 0.65;
+        tctx.drawImage(img, sx, sy, sw, sh, 0, 0, qw, qh);
+        tctx.restore();
+      });
+
+      // Royal blue wash so corporate Sanivex color remains cohesive
+      tctx.save();
+      tctx.globalAlpha = 0.22;
+      tctx.filter = 'none';
+      tctx.fillStyle = hexBlue;
+      tctx.fillRect(0, 0, texCanvas.width, texCanvas.height);
+      tctx.restore();
+
+      pestTexture.needsUpdate = true;
+    };
+
+    pestSources.forEach((cfg) => {
+      const img = new window.Image();
+      img.onload = () => {
+        if (disposed) return;
+        loaded.push({ img, cfg });
+        repaint();
+      };
+      img.src = cfg.src;
+    });
+
+    const capMat = new THREE.MeshPhysicalMaterial({
+      color: 0xffffff,
+      map: pestTexture,
+      metalness: 0.4,
+      roughness: 0.24,
+      clearcoat: 1,
+      clearcoatRoughness: 0.1,
+      envMapIntensity: 1.1,
+      emissive: 0xffffff,
+      emissiveMap: pestTexture,
+      emissiveIntensity: 0.35,
+    });
+
+    const wingMaterials = [capMat, blueMat];
+    const leftWing = new THREE.Mesh(leftGeo, wingMaterials);
+    const rightWing = new THREE.Mesh(rightGeo, wingMaterials);
+
+    const headGeo = new THREE.SphereGeometry(1.0, 96, 96);
+    const head = new THREE.Mesh(headGeo, blueMat);
+    head.position.set(0, 2.65, 0);
+
+    emblem.add(leftWing, rightWing, head);
+    emblem.scale.setScalar(1.35);
+
+    // Orbit controls (drag rotation only, zoom disabled)
+    let isDragging = false;
+    let prevX = 0;
+    let prevY = 0;
+    let theta = 0;
+    let phi = Math.PI / 2.1;
+    let distance = 21;
+
+    const onDown = (e: MouseEvent | TouchEvent) => {
+      isDragging = true;
+      prevX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+      prevY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    };
+    const onMove = (e: MouseEvent | TouchEvent) => {
+      if (!isDragging) return;
+      const cx = 'touches' in e ? e.touches[0].clientX : e.clientX;
+      const cy = 'touches' in e ? e.touches[0].clientY : e.clientY;
+      theta -= (cx - prevX) * 0.007;
+      phi = Math.max(0.5, Math.min(Math.PI - 0.5, phi - (cy - prevY) * 0.007));
+      prevX = cx;
+      prevY = cy;
+    };
+    const onUp = () => {
+      isDragging = false;
+    };
+
+    container.addEventListener('mousedown', onDown);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    container.addEventListener('touchstart', onDown, { passive: true });
+    window.addEventListener('touchmove', onMove, { passive: true });
+    window.addEventListener('touchend', onUp);
+
+    const onResize = () => {
+      if (!container) return;
+      const w = container.clientWidth || 600;
+      const h = container.clientHeight || 600;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    };
+    window.addEventListener('resize', onResize);
+
+    const clock = new THREE.Clock();
+    let rafId = 0;
+
+    const animate = () => {
+      rafId = requestAnimationFrame(animate);
+      if (window.innerWidth < 1024) return; // 0% GPU en móvil
+      const t = clock.getElapsedTime();
+
+      camera.position.x = distance * Math.sin(phi) * Math.sin(theta);
+      camera.position.y = distance * Math.cos(phi);
+      camera.position.z = distance * Math.sin(phi) * Math.cos(theta);
+      camera.lookAt(0, 0, 0);
+
+      if (isPlayingRef.current) {
+        emblem.rotation.y += 0.006;
+      }
+      emblem.position.y = Math.sin(t * 0.9) * 0.18;
+
+      sweepLight.position.set(Math.cos(t * 0.7) * 10, Math.sin(t * 0.5) * 6, 9 + Math.sin(t * 0.7) * 3);
+
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      disposed = true;
+      window.removeEventListener('resize', onResize);
+      container.removeEventListener('mousedown', onDown);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+      container.removeEventListener('touchstart', onDown);
+      window.removeEventListener('touchmove', onMove);
+      window.removeEventListener('touchend', onUp);
+
+      leftGeo.dispose();
+      rightGeo.dispose();
+      headGeo.dispose();
+      blueMat.dispose();
+      capMat.dispose();
+      pestTexture.dispose();
+      envTexture.dispose();
+      pmrem.dispose();
+
+      if (renderer.domElement.parentNode) {
+        renderer.domElement.parentNode.removeChild(renderer.domElement);
+      }
+      renderer.dispose();
+    };
+  }, []);
 
   const handleOpenQuote = (serviceName?: string) => {
     if (serviceName) {
@@ -79,108 +426,120 @@ export default function Home() {
       <div id="main-scroll" className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth relative z-10">
 
         {/* ========================================================================= */}
-        {/* SECCIÓN 1: HERO PRINCIPAL                                                 */}
-        {/* ========================================================================= */}
-        {/* ========================================================================= */}
-        {/* SECCIÓN 1: HERO PRINCIPAL (Idéntico a Imagen 2, fondo azul unificado)     */}
+        {/* SECCIÓN 1: HERO PRINCIPAL (Split Hero 3D en Desktop / Clean Fit en Móvil) */}
         {/* ========================================================================= */}
         <section
           id="hero"
-          className="relative min-h-screen md:h-screen snap-start snap-always flex flex-col justify-center items-center overflow-hidden bg-[#060b14]"
+          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center overflow-hidden bg-[#05070b] px-5 sm:px-8 lg:px-16 pt-[104px] sm:pt-[120px] lg:pt-0 pb-16 lg:pb-0"
         >
-          {/* Background Image: Specialist in tactical gear with cinematic dark blue atmosphere */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/images/Propias/principal_black.jpg"
-              alt="Especialista Sanivex en inspección técnica y sanidad ambiental"
-              fill
-              priority
-              quality={95}
-              className="object-cover object-center scale-100"
+          {/* Ambient Lighting, Techno Grid & Top Header Glow */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            {/* 110px Grid overlay matching lab-3d */}
+            <div
+              className="absolute inset-0 opacity-35"
+              style={{
+                backgroundImage:
+                  'linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px)',
+                backgroundSize: '110px 110px',
+                WebkitMaskImage: 'radial-gradient(circle at center, black 30%, transparent 78%)',
+                maskImage: 'radial-gradient(circle at center, black 30%, transparent 78%)',
+              }}
             />
-            {/* Center atmospheric spotlight illumination behind technician and text */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_70%_at_50%_40%,rgba(34,211,238,0.12)_0%,rgba(6,11,20,0.6)_55%,#060b14_100%)]" />
-
-            {/* Deep cinematic vignette overlays */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#060b14] via-transparent to-[#060b14]/90" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#060b14]/90 via-transparent to-[#060b14]/90" />
-            
-            {/* Soft bottom feathered color transition into section 2 */}
-            <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent via-[#060b14]/80 to-[#121e2c]" />
+            <div className="absolute -top-28 left-1/2 -translate-x-1/2 h-[24rem] w-[84vw] max-w-[1500px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(97,218,251,.16),rgba(10,56,113,.14)_50%,transparent_75%)] blur-3xl" />
+            <div className="absolute -top-32 left-[10%] h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(97,218,251,.15),transparent_70%)] blur-3xl" />
+            <div className="absolute bottom-0 right-[5%] h-[32rem] w-[32rem] rounded-full bg-[radial-gradient(circle,rgba(10,56,113,.28),transparent_70%)] blur-3xl" />
+            <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent via-[#05070b]/80 to-[#121e2c]" />
           </div>
 
-          {/* Hero Content (Exact replica of Image 2, responsive for Mobile & Desktop) */}
-          <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-start text-left md:items-center md:text-center px-6 md:px-4 pt-36 sm:pt-40 md:pt-0 pb-24 md:pb-0">
-            {/* Top Liquid Pill: "Somos los mejores en" */}
-            <motion.div
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center justify-center px-6 py-1.5 rounded-full hero-top-pill text-xs font-normal text-slate-300 tracking-wide mb-4 md:mb-5 select-none"
-            >
-              Somos los mejores en
-            </motion.div>
+          <div className="relative mx-auto flex flex-col justify-center min-h-[calc(100vh-140px)] sm:min-h-[auto] lg:min-h-0 lg:grid lg:grid-cols-[1.08fr_0.92fr] items-center gap-6 sm:gap-8 lg:gap-14 w-full max-w-[1600px] my-auto z-10">
+            {/* Columna Izquierda: Mensaje Comercial, Título Auténtico y Botones de Acción */}
+            <div className="relative z-20 max-w-2xl flex flex-col items-start w-full my-auto">
+              {/* Top Liquid Pill: "Somos los mejores en" */}
+              <div className="bloom active inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 rounded-full hero-top-pill text-[11px] sm:text-xs font-normal text-slate-300 tracking-wide select-none mb-2.5 sm:mb-4">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                </span>
+                <span>Somos los mejores en</span>
+              </div>
 
-            {/* H1 Heading - Cuadrado, Profesional y en 2 Líneas Equilibradas */}
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="w-full text-[clamp(2.5rem,13.5vw,3.75rem)] md:text-5xl lg:text-[54px] uppercase md:normal-case font-semibold md:font-bold text-white leading-[0.98] md:leading-[1.12] tracking-[-0.02em] md:tracking-tight md:max-w-2xl"
-            >
-              <span className="block">Control de<br className="md:hidden" /> plagas</span>
-              <span className="block text-[#5c7090]">y sanidad<br className="md:hidden" /> ambiental</span>
-            </motion.h1>
+              {/* H1 Heading - Cuadrado, Profesional y Adaptado para Móvil */}
+              <h1 className="text-[clamp(2.15rem,9.2vw,4.2rem)] font-bold text-white leading-[1.08] tracking-tight">
+                <span className="block">Control de plagas</span>
+                <span className="block text-[#5c7090]">y sanidad ambiental</span>
+              </h1>
 
-            {/* Subtitle - Exact Authentic Sanivex Copy */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="mt-4 md:mt-4 text-[13px] md:text-[13.5px] text-slate-300/85 max-w-[340px] sm:max-w-md md:max-w-[500px] leading-relaxed font-light drop-shadow"
-            >
-              Tu operación segura, nuestra razón de ser, somos tu aliado estratégico en control de plagas para que tu y tu empresa estén seguros.
-            </motion.p>
+              {/* Subtítulo Auténtico Sanivex */}
+              <p className="mt-3 sm:mt-4 text-[13px] sm:text-sm md:text-base text-slate-300/85 max-w-xl leading-relaxed font-light">
+                Tu operación segura, nuestra razón de ser. Somos tu aliado estratégico en bioseguridad y manejo integrado para que tú y tu empresa estén 100% protegidos.
+              </p>
 
-            {/* Red Alert Pill - Exact from Image 2 */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-4 md:mt-5 inline-flex items-center justify-center px-6 md:px-7 py-1.5 rounded-full hero-alert-pill text-xs font-medium text-red-200/90 tracking-wide"
-            >
-              ¡Alerta de ROEDORES en tu area!
-            </motion.div>
+              {/* Red Alert Pill */}
+              <div className="mt-4 sm:mt-5 inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 rounded-full hero-alert-pill text-[11px] sm:text-xs font-medium text-red-200/90 tracking-wide max-w-full">
+                <AlertTriangle className="h-3.5 w-3.5 text-red-400 shrink-0" />
+                <span>¡Alerta de ROEDORES e Insectos en tu área!</span>
+              </div>
 
-            {/* Action Button: Solo Llamar directamente (eliminado botón redundante de cotización) */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="mt-6 flex flex-col items-center justify-center w-full max-w-[340px]"
-            >
+              {/* Botones de Acción (En desktop: Cotizar y Llamar. En móvil: Llamar en hero y Cotizar sticky abajo) */}
+              <div className="mt-5 sm:mt-7 flex flex-wrap items-center gap-3 sm:gap-4 w-full">
+                {/* Botón Principal (visible en desktop, sticky en móvil) */}
+                <button
+                  onClick={() => handleOpenQuote('Cotización General')}
+                  className="hidden sm:inline-flex py-3.5 px-7 rounded-xl hero-primary-btn font-extrabold text-xs sm:text-sm tracking-widest uppercase transition-all shadow-[0_4px_20px_rgba(92,112,144,0.4)] active:scale-[0.98] items-center justify-center gap-2.5 cursor-pointer text-white"
+                >
+                  <span>SOLICITAR PRESUPUESTO</span>
+                  <span className="font-bold text-sm">→</span>
+                </button>
+
+                {/* Botón Secundario: Llamar directamente */}
+                <a
+                  href="tel:+573009123456"
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2.5 px-5 sm:px-6 py-3.5 rounded-xl hero-secondary-btn font-bold text-xs sm:text-[13px] tracking-wider uppercase transition-all shadow-lg active:scale-95 cursor-pointer text-[#5c7090] border border-[#5c7090]/40 bg-[#0e1726]/90 hover:bg-[#152338]"
+                >
+                  <Phone className="h-4 w-4 text-[#5c7090] fill-[#5c7090]" />
+                  <span>Llamar: 300-912-3456</span>
+                </a>
+              </div>
+
+              {/* WhatsApp Helper link */}
               <a
-                href="tel:+573009123456"
-                className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl hero-secondary-btn font-semibold text-xs xs:text-[13px] tracking-wider uppercase transition-all shadow-lg active:scale-95 cursor-pointer text-[#5c7090] border border-[#5c7090]/40 bg-[#0e1726]/90 hover:bg-[#152338]"
+                href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 sm:mt-3.5 text-[11.5px] sm:text-xs text-slate-400 hover:text-[#5c7090] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
               >
-                <Phone className="h-4 w-4 text-[#5c7090] fill-[#5c7090]" />
-                <span>Llamar directamente: 300-912-3456</span>
+                <span>Puedes comunicarte con nosotros vía <span className="font-semibold text-slate-300">WHATSAPP</span></span>
+                <span className="font-bold">→</span>
               </a>
-            </motion.div>
 
-            {/* WhatsApp Helper link */}
-            <motion.a
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.5 }}
-              href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3.5 text-[11px] text-slate-400 hover:text-[#5c7090] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
-            >
-              <span>Puedes comunicarte con nosotros vía <span className="font-semibold text-slate-300">WHATSAPP</span></span>
-              <span className="font-bold">→</span>
-            </motion.a>
+              {/* Trust Badges Bar */}
+              <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-white/10 flex flex-wrap items-center gap-2.5 sm:gap-4 text-[11px] sm:text-xs text-slate-400">
+                <span className="flex items-center gap-1.5 text-slate-300">
+                  <ShieldCheck className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-400" />
+                  Normatividad BPM & INVIMA
+                </span>
+                <span className="text-white/20 hidden sm:inline">•</span>
+                <span className="flex items-center gap-1.5 text-slate-300">
+                  <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#61DAFB]" />
+                  Protocolo Metodológico MIP
+                </span>
+                <span className="text-white/20 hidden sm:inline">•</span>
+                <span className="text-slate-300">Respuesta &lt; 24h</span>
+              </div>
+            </div>
+
+            {/* Columna Derecha: Icono 3D de Sanivex en Volumen (ELIMINADO en móvil, visible en escritorio >= lg) */}
+            <div className="hidden lg:flex relative flex-col items-center justify-center lg:items-end w-full lg:mt-0 order-2">
+              <div className="relative w-full max-w-[440px] lg:max-w-[680px] mx-auto lg:mr-0">
+                <div className="organic-shell float-core relative aspect-square w-full scroll-grow bg-[#05070b]/40 min-h-[400px] lg:min-h-[500px]">
+                  {/* 3D WebGL Canvas */}
+                  <div ref={mountRef} className="h-full w-full cursor-grab active:cursor-grabbing" />
+
+                  {/* Radial subtle vignette */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_55%,rgba(5,7,11,0.5)_100%)] pointer-events-none" />
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
