@@ -9,7 +9,9 @@ export const FloatingActions: React.FC = () => {
 
   useEffect(() => {
     const checkScroll = () => {
-      if (window.scrollY > 300) {
+      const scrollEl = document.getElementById('main-scroll');
+      const scrollTop = scrollEl ? scrollEl.scrollTop : window.scrollY;
+      if (scrollTop > 200) {
         setShowFloating(true);
         setShowScrollTop(true);
       } else {
@@ -17,11 +19,25 @@ export const FloatingActions: React.FC = () => {
         setShowScrollTop(false);
       }
     };
-    window.addEventListener('scroll', checkScroll);
-    return () => window.removeEventListener('scroll', checkScroll);
+
+    const scrollEl = document.getElementById('main-scroll');
+    if (scrollEl) {
+      scrollEl.addEventListener('scroll', checkScroll, { passive: true });
+    }
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    checkScroll();
+
+    return () => {
+      if (scrollEl) scrollEl.removeEventListener('scroll', checkScroll);
+      window.removeEventListener('scroll', checkScroll);
+    };
   }, []);
 
   const scrollToTop = () => {
+    const scrollEl = document.getElementById('main-scroll');
+    if (scrollEl) {
+      scrollEl.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

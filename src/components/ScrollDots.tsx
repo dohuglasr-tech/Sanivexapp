@@ -11,6 +11,7 @@ const sections = [
   { id: 'termitas', label: 'Termitas' },
   { id: 'sanitizacion', label: 'Sanitización' },
   { id: 'sanivex', label: '¿Sanivex?' },
+  { id: 'contacto', label: 'Contacto & Sedes' },
 ];
 
 export const ScrollDots: React.FC = () => {

@@ -149,6 +149,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
     { label: 'Termitas y Xilófagos', href: '#termitas', desc: 'Inyección profunda y barrera química' },
     { label: 'Sanitización Ambiental', href: '#sanitizacion', desc: 'Nebulización contra virus y bacterias' },
     { label: 'Sobre Sanivex (¿Quiénes somos?)', href: '#sanivex', desc: 'Estándares internacionales BPM/HACCP, equipo y diagnóstico' },
+    { label: 'Contacto & Sedes Nacionales', href: '#contacto', desc: 'Líneas 24/7, gerencia y cobertura en 5 ciudades' },
   ];
 
   const handleLinkClick = (href: string) => {
@@ -276,7 +277,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
         {/* DESKTOP FLOATING LIQUID GLASS DOCK                                 */}
         {/* ================================================================= */}
         <div
-          className={`pointer-events-auto hidden md:flex mx-auto w-[96%] max-w-[1720px] rounded-full items-center justify-between px-8 sm:px-12 py-3.5 sm:py-4 transition-all duration-500 relative overflow-visible shadow-2xl ${
+          className={`pointer-events-auto hidden md:flex mx-auto w-[96%] max-w-[1720px] rounded-full items-center justify-between px-4 md:px-6 lg:px-10 xl:px-12 py-2.5 md:py-3 lg:py-3.5 transition-all duration-500 relative overflow-visible shadow-2xl ${
             isLightSection
               ? 'liquid-glass-nav-light'
               : scrolled
@@ -285,7 +286,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
           }`}
         >
           {/* Top Specular Caustic Highlight Line */}
-          <div className="pointer-events-none absolute inset-x-20 sm:inset-x-32 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/55 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-12 sm:inset-x-24 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/55 to-transparent" />
 
           {/* Official SANIVEX Brand Logo with Dynamic Island Expand Animation */}
           <BrandLogoInteractive
@@ -294,7 +295,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
           />
 
           {/* Desktop Center Navigation Links */}
-          <nav className="flex items-center gap-3 lg:gap-6 xl:gap-8 relative z-10">
+          <nav className="flex items-center gap-1.5 md:gap-2.5 lg:gap-5 xl:gap-7 relative z-10">
             <a
               href="#hero"
               onClick={(e) => {
@@ -399,9 +400,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               href="#contacto"
               onClick={(e) => {
                 e.preventDefault();
-                onOpenQuote();
+                handleLinkClick('#contacto');
               }}
-              className={`px-4 py-2 rounded-full text-xs sm:text-[13px] tracking-wide transition-all cursor-pointer font-medium ${
+              className={`px-3 md:px-3.5 lg:px-4 py-1.5 md:py-2 rounded-full text-xs lg:text-[13px] tracking-wide transition-all cursor-pointer font-medium ${
                 isLightSection
                   ? 'text-[#0a3871] hover:bg-slate-200/60 hover:text-[#5c7090]'
                   : 'text-slate-200 hover:bg-white/10 hover:text-white hover:shadow-inner'
@@ -497,6 +498,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               className="text-sm font-semibold text-slate-200 hover:text-[#5c7090] transition py-1"
             >
               ¿Sanivex?
+            </a>
+
+            <a
+              href="#contacto"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick('#contacto');
+              }}
+              className="text-sm font-semibold text-slate-200 hover:text-[#5c7090] transition py-1"
+            >
+              Contacto & Sedes
             </a>
 
             <button

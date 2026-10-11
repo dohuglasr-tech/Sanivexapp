@@ -36,6 +36,7 @@ import { BirdsShowcase } from '@/components/interactive/BirdsShowcase';
 import { TermitesRadar } from '@/components/interactive/TermitesRadar';
 import { SanitizationEstimator } from '@/components/interactive/SanitizationEstimator';
 import { AboutSanivex } from '@/components/interactive/AboutSanivex';
+import { Footer } from '@/components/Footer';
 
 // Azul institucional Sanivex
 const SANIVEX_BLUE = 0x0a3871;
@@ -437,7 +438,7 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="hero"
-          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center overflow-hidden bg-[#05070b] px-5 sm:px-8 lg:px-16 pt-[104px] sm:pt-[120px] lg:pt-0 pb-16 lg:pb-0"
+          className="relative min-h-screen lg:h-screen snap-start lg:snap-always flex flex-col justify-center overflow-hidden bg-[#05070b] px-4 sm:px-8 lg:px-16 pt-[104px] sm:pt-[120px] lg:pt-0 pb-20 sm:pb-16 lg:pb-0"
         >
           {/* Ambient Lighting, Techno Grid & Top Header Glow */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -555,7 +556,7 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="mip"
-          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-12 lg:py-0 overflow-hidden bg-gradient-to-b from-[#121e2c] via-[#162331] to-[#121e2b]"
+          className="relative min-h-screen lg:h-screen snap-start lg:snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 pt-20 pb-20 sm:pt-24 sm:pb-16 lg:py-0 overflow-hidden bg-gradient-to-b from-[#121e2c] via-[#162331] to-[#121e2b]"
         >
           {/* Subtle Ambient Liquid Orbs */}
           <div className="absolute top-1/3 left-10 h-96 w-96 rounded-full bg-[#5c7090]/15 blur-[130px] pointer-events-none" />
@@ -601,7 +602,7 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="roedores"
-          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-12 lg:py-0 overflow-hidden bg-gradient-to-b from-[#121e2b] via-[#142130] to-[#111d2a]"
+          className="relative min-h-screen lg:h-screen snap-start lg:snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 pt-20 pb-20 sm:pt-24 sm:pb-16 lg:py-0 overflow-hidden bg-gradient-to-b from-[#121e2b] via-[#142130] to-[#111d2a]"
         >
           {/* Subtle Ambient Red Glow */}
           <div className="absolute top-1/4 right-1/4 h-80 w-80 rounded-full bg-red-500/10 blur-[130px] pointer-events-none" />
@@ -647,7 +648,7 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="insectos"
-          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-12 lg:py-0 overflow-hidden bg-gradient-to-b from-[#111d2a] via-[#152332] to-[#121e2c]"
+          className="relative min-h-screen lg:h-screen snap-start lg:snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 pt-20 pb-20 sm:pt-24 sm:pb-16 lg:py-0 overflow-hidden bg-gradient-to-b from-[#111d2a] via-[#152332] to-[#121e2c]"
         >
           {/* Subtle Ambient Emerald/Cyan Glow */}
           <div className="absolute bottom-1/4 left-1/4 h-80 w-80 rounded-full bg-emerald-500/10 blur-[140px] pointer-events-none" />
@@ -693,7 +694,7 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="aves"
-          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-12 lg:py-0 overflow-hidden bg-gradient-to-b from-[#121e2c] via-[#142131] to-[#101b28]"
+          className="relative min-h-screen lg:h-screen snap-start lg:snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 pt-20 pb-20 sm:pt-24 sm:pb-16 lg:py-0 overflow-hidden bg-gradient-to-b from-[#121e2c] via-[#142131] to-[#101b28]"
         >
           {/* Subtle Ambient Glow behind the bird */}
           <div className="absolute top-1/3 right-10 h-[450px] w-[450px] rounded-full bg-[#5c7090]/15 blur-[150px] pointer-events-none" />
@@ -740,7 +741,7 @@ export default function Home() {
         <section
           id="termitas"
           data-theme="light"
-          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-12 lg:py-0 overflow-hidden bg-white text-slate-900"
+          className="relative min-h-screen lg:h-screen snap-start lg:snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 pt-20 pb-20 sm:pt-24 sm:pb-16 lg:py-0 overflow-hidden bg-white text-slate-900"
         >
           {/* User's Termita Asset on Left Side - Macro limpia abarcando lateral */}
           <div className="absolute left-0 top-0 bottom-0 w-full lg:w-[48%] pointer-events-none z-0 opacity-25 lg:opacity-100">
@@ -782,7 +783,7 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="sanitizacion"
-          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-12 lg:py-0 overflow-hidden bg-gradient-to-b from-[#101b27] via-[#0d1622] to-[#0c1522]"
+          className="relative min-h-screen lg:h-screen snap-start lg:snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 pt-20 pb-20 sm:pt-24 sm:pb-16 lg:py-0 overflow-hidden bg-gradient-to-b from-[#101b27] via-[#0d1622] to-[#0c1522]"
         >
           {/* Subtle Ambient Teal/Cyan Glow */}
           <div className="absolute top-1/3 left-1/3 h-96 w-96 rounded-full bg-teal-500/10 blur-[150px] pointer-events-none" />
@@ -814,7 +815,7 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="sanivex"
-          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 pt-16 sm:pt-20 lg:pt-14 pb-4 sm:pb-6 overflow-hidden bg-gradient-to-b from-[#0c1522] via-[#09111c] to-[#05080e]"
+          className="relative min-h-screen lg:h-screen snap-start lg:snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 pt-20 pb-20 sm:pt-24 sm:pb-16 lg:pt-14 lg:pb-6 overflow-hidden bg-gradient-to-b from-[#0c1522] via-[#09111c] to-[#05080e]"
         >
           {/* Subtle Ambient Glows */}
           <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-cyan-500/10 blur-[160px] pointer-events-none" />
@@ -822,6 +823,22 @@ export default function Home() {
 
           <div className="max-w-7xl mx-auto w-full h-full relative z-10 flex flex-col justify-center my-auto">
             <AboutSanivex onOpenQuote={handleOpenQuote} />
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* SECCIÓN 9: CONTACTO Y PIE DE PÁGINA (Footer Institucional y Cobertura)     */}
+        {/* ========================================================================= */}
+        <section
+          id="contacto"
+          className="relative min-h-screen lg:h-screen snap-start lg:snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 pt-20 pb-24 sm:pt-24 sm:pb-16 lg:pt-14 lg:pb-6 overflow-hidden bg-gradient-to-b from-[#09111c] via-[#060b13] to-[#03060a]"
+        >
+          {/* Subtle Ambient Glows */}
+          <div className="absolute top-1/4 right-1/4 h-96 w-96 rounded-full bg-cyan-500/10 blur-[170px] pointer-events-none" />
+          <div className="absolute bottom-1/4 left-1/4 h-96 w-96 rounded-full bg-blue-700/10 blur-[170px] pointer-events-none" />
+
+          <div className="max-w-7xl mx-auto w-full h-full relative z-10 flex flex-col justify-center my-auto">
+            <Footer onOpenQuote={handleOpenQuote} />
           </div>
         </section>
       </div>

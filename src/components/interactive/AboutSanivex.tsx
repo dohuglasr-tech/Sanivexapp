@@ -285,44 +285,29 @@ export const AboutSanivex: React.FC<AboutSanivexProps> = ({ onOpenQuote }) => {
         </div>
       </div>
 
-      {/* Integrated Official Footer Bar Matching Flyer */}
-      <footer className="w-full pt-3 sm:pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] sm:text-xs text-slate-400 gap-2 sm:gap-3 relative z-10 mt-2 sm:mt-3">
-        {/* Left: Brand name */}
+      {/* Bottom Navigation Strip pointing to Contact & National Footprint */}
+      <div className="w-full pt-2.5 sm:pt-3 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] sm:text-xs text-slate-400 gap-2 relative z-10 mt-2">
         <div className="flex items-center gap-2">
-          <span className="font-extrabold text-white tracking-widest text-xs sm:text-sm">
+          <span className="font-extrabold text-white tracking-widest text-xs">
             SANIVEX
           </span>
           <span className="text-white/20">•</span>
           <span className="text-slate-300 font-medium text-[11px]">
-            Sanidad Ambiental & MIP
+            Tu operación segura, nuestra razón de ser
           </span>
         </div>
 
-        {/* Middle: National Coverage */}
-        <div className="hidden md:flex items-center gap-2 text-slate-400 text-[11px]">
-          <span className="text-slate-300">Bogotá D.C.</span>
-          <span className="text-white/20">•</span>
-          <span className="text-slate-300">Medellín</span>
-          <span className="text-white/20">•</span>
-          <span className="text-slate-300">Cali</span>
-          <span className="text-white/20">•</span>
-          <span className="text-slate-300">Barranquilla</span>
-          <span className="text-white/20">•</span>
-          <span className="text-slate-300">Bucaramanga</span>
-        </div>
-
-        {/* Right: Official domain link */}
-        <div className="flex items-center gap-2">
-          <a
-            href="https://www.sanivex.com.co"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-bold tracking-widest text-slate-200 hover:text-cyan-300 transition-colors uppercase text-[11px] sm:text-xs"
-          >
-            WWW.SANIVEX.COM.CO
-          </a>
-        </div>
-      </footer>
+        <button
+          onClick={() => {
+            const el = document.getElementById('contacto');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="hover:text-cyan-300 text-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer py-1 px-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] font-medium"
+        >
+          <span>Sedes Nacionales & Contacto Directo</span>
+          <span className="text-cyan-400 font-bold">↓</span>
+        </button>
+      </div>
     </div>
   );
 };
