@@ -192,25 +192,25 @@ export default function Home() {
           className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-12 lg:py-0 overflow-hidden bg-gradient-to-b from-[#121e2c] via-[#162331] to-[#121e2b]"
         >
           {/* Subtle Ambient Liquid Orbs */}
-          <div className="absolute top-1/3 right-10 h-96 w-96 rounded-full bg-[#5c7090]/15 blur-[130px] pointer-events-none" />
+          <div className="absolute top-1/3 left-10 h-96 w-96 rounded-full bg-[#5c7090]/15 blur-[130px] pointer-events-none" />
 
-          {/* User's CoMIP.jpg Asset on Right Side (Ant, Cockroach, Rat) seamlessly blended */}
-          <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[52%] opacity-35 lg:opacity-70 pointer-events-none z-0">
+          {/* User's CoMIP Asset on Left Side (Ant, Cockroach, Rat) looking towards right */}
+          <div className="absolute left-0 top-0 bottom-0 w-full lg:w-[52%] opacity-35 lg:opacity-75 pointer-events-none z-0">
             <Image
-              src="/images/Propias/CoMIP.jpg"
+              src="/images/Propias/CoMIP-left.jpg"
               alt="Manejo Integrado de Plagas Sanivex"
               fill
               quality={90}
-              className="object-cover object-right"
+              className="object-cover object-left"
             />
             {/* Subtle Gradient Masks */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#121e2c] via-[#121e2c]/80 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#121e2c]/60 to-[#121e2c]" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#121e2b] via-transparent to-[#121e2c]" />
           </div>
 
-          <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col my-auto">
+          <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col my-auto items-end">
             {/* Header */}
-            <div className="mb-4 lg:mb-6 max-w-2xl">
+            <div className="mb-4 lg:mb-6 max-w-2xl w-full text-left self-end">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-[11px] font-semibold text-[#5c7090] mb-2">
                 <ShieldCheck className="h-3.5 w-3.5 text-[#5c7090]" />
                 Protocolo Metodológico MIP
@@ -224,7 +224,7 @@ export default function Home() {
             </div>
 
             {/* 3 Full-Image Process Cards with Opaque Gradient Overlay */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5 max-w-5xl">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5 max-w-5xl w-full self-end">
               {/* Fase 01 */}
               <GlassCard
                 imageSrc="/images/hero_technician.jpg"
