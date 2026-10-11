@@ -185,17 +185,17 @@ export default function Home() {
         </section>
 
         {/* ========================================================================= */}
-        {/* SECCIÓN 2: MANEJO INTEGRADO DE PLAGAS (MIP)                                */}
+        {/* SECCIÓN 2: MANEJO INTEGRADO DE PLAGAS (MIP - Ciclo Metodológico en 3 Fases) */}
         {/* ========================================================================= */}
         <section
           id="mip"
-          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-20 lg:py-0 overflow-hidden bg-gradient-to-b from-[#121e2c] via-[#162331] to-[#121e2b]"
+          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-12 lg:py-0 overflow-hidden bg-gradient-to-b from-[#121e2c] via-[#162331] to-[#121e2b]"
         >
           {/* Subtle Ambient Liquid Orbs */}
           <div className="absolute top-1/3 right-10 h-96 w-96 rounded-full bg-[#5c7090]/15 blur-[130px] pointer-events-none" />
 
           {/* User's CoMIP.jpg Asset on Right Side (Ant, Cockroach, Rat) seamlessly blended */}
-          <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[55%] opacity-40 lg:opacity-75 pointer-events-none z-0">
+          <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[52%] opacity-35 lg:opacity-70 pointer-events-none z-0">
             <Image
               src="/images/Propias/CoMIP.jpg"
               alt="Manejo Integrado de Plagas Sanivex"
@@ -203,91 +203,85 @@ export default function Home() {
               quality={90}
               className="object-cover object-right"
             />
-            {/* Subtle Gradient Masks: image natural color (#1d2b38) seamlessly blends into the section */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#121e2c] via-[#121e2c]/75 to-transparent" />
+            {/* Subtle Gradient Masks */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#121e2c] via-[#121e2c]/80 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#121e2b] via-transparent to-[#121e2c]" />
           </div>
 
-          <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col">
+          <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col my-auto">
             {/* Header */}
-            <div className="mb-8 max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-xs font-semibold text-[#5c7090] mb-3">
+            <div className="mb-4 lg:mb-6 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-[11px] font-semibold text-[#5c7090] mb-2">
                 <ShieldCheck className="h-3.5 w-3.5 text-[#5c7090]" />
-                Protocolo Técnico MIP
+                Protocolo Metodológico MIP
               </div>
-              <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                 Manejo Integrado de Plagas (MIP)
               </h2>
-              <p className="mt-2 text-xs sm:text-sm text-slate-300/90 leading-relaxed max-w-2xl font-light">
-                A través de nuestro servicio, implementamos sistemas avanzados de detección temprana, barreras físicas perimetrales y cebado técnico para la protección integral de tus instalaciones y colaboradores.
+              <p className="mt-1.5 text-xs sm:text-sm text-slate-300/90 leading-relaxed font-light">
+                Metodología biorracional y preventiva en 3 fases continuas. Minimizamos el uso de químicos nocivos protegiendo tu capital humano y activos críticos.
               </p>
             </div>
 
-            {/* 3 Liquid Glass Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 max-w-5xl">
-              {/* Card 1: Prevención */}
+            {/* Stepped 3-Phase Process Cards (Aire vertical, compacto y minimalista) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4 max-w-5xl">
+              {/* Fase 01 */}
               <GlassCard
-                badge="Prevención"
+                compact
+                stepNumber="01"
+                badge="Diagnóstico"
                 icon={ShieldAlert}
-                title="Reducción de Riesgos para la Salud"
-                subtitle="Evaluación de Riesgos"
-                description="Protegemos el bienestar de tu capital humano minimizando radicalmente la exposición a plaguicidas y químicos nocivos. Aseguramos un entorno laboral seguro bajo los más altos estándares de salud ocupacional."
-                bullets={[
-                  'Inspección no destructiva de puntos ciegos',
-                  'Sellamiento hermético y barreras físicas',
-                  'Cero contaminación de alimentos y superficies',
-                ]}
-                actionLabel="Consultar prevención"
-                onAction={() => handleOpenQuote('MIP - Prevención de Riesgos')}
+                title="Evaluación de Riesgos y Puntos Críticos"
+                subtitle="Fase Inicial"
+                description="Inspección no destructiva de puntos ciegos y mapeo digital de vulnerabilidades para evitar infestaciones antes de que ocurran."
+                tags={['Termografía infrarroja', 'Mapeo de accesos', 'Cero tóxicos']}
+                actionLabel="Consultar diagnóstico"
+                onAction={() => handleOpenQuote('MIP - Fase Diagnóstico')}
               />
 
-              {/* Card 2: Monitoreo */}
+              {/* Fase 02 */}
               <GlassCard
+                compact
+                stepNumber="02"
                 badge="Monitoreo"
                 icon={Activity}
-                title="Conservación de Infraestructura"
-                subtitle="Tecnología & Sensores"
-                description="Protegemos tus activos evitando daños costosos provocados por roedores e insectos en áreas críticas de tu empresa, como cableados, maquinaria pesada y estructuras físicas, reduciendo costos de mantenimiento."
-                bullets={[
-                  'Cámaras de fototrampeo y sensores térmicos',
-                  'Monitoreo continuo de tableros eléctricos',
-                  'Detección acústica de actividad oculta',
-                ]}
+                title="Conservación Activa de Infraestructura"
+                subtitle="Monitoreo Activo"
+                description="Protegemos cableados y maquinaria pesada con monitoreo continuo, previniendo paradas de planta y costos imprevistos."
+                tags={['Fototrampeo continuo', 'Sensores en tableros', 'Detección acústica']}
                 actionLabel="Ver tecnología"
-                onAction={() => handleOpenQuote('MIP - Monitoreo Tecnológico')}
+                onAction={() => handleOpenQuote('MIP - Fase Monitoreo')}
               />
 
-              {/* Card 3: Control */}
+              {/* Fase 03 */}
               <GlassCard
+                compact
+                stepNumber="03"
                 badge="Normatividad"
                 icon={FileCheck2}
-                title="Cumplimiento Normativo y Regulaciones"
-                subtitle="Bajo Impacto Químico"
-                description="Facilitamos el cumplimiento estricto de las normativas de sanidad ambiental vigentes, brindando blindaje legal ante secretarías de salud. Respaldado por reportes digitales y mapas de calor para auditorías."
-                bullets={[
-                  'Cumplimiento de estándares BPM, HACCP e INVIMA',
-                  'Intervención con cebos biorracionales selectivos',
-                  'Trazabilidad digital con actas técnicas al instante',
-                ]}
+                title="Cumplimiento Normativo BPM & INVIMA"
+                subtitle="Blindaje Legal"
+                description="Blindaje sanitario ante secretarías de salud con cebos biorracionales selectivos y actas técnicas digitales con trazabilidad al instante."
+                tags={['BPM & HACCP', 'Bajo impacto químico', 'Actas digitales']}
                 actionLabel="Solicitar auditoría"
-                onAction={() => handleOpenQuote('MIP - Cumplimiento Normativo')}
+                onAction={() => handleOpenQuote('MIP - Fase Normatividad')}
               />
             </div>
           </div>
         </section>
 
         {/* ========================================================================= */}
-        {/* SECCIÓN 3: CONTROL DE ROEDORES                                             */}
+        {/* SECCIÓN 3: CONTROL DE ROEDORES (Diseño Asimétrico con Mucho Aire y Foco)   */}
         {/* ========================================================================= */}
         <section
           id="roedores"
-          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-20 lg:py-0 overflow-hidden bg-gradient-to-b from-[#121e2b] via-[#142130] to-[#111d2a]"
+          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-12 lg:py-0 overflow-hidden bg-gradient-to-b from-[#121e2b] via-[#142130] to-[#111d2a]"
         >
           {/* Subtle Ambient Red Glow */}
           <div className="absolute top-1/4 right-1/4 h-80 w-80 rounded-full bg-red-500/10 blur-[130px] pointer-events-none" />
 
-          {/* User's asas.jpg Asset on Right Side (Rat macro facing left) seamlessly blended */}
-          <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[50%] opacity-40 lg:opacity-75 pointer-events-none z-0">
+          {/* User's asas.jpg Asset on Right Side (Rat macro facing left) */}
+          <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[48%] opacity-40 lg:opacity-75 pointer-events-none z-0">
             <Image
               src="/images/Propias/asas.jpg"
               alt="Control Avanzado de Roedores Sanivex"
@@ -295,91 +289,78 @@ export default function Home() {
               quality={90}
               className="object-cover object-right"
             />
-            {/* Subtle Gradient Blend Masks for seamless transition with zero hard lines */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#142130] via-[#142130]/70 to-transparent" />
+            {/* Subtle Gradient Blend Masks */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#142130] via-[#142130]/75 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#111d2a] via-transparent to-[#121e2b]" />
           </div>
 
-          <div className="max-w-7xl mx-auto w-full relative z-10">
+          <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col my-auto">
             {/* Header */}
-            <div className="mb-8 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-xs font-semibold text-red-300 mb-3 backdrop-blur-md">
-                <AlertTriangle className="h-3.5 w-3.5 text-red-400" />
+            <div className="mb-4 lg:mb-5 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-[11px] font-semibold text-red-300 mb-2 backdrop-blur-md">
+                <AlertTriangle className="h-3 w-3 text-red-400" />
                 Vectores de Alta Criticidad Sanitaria
               </div>
-              <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                 Control Avanzado de Roedores
               </h2>
-              <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-                Erradicación técnica y exclusión estructural de Rattus norvegicus, Rattus rattus y Mus musculus. Protegemos la integridad sanitaria y los sistemas eléctricos de tu compañía en Colombia.
+              <p className="mt-1.5 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+                Erradicación técnica y exclusión estructural de Rattus norvegicus y Mus musculus. Protegemos la salud de tu equipo y el sistema eléctrico de tu empresa.
               </p>
             </div>
 
-            {/* 3 Floating Liquid Glass Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 max-w-5xl">
-              {/* Card 1: Riesgo Sanitario */}
+            {/* Asymmetric Showcase: Spotlight Card + 2 Compact Micro-Cards */}
+            <div className="max-w-2xl space-y-3">
+              {/* Spotlight Card: Seguridad Eléctrica */}
               <GlassCard
-                badge="Vector Biológico"
-                icon={Biohazard}
-                title="Riesgo Sanitario y Contaminación"
-                subtitle="Enfermedades Infecciosas"
-                description="Los roedores son vectores de Leptospirosis, Salmonelosis y Hantavirus. Eliminamos focos biológicos y contaminaciones cruzadas en depósitos, almacenes de materia prima y zonas de procesamiento alimentario."
-                bullets={[
-                  'Protección de productos terminados e insumos',
-                  'Desinfección de orina y heces contaminantes',
-                  'Garantía total de inocuidad alimentaria',
-                ]}
-                actionLabel="Proteger instalaciones"
-                onAction={() => handleOpenQuote('Control de Roedores - Riesgo Sanitario')}
-              />
-
-              {/* Card 2: Daño a Redes y Cables */}
-              <GlassCard
-                badge="Seguridad Eléctrica"
+                compact
                 icon={Flame}
-                title="Daño a Redes y Cables"
-                subtitle="Prevención de Cortocircuitos"
-                description="El hábito constante de roer desgasta aislamientos de cables de alta tensión, fibra óptica y tableros de control. Prevenimos interrupciones operativas imprevistas, paradas de planta y riesgos graves de incendio estructural."
-                bullets={[
-                  'Blindaje de bandejas portacables y ductos',
-                  'Inspección de cuartos de telecomunicaciones y racks',
-                  'Evita pérdidas millonarias por lucro cesante',
-                ]}
-                actionLabel="Blindar cableado"
+                badge="Seguridad Eléctrica"
+                subtitle="Prevención de Incendios"
+                title="Blindaje de Redes, Fibra Óptica y Cableados"
+                description="El hábito constante de roer desgasta los aislamientos de cables de alta tensión y tableros. Prevenimos interrupciones operativas, paradas de planta y riesgos graves de cortocircuito."
+                tags={['Bandejas portacables blindadas', 'Inspección de racks', 'Cero lucro cesante']}
+                actionLabel="Blindar cableado e infraestructura"
                 onAction={() => handleOpenQuote('Control de Roedores - Redes y Cables')}
               />
 
-              {/* Card 3: Cebado Técnico */}
-              <GlassCard
-                badge="Dispositivos Seguros"
-                icon={Radio}
-                title="Sistemas de Cebado Técnico"
-                subtitle="Estaciones Inviolables"
-                description="Despliegue perimetral de cajas cebaderas termo-formadas con llave de seguridad de doble perno y rodenticidas anticoagulantes de segunda generación fijados mecánicamente sin riesgo de arrastre."
-                bullets={[
-                  'Identificación con código QR y georreferenciación',
-                  'Mecanismos de anclaje antivandálico',
-                  'Registro de consumo en plataforma digital',
-                ]}
-                actionLabel="Ver estaciones"
-                onAction={() => handleOpenQuote('Control de Roedores - Cebado Técnico')}
-              />
+              {/* Duo Micro-Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <GlassCard
+                  compact
+                  icon={Biohazard}
+                  badge="Inocuidad"
+                  title="Cero Contaminación Cruzada"
+                  description="Eliminación de focos de Leptospirosis y Salmonelosis en áreas de alimentos, depósitos e insumos."
+                  actionLabel="Proteger áreas"
+                  onAction={() => handleOpenQuote('Control de Roedores - Riesgo Sanitario')}
+                />
+                <GlassCard
+                  compact
+                  icon={Radio}
+                  badge="Dispositivos Seguros"
+                  title="Cebado Georreferenciado QR"
+                  description="Estaciones inviolables termo-formadas con llave de seguridad de doble perno y registro digital en tiempo real."
+                  actionLabel="Ver estaciones QR"
+                  onAction={() => handleOpenQuote('Control de Roedores - Cebado Técnico')}
+                />
+              </div>
             </div>
           </div>
         </section>
 
         {/* ========================================================================= */}
-        {/* SECCIÓN 4: CONTROL DE INSECTOS (From Reference & Fondo2.jpg)               */}
+        {/* SECCIÓN 4: CONTROL DE INSECTOS (Duo-Split + Action Strip Minimalista)      */}
         {/* ========================================================================= */}
         <section
           id="insectos"
-          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-20 lg:py-0 overflow-hidden bg-gradient-to-b from-[#111d2a] via-[#152332] to-[#121e2c]"
+          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-12 lg:py-0 overflow-hidden bg-gradient-to-b from-[#111d2a] via-[#152332] to-[#121e2c]"
         >
           {/* Subtle Ambient Emerald/Cyan Glow */}
           <div className="absolute bottom-1/4 left-1/4 h-80 w-80 rounded-full bg-emerald-500/10 blur-[140px] pointer-events-none" />
 
-          {/* User's Fondo2.jpg Asset on Left Side (Macro Cockroach/Insect) seamlessly blended */}
-          <div className="absolute left-0 top-0 bottom-0 w-full lg:w-[50%] opacity-40 lg:opacity-75 pointer-events-none z-0">
+          {/* User's Fondo2.jpg Asset on Left Side (Macro Cockroach/Insect) */}
+          <div className="absolute left-0 top-0 bottom-0 w-full lg:w-[48%] opacity-40 lg:opacity-75 pointer-events-none z-0">
             <Image
               src="/images/Propias/Fondo2.jpg"
               alt="Control Profesional de Insectos Sanivex"
@@ -387,94 +368,91 @@ export default function Home() {
               quality={90}
               className="object-cover object-left"
             />
-            {/* Subtle Gradient Blend Masks for seamless transition with zero hard lines */}
-            <div className="absolute inset-0 bg-gradient-to-l from-[#152332] via-[#152332]/70 to-transparent" />
+            {/* Subtle Gradient Blend Masks */}
+            <div className="absolute inset-0 bg-gradient-to-l from-[#152332] via-[#152332]/75 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#121e2c] via-transparent to-[#111d2a]" />
           </div>
 
-          <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-end">
+          <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-end my-auto">
             {/* Header (Aligned to right for visual harmony with insect on left) */}
-            <div className="mb-8 max-w-2xl w-full text-left lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-semibold text-emerald-300 mb-3 backdrop-blur-md">
-                <Bug className="h-3.5 w-3.5 text-emerald-400" />
-                Control de Insectos Rastreros y Voladores
+            <div className="mb-4 lg:mb-5 max-w-2xl w-full text-left lg:text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-semibold text-emerald-300 mb-2 backdrop-blur-md">
+                <Bug className="h-3 w-3 text-emerald-400" />
+                Control de Rastreros y Voladores
               </div>
-              <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                 Control Integral de Insectos
               </h2>
-              <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-                Erradicación técnica de cucarachas (Blattodea), hormigas, pulgas, chinches y moscas mediante geles biorracionales de transferencia horizontal y micro-aspersión de precisión de ultra bajo olor.
+              <p className="mt-1.5 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+                Erradicación de cucarachas (Blattodea), hormigas y moscas mediante geles biorracionales y trampas UV de captura limpia.
               </p>
             </div>
 
-            {/* 3 Floating Liquid Glass Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 w-full">
-              {/* Card 1: Rastreros */}
-              <GlassCard
-                badge="Rastreros"
-                icon={Bug}
-                title="Cucarachas y Plagas de Cocina"
-                subtitle="Efecto Cascada Biorracional"
-                description="Aplicación estratégica de geles alimenticios con atrayentes feromonales e insecticidas de transferencia horizontal. Las ninfas y adultos mueren en sus nidos sin contaminar áreas limpias ni requerir desalojo."
-                bullets={[
-                  'Eficacia contra cucaracha alemana y americana',
-                  'Sin olor, sin manchas y de alta adherencia',
-                  'Seguro en tableros eléctricos y motores',
-                ]}
-                actionLabel="Controlar rastreros"
-                onAction={() => handleOpenQuote('Control de Insectos - Cucarachas')}
-              />
+            {/* Duo-Split Cards (2 Columnas en lugar de 3) + Action Strip */}
+            <div className="w-full lg:max-w-2xl space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                {/* Card A: Rastreros */}
+                <GlassCard
+                  compact
+                  badge="Rastreros"
+                  icon={Bug}
+                  title="Cucarachas & Plagas de Cocina"
+                  subtitle="Efecto Cascada Biorracional"
+                  description="Geles con feromonas de transferencia horizontal. Las ninfas mueren en sus nidos sin contaminar alimentos ni requerir desalojo."
+                  tags={['Cucaracha alemana y americana', 'Sin manchas ni olor', 'Seguro en motores']}
+                  actionLabel="Controlar rastreros"
+                  onAction={() => handleOpenQuote('Control de Insectos - Cucarachas')}
+                />
 
-              {/* Card 2: Voladores */}
-              <GlassCard
-                badge="Voladores"
-                icon={Eye}
-                title="Insectos Voladores y Trampas UV"
-                subtitle="Monitoreo Lumínico"
-                description="Instalación y mantenimiento de lámparas atrapainsectos con tubos de luz UV inastillables y láminas adhesivas con feromonas. Evita la fragmentación de insectos sobre líneas de producción y comedores."
-                bullets={[
-                  'Cumplimiento con normas alimentarias BPM',
-                  'Trampas de alta captura sin electrocución ruidosa',
-                  'Conteo y trazabilidad de especies capturadas',
-                ]}
-                actionLabel="Instalar lámparas UV"
-                onAction={() => handleOpenQuote('Control de Insectos - Voladores')}
-              />
+                {/* Card B: Voladores */}
+                <GlassCard
+                  compact
+                  badge="Voladores"
+                  icon={Eye}
+                  title="Insectos Voladores & Trampas UV"
+                  subtitle="Monitoreo Lumínico"
+                  description="Lámparas atrapainsectos con tubos UV inastillables y láminas con feromonas. Cero fragmentación sobre líneas de producción."
+                  tags={['Norma alimentaria BPM', 'Captura silenciosa', 'Conteo analítico']}
+                  actionLabel="Instalar lámparas UV"
+                  onAction={() => handleOpenQuote('Control de Insectos - Voladores')}
+                />
+              </div>
 
-              {/* Card 3: Nebulización ULV */}
-              <GlassCard
-                badge="Perimetral"
-                icon={Syringe}
-                title="Micro-Aspersión y Nebulización"
-                subtitle="Ultra Bajo Volumen (ULV)"
-                description="Tratamiento de choque perimetral en grietas, cámaras de inspección, sifones y ductos de ventilación. Uso de moléculas piretroides microencapsuladas con efecto residual de hasta 90 días."
-                bullets={[
-                  'Penetración profunda en fisuras estructurales',
-                  'Efecto de expulsión inmediata (flushing-out)',
-                  'Certificados sanitarios de aplicación oficial',
-                ]}
-                actionLabel="Solicitar micro-aspersión"
-                onAction={() => handleOpenQuote('Control de Insectos - Aspersión ULV')}
-              />
+              {/* Action Strip: Micro-aspersión ULV */}
+              <div className="p-3.5 rounded-2xl liquid-glass border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 backdrop-blur-xl">
+                <div className="flex items-center gap-3">
+                  <div className="h-9 w-9 rounded-xl bg-[#5c7090]/20 border border-[#5c7090]/30 flex items-center justify-center text-[#5c7090] shrink-0">
+                    <Syringe className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-white">Micro-Aspersión ULV y Choque Perimetral</div>
+                    <div className="text-[11px] text-slate-300 font-light">Moléculas microencapsuladas con hasta 90 días de efecto residual.</div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => handleOpenQuote('Control de Insectos - Aspersión ULV')}
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#5c7090] text-white hover:bg-[#6d84a7] transition-colors shrink-0 cursor-pointer flex items-center gap-1.5"
+                >
+                  <span>Solicitar aspersión</span>
+                  <span>→</span>
+                </button>
+              </div>
             </div>
           </div>
         </section>
 
         {/* ========================================================================= */}
-        {/* SECCIÓN 5: CONTROL DE AVES (With Transparent Paloma Asset)                 */}
-        {/* ========================================================================= */}
-        {/* ========================================================================= */}
-        {/* SECCIÓN 5: CONTROL DE AVES (With Transparent Paloma Asset)                 */}
+        {/* SECCIÓN 5: CONTROL DE AVES (Paloma Limpia y 3 Cápsulas Minimalistas)        */}
         {/* ========================================================================= */}
         <section
           id="aves"
-          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-20 lg:py-0 overflow-hidden bg-gradient-to-b from-[#121e2c] via-[#142131] to-[#101b28]"
+          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-12 lg:py-0 overflow-hidden bg-gradient-to-b from-[#121e2c] via-[#142131] to-[#101b28]"
         >
           {/* Subtle Ambient Glow behind the bird */}
           <div className="absolute top-1/3 right-10 h-[450px] w-[450px] rounded-full bg-[#5c7090]/15 blur-[150px] pointer-events-none" />
 
-          {/* User's Paloma Asset on Right Side (Pigeon macro facing left) - Escala y presencia idéntica a la rata */}
-          <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[50%] opacity-50 lg:opacity-85 pointer-events-none z-0">
+          {/* User's Paloma Asset on Right Side (Pigeon macro facing left) - Clean defringed webp */}
+          <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[48%] opacity-50 lg:opacity-85 pointer-events-none z-0">
             <Image
               src="/images/Propias/PalomaSanivex_trans.webp"
               alt="Manejo y Exclusión de Aves Urbanas Sanivex"
@@ -482,75 +460,54 @@ export default function Home() {
               quality={95}
               className="object-cover object-right"
             />
-            {/* Subtle Gradient Blend Masks for seamless transition with zero hard lines */}
+            {/* Subtle Gradient Blend Masks without dirty borders */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#142131] via-[#142131]/60 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#101b28] via-transparent to-[#121e2c]" />
           </div>
 
-          {/* Degradado de transición suave hacia la sección blanca de Termitas */}
-          <div className="absolute bottom-0 inset-x-0 h-16 md:h-24 bg-gradient-to-b from-transparent via-[#101b28]/60 to-white pointer-events-none z-0" />
-
-          <div className="max-w-7xl mx-auto w-full relative z-10">
+          <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col my-auto">
             {/* Header */}
-            <div className="mb-8 max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-xs font-semibold text-[#5c7090] mb-3">
-                <Building2 className="h-3.5 w-3.5 text-[#5c7090]" />
+            <div className="mb-4 lg:mb-5 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-[11px] font-semibold text-[#5c7090] mb-2">
+                <Building2 className="h-3 w-3 text-[#5c7090]" />
                 Protección Estructural & Fachadas
               </div>
-              <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                 Manejo y Exclusión de Aves Urbanas
               </h2>
-              <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-light max-w-2xl">
-                Control ético, disuasivo y no cruento de palomas (Columba livia) y aves plaga en naves industriales, galpones y techumbres. Frenamos la corrosión por ácido úrico y riesgos de histoplasmosis.
+              <p className="mt-1.5 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+                Control ético, disuasivo y no cruento de palomas (Columba livia) en naves industriales y techumbres. Frenamos la corrosión por ácido úrico y riesgos biológicos.
               </p>
             </div>
 
-            {/* 3 Liquid Glass Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 max-w-5xl">
-              {/* Solution 1: Mallas */}
+            {/* 3 Low-Profile Minimalist Solution Capsules */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 max-w-2xl">
               <GlassCard
-                badge="Exclusión Física"
+                compact
+                badge="100% Hermético"
                 icon={Layers}
                 title="Mallas Anti-Aves de Alta Tenacidad"
-                subtitle="100% Hermetismo"
-                description="Redes de polietileno de alta densidad estabilizado contra rayos UV. Bloquean el ingreso de aves a cerchas, estructuras elevadas y silos sin comprometer la ventilación ni la iluminación natural."
-                bullets={[
-                  'Cables tensores perimetrales en acero inoxidable',
-                  'Resistencia ante climas extremos e intemperie',
-                  'Totalmente imperceptibles a distancia visual',
-                ]}
+                description="Redes de polietileno UV con cables en acero inox. Bloquean cerchas sin comprometer ventilación."
                 actionLabel="Cotizar mallas"
                 onAction={() => handleOpenQuote('Control de Aves - Mallas')}
               />
 
-              {/* Solution 2: Púas y Postes */}
               <GlassCard
-                badge="Disuasión Mecánica"
+                compact
+                badge="Sin Daño"
                 icon={ShieldAlert}
-                title="Púas y Postes Estructurales"
-                subtitle="Sin Daño a Especies"
-                description="Sistemas mecánicos de varillas de acero quirúrgico grado 316 sobre base de policarbonato virgen. Impiden el posamiento y anidamiento en cornisas, perfiles de marquesinas y tuberías aéreas."
-                bullets={[
-                  'Diseño con puntas romas que no lesionan',
-                  'Fijación permanente con adhesivos de grado marino',
-                  'Cero mantenimiento durante más de 10 años',
-                ]}
-                actionLabel="Solicitar instalación"
+                title="Púas Quirúrgicas Grado 316"
+                description="Varillas con puntas romas sobre policarbonato virgen. Impiden el posamiento en cornisas y marquesinas."
+                actionLabel="Solicitar púas"
                 onAction={() => handleOpenQuote('Control de Aves - Púas y Postes')}
               />
 
-              {/* Solution 3: Sistemas Ópticos */}
               <GlassCard
+                compact
                 badge="Bio-tecnología"
                 icon={Eye}
                 title="Sistemas Ópticos y Láser"
-                subtitle="Disuasión Sensorial"
-                description="Dispositivos ópticos reflectivos y proyectores láser automatizados que simulan barreras visuales de peligro. Ideal para hangares logísticos, puertos y grandes centros de distribución."
-                bullets={[
-                  'Rayos láser de barrido silencioso y continuo',
-                  'Efecto no habituable para bandadas persistentes',
-                  'Operación automatizada diurna y nocturna',
-                ]}
+                description="Barreras visuales de peligro automatizadas día y noche. Efecto no habituable para hangares y silos."
                 actionLabel="Ver tecnología láser"
                 onAction={() => handleOpenQuote('Control de Aves - Sistemas Ópticos')}
               />
@@ -559,17 +516,14 @@ export default function Home() {
         </section>
 
         {/* ========================================================================= */}
-        {/* SECCIÓN 6: CONTROL DE TERMITAS (Fondo Blanco con Termita Gigante y Degradados) */}
+        {/* SECCIÓN 6: CONTROL DE TERMITAS (Fondo Blanco Limpio Sin Degradados Sucios) */}
         {/* ========================================================================= */}
         <section
           id="termitas"
-          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 pt-20 pb-12 lg:pt-16 lg:pb-8 overflow-hidden bg-white text-slate-900"
+          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-12 lg:py-0 overflow-hidden bg-white text-slate-900"
         >
-          {/* Degradado superior de entrada suave desde el scroll azul anterior */}
-          <div className="absolute top-0 inset-x-0 h-14 md:h-20 bg-gradient-to-b from-[#101b28]/25 via-white/80 to-transparent pointer-events-none z-0" />
-
-          {/* User's Termita Asset on Left Side - Abarcando la pantalla del lado izquierdo entera, misma escala que la rata */}
-          <div className="absolute left-0 top-0 bottom-0 w-full lg:w-[48%] pointer-events-none z-0 opacity-30 lg:opacity-100">
+          {/* User's Termita Asset on Left Side - Macro limpia abarcando lateral */}
+          <div className="absolute left-0 top-0 bottom-0 w-full lg:w-[48%] pointer-events-none z-0 opacity-25 lg:opacity-100">
             <Image
               src="/images/Propias/TermitaSanivex.jpg"
               alt="Control Profesional de Termitas Sanivex"
@@ -578,76 +532,58 @@ export default function Home() {
               className="object-cover object-left"
             />
             {/* Máscara suave hacia la derecha en blanco puro para fundirse con las tarjetas */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-white" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-white" />
           </div>
 
-          {/* Degradado inferior de salida suave hacia la siguiente sección azul (#sanitizacion) */}
-          <div className="absolute bottom-0 inset-x-0 h-16 md:h-24 bg-gradient-to-b from-transparent via-[#101b27]/70 to-[#101b27] pointer-events-none z-0" />
-
           <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-end my-auto">
-            {/* Header (Aligned to right for visual balance with termite on left) */}
-            <div className="mb-4 lg:mb-5 max-w-3xl w-full text-left lg:text-left">
+            {/* Header */}
+            <div className="mb-4 lg:mb-5 max-w-2xl w-full text-left lg:text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-300 text-[11px] font-semibold text-amber-900 mb-2 shadow-sm">
                 <Search className="h-3 w-3 text-amber-700" />
                 Protección Invisible de la Infraestructura
               </div>
-              <h2 className="text-2xl sm:text-4xl lg:text-[40px] font-extrabold text-[#09111c] tracking-tight leading-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#09111c] tracking-tight">
                 Servicios de Control de Termitas
               </h2>
-              <p className="mt-1.5 text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal max-w-3xl">
-                Las termitas representan una de las plagas más destructivas para la infraestructura, consumiendo celulosa desde el interior y generando un deterioro progresivo e invisible. Implementamos sistemas de detección temprana, barreras químicas perimetrales y cebado en Colombia.
+              <p className="mt-1.5 text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
+                Las termitas consumen celulosa desde el interior causando deterioro progresivo e invisible. Implementamos sistemas de detección temprana, blindaje estructural y erradicación biológica.
               </p>
             </div>
 
-            {/* 3 Liquid Glass Cards con Theme Light adaptado al fondo blanco */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 w-full lg:max-w-4xl xl:max-w-5xl lg:ml-auto">
-              {/* Card 1 */}
+            {/* 3 Compact Light Glass Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 w-full lg:max-w-3xl xl:max-w-4xl lg:ml-auto">
               <GlassCard
                 theme="light"
+                compact
                 badge="Diagnóstico"
                 icon={Search}
-                title="Prevención de Daños Invisibles y Sobrecostos"
+                title="Detección No Destructiva"
                 subtitle="Detección Temprana"
-                description="Las termitas consumen celulosa desde el interior de las estructuras. Nuestro control técnico evita colapsos en la infraestructura y elevados sobrecostos de reparación que no suelen cubrir las pólizas de seguro."
-                bullets={[
-                  'Termografía infrarroja no destructiva',
-                  'Sensores acústicos de actividad xilófaga',
-                  'Inspección detallada de vigas y cielorrasos',
-                ]}
+                description="Termografía infrarroja y sensores acústicos para localizar actividad xilófaga oculta en vigas y cielorrasos."
                 actionLabel="Solicitar diagnóstico"
                 onAction={() => handleOpenQuote('Termitas - Prevención y Diagnóstico')}
               />
 
-              {/* Card 2 */}
               <GlassCard
                 theme="light"
+                compact
                 badge="Blindaje"
                 icon={Building2}
-                title="Protección de Elementos Estructurales Críticos"
+                title="Blindaje de Elementos Críticos"
                 subtitle="Cimientos & Madera"
-                description="Identificamos y blindamos los puntos clave de vulnerabilidad ante termitas subterráneas y de madera seca. Protegemos tu inversión, desde cimientos y vigas de soporte, hasta revestimientos y drywall."
-                bullets={[
-                  'Tratamiento de madera con sales de boro',
-                  'Sellado de fisuras y juntas de dilatación',
-                  'Blindaje estructural preventivo para obras nuevas',
-                ]}
+                description="Tratamiento de madera con sales de boro y sellado de fisuras en cimientos, vigas de soporte y drywall."
                 actionLabel="Proteger estructuras"
                 onAction={() => handleOpenQuote('Termitas - Elementos Estructurales')}
               />
 
-              {/* Card 3 */}
               <GlassCard
                 theme="light"
+                compact
                 badge="Erradicación"
                 icon={Syringe}
-                title="Sistemas Avanzados de Erradicación"
-                subtitle="Cebado & Barreras Químicas"
-                description="Implementamos sistemas de cebado y monitoreo para la eliminación total y definitiva de las colonias (incluyendo la reina), con barreras químicas perimetrales por inyección sub-suelo."
-                bullets={[
-                  'Cebos con inhibidores de quitina (IGR)',
-                  'Inyección sub-suelo a alta presión',
-                  'Eliminación de colonias subterráneas completas',
-                ]}
+                title="Erradicación de Colonias"
+                subtitle="Cebado & Barreras"
+                description="Sistemas de cebado con inhibidores de quitina (IGR) e inyección sub-suelo para erradicación completa de la reina."
                 actionLabel="Erradicar colonias"
                 onAction={() => handleOpenQuote('Termitas - Erradicación')}
               />
@@ -656,76 +592,61 @@ export default function Home() {
         </section>
 
         {/* ========================================================================= */}
-        {/* SECCIÓN 7: SANITIZACIÓN Y DESINFECCIÓN                                     */}
+        {/* SECCIÓN 7: SANITIZACIÓN Y DESINFECCIÓN (Diseño Clínico con Aire y Footer) */}
         {/* ========================================================================= */}
         <section
           id="sanitizacion"
-          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-between px-4 sm:px-8 lg:px-16 pt-20 pb-8 overflow-hidden bg-gradient-to-b from-[#101b27] via-[#0d1622] to-[#070d17]"
+          className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-between px-4 sm:px-8 lg:px-16 pt-16 pb-8 overflow-hidden bg-gradient-to-b from-[#101b27] via-[#0d1622] to-[#070d17]"
         >
           {/* Subtle Ambient Teal/Cyan Glow */}
           <div className="absolute top-1/3 left-1/3 h-96 w-96 rounded-full bg-teal-500/10 blur-[150px] pointer-events-none" />
 
-          <div className="max-w-7xl mx-auto w-full relative z-10 flex-1 flex flex-col justify-center">
+          <div className="max-w-7xl mx-auto w-full relative z-10 flex-1 flex flex-col justify-center my-auto">
             {/* Header */}
-            <div className="mb-8 max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-xs font-semibold text-teal-300 mb-3">
-                <Sparkles className="h-3.5 w-3.5 text-teal-400" />
+            <div className="mb-4 lg:mb-6 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-[11px] font-semibold text-teal-300 mb-2">
+                <Sparkles className="h-3 w-3 text-teal-400" />
                 Bioseguridad Grado Quirúrgico & Corporativo
               </div>
-              <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                 Sanitización y Desinfección de Alto Nivel
               </h2>
-              <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-light max-w-2xl">
-                Ambientes clínicos, corporativos e industriales libres de microorganismos patógenos. Aplicamos micro-nebulización en frío ULV y termonebulización con desinfectantes de amplio espectro certificados.
+              <p className="mt-1.5 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+                Ambientes clínicos y corporativos libres de patógenos. Micro-nebulización en frío ULV con desinfectantes certificados de amplio espectro.
               </p>
             </div>
 
-            {/* 3 Liquid Glass Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-              {/* Card 1 */}
+            {/* 3 Sleek Compact Clinical Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4 max-w-5xl">
               <GlassCard
+                compact
                 badge="Microbiología"
                 icon={Biohazard}
                 title="Microorganismos Patógenos"
                 subtitle="Virus, Bacterias & Hongos"
-                description="Eliminación garantizada del 99.999% de patógenos aerotransportados y de superficie, tales como bacterias grampositivas y gramnegativas, esporas fúngicas, moho y virus de alta virulencia."
-                bullets={[
-                  'Amonios cuaternarios de 5ª generación y dióxido de cloro',
-                  'Desinfección de ductos de aire acondicionado HVAC',
-                  'Inocuidad garantizada para contacto con alimentos',
-                ]}
+                description="Eliminación garantizada del 99.999% de patógenos con amonios cuaternarios de 5ª generación y dióxido de cloro inocuos con alimentos."
                 actionLabel="Desinfectar área"
                 onAction={() => handleOpenQuote('Sanitización - Microorganismos')}
               />
 
-              {/* Card 2 */}
               <GlassCard
+                compact
                 badge="Salud Laboral"
                 icon={Users}
                 title="Protección del Capital Humano"
-                subtitle="Ambientes Libres de Contagio"
-                description="Reducción significativa del ausentismo laboral por afecciones respiratorias y gastrointestinales. Generamos entornos de trabajo confiables y salubres que fortalecen la productividad de tu empresa."
-                bullets={[
-                  'Aplicación fuera de horarios para cero interferencia',
-                  'Tiempos rápidos de reingreso seguro (< 2 horas)',
-                  'Monitoreo biológico con hisopados y bioluminiscencia ATP',
-                ]}
+                subtitle="Ambientes Seguros"
+                description="Reducción del ausentismo laboral. Tiempos rápidos de reingreso seguro (< 2 horas) y monitoreo con bioluminiscencia ATP."
                 actionLabel="Proteger equipo"
                 onAction={() => handleOpenQuote('Sanitización - Capital Humano')}
               />
 
-              {/* Card 3 */}
               <GlassCard
-                badge="Normativa Sanitaria"
+                compact
+                badge="Normativa"
                 icon={FileCheck2}
-                title="Cumplimiento Normativo (BPM & HACCP)"
+                title="Cumplimiento BPM & INVIMA"
                 subtitle="Certificación Oficial"
-                description="Expedimos certificados sanitarios oficiales y fichas técnicas exigidos por las Secretarías de Salud, INVIMA y auditores internacionales bajo esquemas de Buenas Prácticas de Manufactura."
-                bullets={[
-                  'Certificados válidos para renovación de licencias',
-                  'Dosificación técnica controlada y segura',
-                  'Asesoría técnica para inspecciones sanitarias',
-                ]}
+                description="Expedimos certificados sanitarios oficiales y fichas técnicas válidos para renovación de licencias ante Secretarías de Salud."
                 actionLabel="Certificar empresa"
                 onAction={() => handleOpenQuote('Sanitización - Normativa y Certificados')}
               />
