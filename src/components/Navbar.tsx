@@ -16,6 +16,79 @@ interface NavbarProps {
   onOpenQuote: () => void;
 }
 
+interface BrandLogoProps {
+  isLightSection: boolean;
+  onNavigate: () => void;
+  isMobile?: boolean;
+}
+
+const BrandLogoInteractive: React.FC<BrandLogoProps> = ({ isLightSection, onNavigate, isMobile }) => {
+  const [isTapped, setIsTapped] = useState(false);
+  const [isIntroduced, setIsIntroduced] = useState(false);
+
+  useEffect(() => {
+    // Initial welcome peek: reveal wordmark for 2.2s on first load so users recognize the brand, then smoothly collapse to permanent icon
+    const timer = setTimeout(() => {
+      setIsIntroduced(true);
+    }, 2200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <a
+      href="#hero"
+      onClick={(e) => {
+        e.preventDefault();
+        onNavigate();
+      }}
+      onClickCapture={() => {
+        if (isMobile) {
+          setIsTapped((prev) => !prev);
+        }
+      }}
+      className={`group/brand flex items-center py-1 px-1.5 -ml-1 rounded-full cursor-pointer relative z-10 transition-all duration-300 ${
+        isLightSection
+          ? 'hover:bg-slate-200/60'
+          : 'hover:bg-white/10'
+      }`}
+      aria-label="SANIVEX - Inicio"
+      title="SANIVEX - Soluciones Profesionales en Sanidad Ambiental"
+    >
+      {/* Permanent Brand Icon (Isolated PNG symbol uploaded by user) */}
+      <div className="relative flex items-center justify-center shrink-0">
+        <Image
+          src={isLightSection ? '/logos/brand-icon-prop-dark.webp' : '/logos/brand-icon-prop-white.webp'}
+          alt="Sanivex Icono"
+          width={24}
+          height={24}
+          priority
+          className="h-5 sm:h-5.5 w-auto object-contain transition-transform duration-300 group-hover/brand:scale-110 drop-shadow-sm"
+        />
+      </div>
+
+      {/* Dynamic Island Expandable Wordmark (Full logo text PNG) */}
+      <div
+        className={`overflow-hidden flex items-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          !isIntroduced
+            ? 'max-w-[130px] opacity-100 ml-1.5'
+            : isTapped
+            ? 'max-w-[130px] opacity-100 ml-1.5'
+            : 'max-w-0 opacity-0 ml-0 pointer-events-none group-hover/brand:max-w-[130px] group-hover/brand:opacity-100 group-hover/brand:ml-1.5 group-hover/brand:pointer-events-auto'
+        }`}
+      >
+        <Image
+          src={isLightSection ? '/logos/brand-text-prop-dark.webp' : '/logos/brand-text-prop-white.webp'}
+          alt="SANIVEX"
+          width={105}
+          height={24}
+          priority
+          className="h-5 sm:h-5.5 w-auto object-contain select-none max-w-none"
+        />
+      </div>
+    </a>
+  );
+};
+
 export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
   const [scrolled, setScrolled] = useState(false);
   const [isLightSection, setIsLightSection] = useState(false);
@@ -118,23 +191,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
 
           {/* Top Row: Brand Logo + WhatsApp + Hamburger */}
           <div className="flex items-center justify-between px-4 py-3">
-            <a
-              href="#hero"
-              onClick={(e) => {
-                e.preventDefault();
-                handleLinkClick('#hero');
-              }}
-              className="flex items-center cursor-pointer"
-            >
-              <Image
-                src={isLightSection ? '/logos/logo-dark.webp' : '/logos/logo-white.webp'}
-                alt="SANIVEX"
-                width={120}
-                height={24}
-                priority
-                className="h-5.5 w-auto object-contain transition-opacity"
-              />
-            </a>
+            {/* Mobile Animated Brand Logo (Icon permanent, wordmark expandable) */}
+            <BrandLogoInteractive
+              isLightSection={isLightSection}
+              onNavigate={() => handleLinkClick('#hero')}
+              isMobile
+            />
 
             <div className="flex items-center gap-2.5">
               <a
@@ -212,24 +274,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
           {/* Top Specular Caustic Highlight Line */}
           <div className="pointer-events-none absolute inset-x-12 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/55 to-transparent" />
 
-          {/* Official SANIVEX Brand Logo */}
-          <a
-            href="#hero"
-            onClick={(e) => {
-              e.preventDefault();
-              handleLinkClick('#hero');
-            }}
-            className="flex items-center gap-2 group cursor-pointer relative z-10"
-          >
-            <Image
-              src={isLightSection ? '/logos/logo-dark.webp' : '/logos/logo-white.webp'}
-              alt="SANIVEX"
-              width={115}
-              height={22}
-              priority
-              className="h-5 w-auto object-contain transition-opacity group-hover:opacity-85"
-            />
-          </a>
+          {/* Official SANIVEX Brand Logo with Dynamic Island Expand Animation */}
+          <BrandLogoInteractive
+            isLightSection={isLightSection}
+            onNavigate={() => handleLinkClick('#hero')}
+          />
 
           {/* Desktop Center Navigation Links */}
           <nav className="flex items-center gap-1 lg:gap-2 relative z-10">
