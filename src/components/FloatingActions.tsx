@@ -51,7 +51,7 @@ export const FloatingActions: React.FC = () => {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-600 hover:bg-cyan-500 text-white shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all transform hover:-translate-y-1 animate-in fade-in"
+          className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#5c7090] hover:bg-[#6d84a7] text-white shadow-[0_4px_16px_rgba(92,112,144,0.4)] transition-all transform hover:-translate-y-1 animate-in fade-in cursor-pointer"
           aria-label="Volver arriba"
         >
           <ChevronUp className="h-5 w-5 stroke-[2.5]" />

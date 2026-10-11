@@ -40,7 +40,7 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#09111c] text-slate-100 font-sans selection:bg-cyan-500 selection:text-slate-950 overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#09111c] text-slate-100 font-sans selection:bg-[#5c7090] selection:text-white overflow-x-hidden">
       {/* Navigation Bar */}
       <Navbar onOpenQuote={() => handleOpenQuote('Cotización General')} />
 
@@ -51,10 +51,10 @@ export default function Home() {
       <FloatingActions />
 
       {/* Mobile Sticky Bottom CTA Bar (Solicitar Presupuesto) */}
-      <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-[#060b14]/95 backdrop-blur-xl border-t border-cyan-500/25 px-4 py-3 shadow-[0_-10px_35px_rgba(0,0,0,0.7)] animate-in fade-in duration-300">
+      <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-[#060b14]/95 backdrop-blur-xl border-t border-[#5c7090]/30 px-4 py-3 shadow-[0_-10px_35px_rgba(0,0,0,0.7)] animate-in fade-in duration-300">
         <button
           onClick={() => handleOpenQuote('Cotización General')}
-          className="w-full py-3.5 px-6 rounded-xl hero-primary-btn font-black text-xs sm:text-sm tracking-widest uppercase transition-all shadow-[0_0_25px_rgba(34,211,238,0.4)] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer text-slate-950"
+          className="w-full py-3.5 px-6 rounded-xl hero-primary-btn font-black text-xs sm:text-sm tracking-widest uppercase transition-all shadow-[0_4px_20px_rgba(92,112,144,0.4)] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer text-white"
         >
           <span>SOLICITAR PRESUPUESTO</span>
           <span className="text-base font-black">→</span>
@@ -70,7 +70,7 @@ export default function Home() {
 
       {/* Ambient Global Liquid Light Orbs (Floating smoothly in background) */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-[10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-cyan-600/10 blur-[150px] animate-float-orb" />
+        <div className="absolute top-[10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#5c7090]/15 blur-[150px] animate-float-orb" />
         <div className="absolute top-[45%] right-[-10%] w-[600px] h-[600px] rounded-full bg-sky-500/10 blur-[170px] animate-float-orb" style={{ animationDelay: '-4s' }} />
         <div className="absolute top-[75%] left-[10%] w-[550px] h-[550px] rounded-full bg-teal-500/10 blur-[160px] animate-float-orb" style={{ animationDelay: '-8s' }} />
       </div>
@@ -129,7 +129,7 @@ export default function Home() {
               className="w-full text-[clamp(2.5rem,13.5vw,3.75rem)] md:text-5xl lg:text-[54px] uppercase md:normal-case font-semibold md:font-bold text-white leading-[0.98] md:leading-[1.12] tracking-[-0.02em] md:tracking-tight md:max-w-2xl"
             >
               <span className="block">Control de<br className="md:hidden" /> plagas</span>
-              <span className="block text-[#22d3ee] md:text-[#7eedee]">y sanidad<br className="md:hidden" /> ambiental</span>
+              <span className="block text-[#5c7090]">y sanidad<br className="md:hidden" /> ambiental</span>
             </motion.h1>
 
             {/* Subtitle - Exact Authentic Sanivex Copy */}
@@ -161,9 +161,9 @@ export default function Home() {
             >
               <a
                 href="tel:+573009123456"
-                className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl hero-secondary-btn font-semibold text-xs xs:text-[13px] tracking-wider uppercase transition-all shadow-lg active:scale-95 cursor-pointer text-cyan-300 border border-cyan-500/40 bg-[#0e1726]/90 hover:bg-[#152338]"
+                className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl hero-secondary-btn font-semibold text-xs xs:text-[13px] tracking-wider uppercase transition-all shadow-lg active:scale-95 cursor-pointer text-[#5c7090] border border-[#5c7090]/40 bg-[#0e1726]/90 hover:bg-[#152338]"
               >
-                <Phone className="h-4 w-4 text-cyan-400 fill-cyan-400" />
+                <Phone className="h-4 w-4 text-[#5c7090] fill-[#5c7090]" />
                 <span>Llamar directamente: 300-912-3456</span>
               </a>
             </motion.div>
@@ -176,7 +176,7 @@ export default function Home() {
               href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3.5 text-[11px] text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+              className="mt-3.5 text-[11px] text-slate-400 hover:text-[#5c7090] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
             >
               <span>Puedes comunicarte con nosotros vía <span className="font-semibold text-slate-300">WHATSAPP</span></span>
               <span className="font-bold">→</span>
@@ -192,7 +192,7 @@ export default function Home() {
           className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-20 lg:py-0 overflow-hidden bg-gradient-to-b from-[#121e2c] via-[#162331] to-[#121e2b]"
         >
           {/* Subtle Ambient Liquid Orbs */}
-          <div className="absolute top-1/3 right-10 h-96 w-96 rounded-full bg-cyan-500/10 blur-[130px] pointer-events-none" />
+          <div className="absolute top-1/3 right-10 h-96 w-96 rounded-full bg-[#5c7090]/15 blur-[130px] pointer-events-none" />
 
           {/* User's CoMIP.jpg Asset on Right Side (Ant, Cockroach, Rat) seamlessly blended */}
           <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[55%] opacity-40 lg:opacity-75 pointer-events-none z-0">
@@ -211,8 +211,8 @@ export default function Home() {
           <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col">
             {/* Header */}
             <div className="mb-8 max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-xs font-semibold text-cyan-300 mb-3">
-                <ShieldCheck className="h-3.5 w-3.5 text-cyan-400" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-xs font-semibold text-[#5c7090] mb-3">
+                <ShieldCheck className="h-3.5 w-3.5 text-[#5c7090]" />
                 Protocolo Técnico MIP
               </div>
               <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
@@ -468,7 +468,7 @@ export default function Home() {
           className="relative min-h-screen lg:h-screen snap-start snap-always flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-20 lg:py-0 overflow-hidden bg-gradient-to-b from-[#121e2c] via-[#142131] to-[#101b28]"
         >
           {/* Subtle Ambient Sky-Blue Glow behind the bird */}
-          <div className="absolute top-1/3 right-10 h-[450px] w-[450px] rounded-full bg-cyan-500/15 blur-[150px] pointer-events-none" />
+          <div className="absolute top-1/3 right-10 h-[450px] w-[450px] rounded-full bg-[#5c7090]/15 blur-[150px] pointer-events-none" />
 
           {/* User's PalomaSanivex transparent asset positioned seamlessly on the right */}
           <div className="absolute right-[-2%] bottom-[-5%] w-[420px] sm:w-[580px] lg:w-[680px] h-[55%] lg:h-[80%] opacity-45 lg:opacity-85 pointer-events-none z-0">
@@ -487,8 +487,8 @@ export default function Home() {
           <div className="max-w-7xl mx-auto w-full relative z-10">
             {/* Header */}
             <div className="mb-8 max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-xs font-semibold text-cyan-300 mb-3">
-                <Building2 className="h-3.5 w-3.5 text-cyan-400" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-xs font-semibold text-[#5c7090] mb-3">
+                <Building2 className="h-3.5 w-3.5 text-[#5c7090]" />
                 Protección Estructural & Fachadas
               </div>
               <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
@@ -730,15 +730,15 @@ export default function Home() {
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-4 text-slate-400">
-              <span className="text-cyan-400">Bogotá D.C.</span>
+              <span className="text-[#5c7090]">Bogotá D.C.</span>
               <span>&bull;</span>
-              <span className="text-cyan-400">Medellín</span>
+              <span className="text-[#5c7090]">Medellín</span>
               <span>&bull;</span>
-              <span className="text-cyan-400">Cali</span>
+              <span className="text-[#5c7090]">Cali</span>
               <span>&bull;</span>
-              <span className="text-cyan-400">Barranquilla</span>
+              <span className="text-[#5c7090]">Barranquilla</span>
               <span>&bull;</span>
-              <span className="text-cyan-400">Bucaramanga</span>
+              <span className="text-[#5c7090]">Bucaramanga</span>
             </div>
 
             <div className="flex items-center gap-3 text-slate-400">

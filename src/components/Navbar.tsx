@@ -112,7 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="text-slate-200 hover:text-cyan-400 transition-colors p-1 cursor-pointer"
+                className="text-slate-200 hover:text-[#5c7090] transition-colors p-1 cursor-pointer"
                 aria-label="Abrir menú"
               >
                 {mobileMenuOpen ? <X className="h-6 w-6 stroke-[2]" /> : <Menu className="h-6 w-6 stroke-[2]" />}
@@ -126,7 +126,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               onClick={() => setActiveSegment('residencial')}
               className={`flex-1 py-3 text-center text-xs sm:text-[13px] font-black tracking-wider uppercase transition-all cursor-pointer ${
                 activeSegment === 'residencial'
-                  ? 'bg-[#22d3ee] text-[#060b14]'
+                  ? 'bg-[#5c7090] text-white shadow-inner'
                   : 'bg-[#09111c] text-white/80 hover:text-white'
               }`}
             >
@@ -136,7 +136,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               onClick={() => setActiveSegment('comercial')}
               className={`flex-1 py-3 text-center text-xs sm:text-[13px] font-black tracking-wider uppercase transition-all cursor-pointer ${
                 activeSegment === 'comercial'
-                  ? 'bg-[#22d3ee] text-[#060b14]'
+                  ? 'bg-[#5c7090] text-white shadow-inner'
                   : 'bg-[#09111c] text-white/80 hover:text-white'
               }`}
             >
@@ -214,7 +214,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                         }}
                         className="flex flex-col px-3.5 py-2.5 rounded-xl hover:bg-white/5 transition-colors group cursor-pointer"
                       >
-                        <span className="text-xs font-semibold text-slate-200 group-hover:text-cyan-300 transition-colors">
+                        <span className="text-xs font-semibold text-slate-200 group-hover:text-[#5c7090] transition-colors">
                           {item.label}
                         </span>
                         <span className="text-[10px] text-slate-400">
@@ -285,7 +285,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               }}
               className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-slate-900/80 border border-white/10 text-slate-400 text-xs cursor-pointer"
             >
-              <Search className="h-4 w-4 text-cyan-400" />
+              <Search className="h-4 w-4 text-[#5c7090]" />
               <span>Buscar plagas o servicios...</span>
             </div>
 
@@ -295,13 +295,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 e.preventDefault();
                 handleLinkClick('#hero');
               }}
-              className="text-sm font-semibold text-slate-200 hover:text-cyan-300 transition py-1"
+              className="text-sm font-semibold text-slate-200 hover:text-[#5c7090] transition py-1"
             >
               Inicio
             </a>
 
             <div className="py-2 flex flex-col gap-1 bg-slate-900/50 rounded-2xl p-3 border border-white/5 text-left">
-              <span className="text-[10px] uppercase tracking-wider text-cyan-400 font-bold mb-1 px-1">
+              <span className="text-[10px] uppercase tracking-wider text-[#5c7090] font-bold mb-1 px-1">
                 Servicios Especializados
               </span>
               {serviceItems.map((item) => (
@@ -325,7 +325,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 e.preventDefault();
                 handleLinkClick('#mip');
               }}
-              className="text-sm font-semibold text-slate-200 hover:text-cyan-300 transition py-1"
+              className="text-sm font-semibold text-slate-200 hover:text-[#5c7090] transition py-1"
             >
               ¿Sanivex?
             </a>
@@ -337,7 +337,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               }}
               className="text-xs text-slate-300 hover:text-white py-2.5 flex items-center justify-center gap-2 rounded-xl bg-white/5 border border-white/10"
             >
-              <User className="h-3.5 w-3.5 text-cyan-400" />
+              <User className="h-3.5 w-3.5 text-[#5c7090]" />
               <span>Portal de Clientes (Actas / NIT)</span>
             </button>
 
@@ -355,7 +355,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               href="tel:+573009123456"
               className="flex items-center justify-center gap-2 text-xs text-slate-400 font-medium pt-1"
             >
-              <Phone className="h-3.5 w-3.5 text-cyan-400" /> Línea: +57 300 912 3456
+              <Phone className="h-3.5 w-3.5 text-[#5c7090]" /> Línea: +57 300 912 3456
             </a>
           </div>
         </div>
@@ -372,7 +372,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center gap-3 border-b border-white/10 pb-3">
-              <Search className="h-5 w-5 text-cyan-400" />
+              <Search className="h-5 w-5 text-[#5c7090]" />
               <input
                 type="text"
                 value={searchQuery}
@@ -398,12 +398,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                     className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors text-left group"
                   >
                     <div>
-                      <div className="text-sm font-semibold text-slate-200 group-hover:text-cyan-300">
+                      <div className="text-sm font-semibold text-slate-200 group-hover:text-[#5c7090]">
                         {service.label}
                       </div>
                       <div className="text-xs text-slate-400">{service.desc}</div>
                     </div>
-                    <ArrowRight className="h-4 w-4 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="h-4 w-4 text-slate-500 group-hover:text-[#5c7090] group-hover:translate-x-1 transition-all" />
                   </button>
                 ))
               ) : (
@@ -434,7 +434,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
             </button>
 
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-10 w-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center p-2">
+              <div className="h-10 w-10 rounded-xl bg-[#5c7090]/15 border border-[#5c7090]/30 flex items-center justify-center p-2">
                 <Image
                   src="/logos/icon-white.webp"
                   alt="Icono Sanivex"
@@ -461,7 +461,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 <input
                   type="text"
                   placeholder="Ej: 900.123.456-7"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white text-xs focus:border-cyan-400 outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white text-xs focus:border-[#5c7090] outline-none"
                 />
               </div>
 
@@ -472,7 +472,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 <input
                   type="text"
                   placeholder="Ej: SNX-2026-9812"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white text-xs focus:border-cyan-400 outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white text-xs focus:border-[#5c7090] outline-none"
                 />
               </div>
 
@@ -490,7 +490,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                   href="https://wa.me/573009123456?text=Hola%20Sanivex,%20requiero%20asistencia%20con%20mi%20acta%20técnica%20de%20servicio."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[11px] text-cyan-400 hover:underline"
+                  className="text-[11px] text-[#5c7090] hover:underline"
                 >
                   ¿Necesitas ayuda con tu servicio? Contactar soporte directo vía WhatsApp →
                 </a>

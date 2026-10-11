@@ -60,7 +60,7 @@ export const ScrollDots: React.FC = () => {
             aria-label={`Navegar a ${section.label}`}
           >
             {/* Tooltip */}
-            <span className="pointer-events-none absolute right-8 rounded-xl bg-slate-900/90 px-3 py-1 text-[11px] font-medium text-cyan-300 opacity-0 backdrop-blur-md border border-white/10 shadow-lg transition-all duration-300 group-hover:opacity-100 group-hover:-translate-x-1 whitespace-nowrap">
+            <span className="pointer-events-none absolute right-8 rounded-xl bg-slate-900/90 px-3 py-1 text-[11px] font-medium text-slate-200 opacity-0 backdrop-blur-md border border-white/10 shadow-lg transition-all duration-300 group-hover:opacity-100 group-hover:-translate-x-1 whitespace-nowrap">
               {section.label}
             </span>
 
@@ -68,7 +68,7 @@ export const ScrollDots: React.FC = () => {
             <span
               className={`block rounded-full transition-all duration-300 ${
                 isActive
-                  ? 'h-3.5 w-3.5 bg-cyan-400 shadow-[0_0_12px_#22d3ee] scale-110'
+                  ? 'h-3.5 w-3.5 bg-[#5c7090] shadow-[0_0_12px_#5c7090] scale-110'
                   : 'h-2 w-2 bg-slate-600 hover:bg-slate-400 group-hover:scale-125'
               }`}
             />

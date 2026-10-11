@@ -1,13 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #080d1a;
+  --background: #09111c;
   --foreground: #f8fafc;
+  --sanivex-light: #5c7090;
+  --sanivex-dark: #09111c;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-sanivex-light: #5c7090;
+  --color-sanivex-dark: #09111c;
   --font-sans: var(--font-poppins), var(--font-montserrat), sans-serif;
 }
 
@@ -28,16 +32,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #080d1a;
+  background: #09111c;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(56, 189, 248, 0.25);
+  background: rgba(92, 112, 144, 0.45);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(56, 189, 248, 0.5);
+  background: rgba(92, 112, 144, 0.75);
 }
 
 /* Glassmorphism & Liquid Glass primitives */
@@ -154,7 +158,7 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 0 16px rgba(56, 189, 248, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 16px rgba(92, 112, 144, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.15);
 }
 
 .hero-alert-pill {
@@ -166,15 +170,15 @@ body {
 }
 
 .hero-primary-btn {
-  background: #22d3ee;
-  color: #07131e;
-  box-shadow: 0 0 20px rgba(34, 211, 238, 0.35);
+  background: #5c7090;
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(92, 112, 144, 0.45);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero-primary-btn:hover {
-  background: #38bdf8;
-  box-shadow: 0 0 28px rgba(34, 211, 238, 0.5);
+  background: #6d84a7;
+  box-shadow: 0 6px 24px rgba(92, 112, 144, 0.6);
   transform: translateY(-1.5px);
 }
 
