@@ -29,6 +29,12 @@ import { GlassCard } from '@/components/GlassCard';
 import { ScrollDots } from '@/components/ScrollDots';
 import { QuoteModal } from '@/components/QuoteModal';
 import { FloatingActions } from '@/components/FloatingActions';
+import { MipTimeline } from '@/components/interactive/MipTimeline';
+import { RodentsRiskInspector } from '@/components/interactive/RodentsRiskInspector';
+import { InsectsMatrix } from '@/components/interactive/InsectsMatrix';
+import { BirdsShowcase } from '@/components/interactive/BirdsShowcase';
+import { TermitesRadar } from '@/components/interactive/TermitesRadar';
+import { SanitizationEstimator } from '@/components/interactive/SanitizationEstimator';
 
 // Azul institucional Sanivex
 const SANIVEX_BLUE = 0x0a3871;
@@ -569,7 +575,7 @@ export default function Home() {
 
           <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col my-auto items-end">
             {/* Header */}
-            <div className="mb-4 lg:mb-6 max-w-2xl w-full text-left self-end">
+            <div className="mb-3 lg:mb-4 max-w-2xl w-full text-left self-end">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-[11px] font-semibold text-[#5c7090] mb-2">
                 <ShieldCheck className="h-3.5 w-3.5 text-[#5c7090]" />
                 Protocolo Metodológico MIP
@@ -577,51 +583,14 @@ export default function Home() {
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                 Manejo Integrado de Plagas (MIP)
               </h2>
-              <p className="mt-1.5 text-xs sm:text-sm text-slate-300/90 leading-relaxed font-light">
+              <p className="mt-1 text-xs sm:text-sm text-slate-300/90 leading-relaxed font-light">
                 Metodología biorracional y preventiva en 3 fases continuas. Minimizamos el uso de químicos nocivos protegiendo tu capital humano y activos críticos.
               </p>
             </div>
 
-            {/* 3 Full-Image Process Cards with Opaque Gradient Overlay */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5 max-w-5xl w-full self-end">
-              {/* Fase 01 */}
-              <GlassCard
-                imageSrc="/images/hero_technician.jpg"
-                stepNumber="01"
-                badge="Diagnóstico"
-                badgeVariant="blue"
-                title="Evaluación de Riesgos"
-                subtitle="Inspección de Puntos Críticos"
-                description="Inspección no destructiva de puntos ciegos y mapeo digital de vulnerabilidades para evitar infestaciones antes de que ocurran."
-                actionLabel="Consultar diagnóstico"
-                onAction={() => handleOpenQuote('MIP - Fase Diagnóstico')}
-              />
-
-              {/* Fase 02 */}
-              <GlassCard
-                imageSrc="/images/cards/card_blindaje_roedores.jpg"
-                stepNumber="02"
-                badge="Monitoreo"
-                badgeVariant="amber"
-                title="Conservación Activa"
-                subtitle="Monitoreo de Infraestructura"
-                description="Protegemos cableados y maquinaria pesada con monitoreo continuo, previniendo paradas de planta y costos imprevistos."
-                actionLabel="Ver tecnología"
-                onAction={() => handleOpenQuote('MIP - Fase Monitoreo')}
-              />
-
-              {/* Fase 03 */}
-              <GlassCard
-                imageSrc="/images/sanitization_clean.jpg"
-                stepNumber="03"
-                badge="Normatividad"
-                badgeVariant="emerald"
-                title="Cumplimiento BPM"
-                subtitle="Blindaje Sanitario & INVIMA"
-                description="Blindaje sanitario ante secretarías de salud con cebos biorracionales selectivos y actas técnicas digitales con trazabilidad al instante."
-                actionLabel="Solicitar auditoría"
-                onAction={() => handleOpenQuote('MIP - Fase Normatividad')}
-              />
+            {/* Interactive Timeline Stepper */}
+            <div className="max-w-5xl w-full self-end">
+              <MipTimeline onOpenQuote={handleOpenQuote} />
             </div>
           </div>
         </section>
@@ -652,7 +621,7 @@ export default function Home() {
 
           <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col my-auto">
             {/* Header */}
-            <div className="mb-4 lg:mb-5 max-w-2xl">
+            <div className="mb-3 lg:mb-4 max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-[11px] font-semibold text-red-300 mb-2 backdrop-blur-md">
                 <AlertTriangle className="h-3 w-3 text-red-400" />
                 Vectores de Alta Criticidad Sanitaria
@@ -660,48 +629,14 @@ export default function Home() {
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                 Control Avanzado de Roedores
               </h2>
-              <p className="mt-1.5 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+              <p className="mt-1 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                 Erradicación técnica y exclusión estructural de Rattus norvegicus y Mus musculus. Protegemos la salud de tu equipo y el sistema eléctrico de tu empresa.
               </p>
             </div>
 
-            {/* 3 Full-Image Cards with Opaque Gradient Overlay (Matching User's Reference Layout) */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5 w-full max-w-5xl">
-              {/* Card 1: Roedores (Exact clone of user's image card 1) */}
-              <GlassCard
-                imageSrc="/images/cards/card_roedores.jpg"
-                badge="Alta urgencia"
-                badgeVariant="red"
-                title="Roedores"
-                subtitle="Ratas y ratones"
-                description="Control de guatones, ratas de alcantarilla y ratones de tejado. Cebado, trampeo y sellado de accesos."
-                actionLabel="Solicitar tratamiento para Roedores"
-                onAction={() => handleOpenQuote('Control de Roedores')}
-              />
-
-              {/* Card 2: Blindaje de Redes y Cables */}
-              <GlassCard
-                imageSrc="/images/cards/card_blindaje_roedores.jpg"
-                badge="Seguridad Eléctrica"
-                badgeVariant="amber"
-                title="Blindaje Eléctrico"
-                subtitle="Prevención de Incendios"
-                description="Protección de bandejas portacables, racks y fibra óptica. Prevenimos paradas de planta y riesgos de cortocircuito."
-                actionLabel="Blindar cableado e infraestructura"
-                onAction={() => handleOpenQuote('Control de Roedores - Redes y Cables')}
-              />
-
-              {/* Card 3: Cebado Georreferenciado QR */}
-              <GlassCard
-                imageSrc="/images/cards/card_cebo_qr.jpg"
-                badge="Monitoreo Digital"
-                badgeVariant="purple"
-                title="Cebado Técnico QR"
-                subtitle="Dispositivos Seguros"
-                description="Estaciones inviolables con llave de seguridad de doble perno y registro digital de consumo en tiempo real."
-                actionLabel="Ver estaciones QR"
-                onAction={() => handleOpenQuote('Control de Roedores - Cebado Técnico')}
-              />
+            {/* Interactive Risk Inspector */}
+            <div className="w-full max-w-5xl">
+              <RodentsRiskInspector onOpenQuote={handleOpenQuote} />
             </div>
           </div>
         </section>
@@ -732,7 +667,7 @@ export default function Home() {
 
           <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-end my-auto">
             {/* Header (Aligned to right for visual harmony with insect on left) */}
-            <div className="mb-4 lg:mb-5 max-w-2xl w-full text-left lg:text-left">
+            <div className="mb-3 lg:mb-4 max-w-2xl w-full text-left lg:text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-semibold text-emerald-300 mb-2 backdrop-blur-md">
                 <Bug className="h-3 w-3 text-emerald-400" />
                 Control de Rastreros y Voladores
@@ -740,48 +675,14 @@ export default function Home() {
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                 Control Integral de Insectos
               </h2>
-              <p className="mt-1.5 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+              <p className="mt-1 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                 Erradicación de cucarachas (Blattodea), hormigas y moscas mediante geles biorracionales y trampas UV de captura limpia.
               </p>
             </div>
 
-            {/* 3 Full-Image Cards with Opaque Gradient Overlay (Matching User's Reference Layout) */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5 w-full max-w-5xl">
-              {/* Card 1: Cucarachas (Exact clone of user's image card 2) */}
-              <GlassCard
-                imageSrc="/images/cards/card_cucarachas.jpg"
-                badge="Muy común"
-                badgeVariant="amber"
-                title="Cucarachas"
-                subtitle="Alemana y Americana"
-                description="Tratamiento de gel, aspersión y termonebulización para cocinas, alcantarillado y cañerías."
-                actionLabel="Solicitar tratamiento para Cucarachas"
-                onAction={() => handleOpenQuote('Control de Insectos - Cucarachas')}
-              />
-
-              {/* Card 2: Chinches de Cama (Exact clone of user's image card 3) */}
-              <GlassCard
-                imageSrc="/images/cards/card_chinches.jpg"
-                badge="Tratamiento especializado"
-                badgeVariant="purple"
-                title="Chinches de Cama"
-                subtitle="Cimex lectularius"
-                description="Tratamiento térmico y químico profundo en colchones, marcos, molduras y enchufes."
-                actionLabel="Solicitar tratamiento para Chinches de Cama"
-                onAction={() => handleOpenQuote('Control de Insectos - Chinches')}
-              />
-
-              {/* Card 3: Insectos Voladores & Trampas UV */}
-              <GlassCard
-                imageSrc="/images/cards/card_voladores.jpg"
-                badge="Norma BPM"
-                badgeVariant="emerald"
-                title="Insectos Voladores"
-                subtitle="Moscas y Trampas UV"
-                description="Lámparas atrapainsectos con tubos UV inastillables y láminas con feromonas. Cero fragmentación sobre líneas de producción."
-                actionLabel="Instalar lámparas UV"
-                onAction={() => handleOpenQuote('Control de Insectos - Voladores')}
-              />
+            {/* Interactive Vector Matrix */}
+            <div className="w-full max-w-5xl">
+              <InsectsMatrix onOpenQuote={handleOpenQuote} />
             </div>
           </div>
         </section>
@@ -812,7 +713,7 @@ export default function Home() {
 
           <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col my-auto">
             {/* Header */}
-            <div className="mb-4 lg:mb-5 max-w-2xl">
+            <div className="mb-3 lg:mb-4 max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-[11px] font-semibold text-[#5c7090] mb-2">
                 <Building2 className="h-3 w-3 text-[#5c7090]" />
                 Protección Estructural & Fachadas
@@ -820,45 +721,14 @@ export default function Home() {
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                 Manejo y Exclusión de Aves Urbanas
               </h2>
-              <p className="mt-1.5 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+              <p className="mt-1 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                 Control ético, disuasivo y no cruento de palomas (Columba livia) en naves industriales y techumbres. Frenamos la corrosión por ácido úrico y riesgos biológicos.
               </p>
             </div>
 
-            {/* 3 Full-Image Solution Cards with Opaque Gradient Overlay */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-5 w-full max-w-4xl">
-              <GlassCard
-                imageSrc="/images/cards/card_mallas_aves.jpg"
-                badge="100% Hermético"
-                badgeVariant="blue"
-                title="Mallas Anti-Aves"
-                subtitle="Redes Mecánicas de Alta Tenacidad"
-                description="Redes de polietileno UV con cables en acero inox. Bloquean cerchas y marquesinas sin comprometer ventilación."
-                actionLabel="Cotizar mallas"
-                onAction={() => handleOpenQuote('Control de Aves - Mallas')}
-              />
-
-              <GlassCard
-                imageSrc="/images/cards/card_puas_aves.jpg"
-                badge="Sin Daño"
-                badgeVariant="teal"
-                title="Púas Quirúrgicas"
-                subtitle="Acero Inoxidable Grado 316"
-                description="Varillas romas sobre policarbonato virgen. Impiden el posamiento en cornisas, letreros y marquesinas."
-                actionLabel="Solicitar púas"
-                onAction={() => handleOpenQuote('Control de Aves - Púas y Postes')}
-              />
-
-              <GlassCard
-                imageSrc="/images/cards/card_laser_aves.jpg"
-                badge="Bio-tecnología"
-                badgeVariant="purple"
-                title="Disuasión Láser"
-                subtitle="Sistemas Ópticos Automatizados"
-                description="Barreras visuales de peligro automatizadas día y noche. Efecto no habituable para hangares y silos industriales."
-                actionLabel="Ver tecnología láser"
-                onAction={() => handleOpenQuote('Control de Aves - Sistemas Ópticos')}
-              />
+            {/* Interactive Birds Showcase */}
+            <div className="w-full max-w-5xl">
+              <BirdsShowcase onOpenQuote={handleOpenQuote} />
             </div>
           </div>
         </section>
@@ -886,54 +756,22 @@ export default function Home() {
 
           <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-end my-auto">
             {/* Header */}
-            <div className="mb-4 lg:mb-5 max-w-2xl w-full text-left lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-300 text-[11px] font-semibold text-amber-900 mb-2 shadow-sm">
+            <div className="mb-3 lg:mb-4 max-w-2xl w-full text-left lg:text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-300 text-[11px] font-semibold text-amber-900 mb-2 shadow-xs">
                 <Search className="h-3 w-3 text-amber-700" />
                 Protección Invisible de la Infraestructura
               </div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#09111c] tracking-tight">
                 Servicios de Control de Termitas
               </h2>
-              <p className="mt-1.5 text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
+              <p className="mt-1 text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
                 Las termitas consumen celulosa desde el interior causando deterioro progresivo e invisible. Implementamos sistemas de detección temprana, blindaje estructural y erradicación biológica.
               </p>
             </div>
 
-            {/* 3 Compact Light Glass Cards */}
-            {/* 3 Full-Image Solution Cards with Opaque Gradient Overlay */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-5 w-full lg:max-w-3xl xl:max-w-4xl lg:ml-auto">
-              <GlassCard
-                imageSrc="/images/cards/card_termitas_diagnostico.jpg"
-                badge="Diagnóstico"
-                badgeVariant="amber"
-                title="Detección No Destructiva"
-                subtitle="Detección Temprana"
-                description="Termografía infrarroja y sensores acústicos para localizar actividad xilófaga oculta en vigas y cielorrasos."
-                actionLabel="Solicitar diagnóstico"
-                onAction={() => handleOpenQuote('Termitas - Prevención y Diagnóstico')}
-              />
-
-              <GlassCard
-                imageSrc="/images/cards/card_termitas_blindaje.jpg"
-                badge="Blindaje"
-                badgeVariant="blue"
-                title="Blindaje Estructural"
-                subtitle="Cimientos & Madera"
-                description="Tratamiento de madera con sales de boro y sellado de fisuras en cimientos, vigas de soporte y drywall."
-                actionLabel="Proteger estructuras"
-                onAction={() => handleOpenQuote('Termitas - Elementos Estructurales')}
-              />
-
-              <GlassCard
-                imageSrc="/images/termite_macro.jpg"
-                badge="Erradicación"
-                badgeVariant="red"
-                title="Erradicación Total"
-                subtitle="Cebado & Barreras"
-                description="Sistemas de cebado con inhibidores de quitina (IGR) e inyección sub-suelo para erradicación completa de la reina."
-                actionLabel="Erradicar colonias"
-                onAction={() => handleOpenQuote('Termitas - Erradicación')}
-              />
+            {/* Interactive Termites Radar */}
+            <div className="w-full max-w-5xl">
+              <TermitesRadar onOpenQuote={handleOpenQuote} />
             </div>
           </div>
         </section>
@@ -950,7 +788,7 @@ export default function Home() {
 
           <div className="max-w-7xl mx-auto w-full relative z-10 flex-1 flex flex-col justify-center my-auto">
             {/* Header */}
-            <div className="mb-4 lg:mb-6 max-w-2xl">
+            <div className="mb-3 lg:mb-4 max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-[11px] font-semibold text-teal-300 mb-2">
                 <Sparkles className="h-3 w-3 text-teal-400" />
                 Bioseguridad Grado Quirúrgico & Corporativo
@@ -958,45 +796,14 @@ export default function Home() {
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                 Sanitización y Desinfección de Alto Nivel
               </h2>
-              <p className="mt-1.5 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+              <p className="mt-1 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                 Ambientes clínicos y corporativos libres de patógenos. Micro-nebulización en frío ULV con desinfectantes certificados de amplio espectro.
               </p>
             </div>
 
-            {/* 3 Full-Image Clinical Cards with Opaque Gradient Overlay */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5 max-w-5xl">
-              <GlassCard
-                imageSrc="/images/sanitization_clean.jpg"
-                badge="Microbiología"
-                badgeVariant="teal"
-                title="Microorganismos Patógenos"
-                subtitle="Virus, Bacterias & Hongos"
-                description="Eliminación garantizada del 99.999% de patógenos con amonios cuaternarios de 5ª generación y dióxido de cloro inocuos con alimentos."
-                actionLabel="Desinfectar área"
-                onAction={() => handleOpenQuote('Sanitización - Microorganismos')}
-              />
-
-              <GlassCard
-                imageSrc="/images/hero_technician.jpg"
-                badge="Salud Laboral"
-                badgeVariant="blue"
-                title="Protección del Personal"
-                subtitle="Ambientes Corporativos Seguros"
-                description="Reducción del ausentismo laboral. Tiempos rápidos de reingreso seguro (< 2 horas) y monitoreo con bioluminiscencia ATP."
-                actionLabel="Proteger equipo"
-                onAction={() => handleOpenQuote('Sanitización - Capital Humano')}
-              />
-
-              <GlassCard
-                imageSrc="/images/Propias/principal_black.jpg"
-                badge="Blindaje Legal"
-                badgeVariant="emerald"
-                title="Certificación Sanitaria"
-                subtitle="Cumplimiento BPM & INVIMA"
-                description="Expedimos certificados sanitarios oficiales y fichas técnicas válidos para renovación de licencias ante Secretarías de Salud."
-                actionLabel="Certificar empresa"
-                onAction={() => handleOpenQuote('Sanitización - Normativa y Certificados')}
-              />
+            {/* Interactive Clinical Estimator */}
+            <div className="w-full max-w-5xl">
+              <SanitizationEstimator onOpenQuote={handleOpenQuote} />
             </div>
           </div>
 
