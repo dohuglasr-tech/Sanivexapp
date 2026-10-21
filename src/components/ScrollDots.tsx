@@ -137,6 +137,28 @@ const sections: NavSection[] = [
 export const ScrollDots: React.FC = () => {
   const [activeSection, setActiveSection] = useState('hero');
   const [isLightSection, setIsLightSection] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Proximidad del cursor: solo aparece cuando el cursor está en el 25% derecho de la página
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // 25% a la derecha: e.clientX >= ancho * 0.75 (calculado dinámicamente para soportar cualquier nivel de zoom)
+      const threshold = window.innerWidth * 0.75;
+      setIsVisible(e.clientX >= threshold);
+    };
+
+    const handleMouseLeave = () => {
+      setIsVisible(false);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -193,7 +215,12 @@ export const ScrollDots: React.FC = () => {
   return (
     <aside
       aria-label="Navegación rápida de servicios y secciones"
-      className={`fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-center gap-1.5 p-2 rounded-full backdrop-blur-2xl transition-all duration-300 select-none ${
+      onMouseEnter={() => setIsVisible(true)}
+      className={`fixed right-3 sm:right-5 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center gap-1.5 p-2 rounded-full backdrop-blur-2xl transition-all duration-300 ease-out select-none ${
+        isVisible
+          ? 'opacity-100 translate-x-0 pointer-events-auto shadow-[0_15px_45px_rgba(0,0,0,0.65)]'
+          : 'opacity-0 translate-x-8 pointer-events-none'
+      } ${
         isLightSection
           ? 'liquid-glass-dock-vertical-light'
           : 'liquid-glass-dock-vertical'

@@ -1,767 +1,811 @@
-"use client"
+'use client';
 
-import { useEffect, useRef, useState } from "react"
-import Link from "next/link"
-import * as THREE from "three"
-import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js"
-import { ArrowLeft, Play, Pause, Phone, AlertTriangle, ShieldCheck, Sparkles, ArrowRight } from "lucide-react"
-import { QuoteModal } from "@/components/QuoteModal"
-import { Navbar } from "@/components/Navbar"
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import gsap from 'gsap';
+import { RotateCcw, Play, Pause, Sliders, Eye } from 'lucide-react';
+import geo from './logo-geometry.json';
 
-// Azul institucional Sanivex (extraído del logotipo oficial)
-const SANIVEX_BLUE = 0x0a3871
+/* ------------------------------------------------------------------ */
+/*  GEOMETRY CONSTANTS                                                */
+/* ------------------------------------------------------------------ */
+type Box = { x: number; y: number; w: number; h: number };
+type TipKey = 'tl' | 'tr' | 'bl' | 'br';
+type LetterKey = 's' | 'a' | 'n' | 'i' | 'v' | 'e' | 'x';
 
-export default function Lab3DPage() {
-  const mountRef = useRef<HTMLDivElement | null>(null)
-  const [isPlaying, setIsPlaying] = useState(true)
-  const [quoteModalOpen, setQuoteModalOpen] = useState(false)
-  const isPlayingRef = useRef(true)
+const STAGE_W = 960;
+const STAGE_H = 420;
+const K = 1.45; // wordmark scale
+const KI = 0.22; // icon scale
 
+const iconPieces = geo.icon.pieces as unknown as Record<'head' | TipKey, Box>;
+const letterBoxes = geo.text.letters as unknown as Record<LetterKey, Box>;
+const IC = geo.icon.center;
+const TEXT_W = geo.text.source.w * K;
+const TEXT_H = geo.text.source.h * K;
+const X0 = (STAGE_W - TEXT_W) / 2;
+const Y0 = (STAGE_H - TEXT_H) / 2;
+
+type Rect = { left: number; top: number; w: number; h: number };
+const iconRect = (b: Box): Rect => ({
+  left: STAGE_W / 2 + (b.x - IC.x) * KI,
+  top: STAGE_H / 2 + (b.y - IC.y) * KI,
+  w: b.w * KI,
+  h: b.h * KI,
+});
+const letterRect = (b: Box): Rect => ({
+  left: X0 + b.x * K,
+  top: Y0 + b.y * K,
+  w: b.w * K,
+  h: b.h * K,
+});
+
+const TIPS: TipKey[] = ['tl', 'tr', 'bl', 'br'];
+const LETTERS: LetterKey[] = ['s', 'a', 'n', 'i', 'v', 'e', 'x'];
+
+/* ------------------------------------------------------------------ */
+/*  THE 4 CONTINUOUS DRAWING PATHS (1 part -> 1 line)                 */
+/* ------------------------------------------------------------------ */
+// P1 (from TL: 445, 171): Sweeps to left, traces S curves, sweeps to A apex and legs
+const PATH_TL = 'M 445 171 C 350 135, 230 145, 175 184 C 150 170, 120 171, 100 190 C 88 202, 112 216, 138 210 C 166 204, 182 220, 176 235 C 168 250, 120 252, 98 238 C 135 254, 180 254, 215 250 L 260 170 L 305 250 M 235 222 L 285 222';
+
+// P2 (from BL: 445, 251): Sweeps down-left, traces N (left stem, diagonal, right stem)
+const PATH_BL = 'M 445 251 C 410 275, 375 275, 352 250 L 352 170 L 430 250 L 430 170';
+
+// P3 (from TR: 515, 171): Traces vertical stem of I, then sweeps down & up for V
+const PATH_TR = 'M 515 171 C 505 160, 486 160, 486 170 L 486 250 C 486 265, 520 210, 536 170 L 581 250 L 626 170';
+
+// P4 (from BR: 515, 251): Sweeps right into E (stem & 3 bars) and crosses X (both diagonals)
+const PATH_BR = 'M 515 251 C 560 280, 630 275, 672 250 L 672 170 L 738 170 M 672 210 L 726 210 M 672 250 L 738 250 M 780 170 L 864 250 M 864 170 L 780 250';
+
+const MILESTONES = [
+  { id: 'rest', label: '1 · Isotipo en reposo' },
+  { id: 'lines', label: '2 · Se convierte en 4 líneas' },
+  { id: 'draw', label: '3 · Líneas dibujan SANIVEX' },
+  { id: 'sink', label: '4 · Círculo entra dentro de la I' },
+  { id: 'final', label: '5 · SANIVEX completo' },
+] as const;
+
+export default function LoadingScreenLab() {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+
+  const [ready, setReady] = useState(false);
+  const [fit, setFit] = useState(1);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [time, setTime] = useState(0);
+  const [speed, setSpeed] = useState(1);
+  const [showControls, setShowControls] = useState(true);
+
+  // SVG Path refs
+  const pathTLRef = useRef<SVGPathElement | null>(null);
+  const pathBLRef = useRef<SVGPathElement | null>(null);
+  const pathTRRef = useRef<SVGPathElement | null>(null);
+  const pathBRRef = useRef<SVGPathElement | null>(null);
+
+  // Responsive scale fit
   useEffect(() => {
-    isPlayingRef.current = isPlaying
-  }, [isPlaying])
+    const update = () => {
+      const s = Math.min(1, (window.innerWidth * 0.94) / STAGE_W, (window.innerHeight * 0.72) / STAGE_H);
+      setFit(Math.max(0.32, s));
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
 
+  // Preload images
   useEffect(() => {
-    document.documentElement.classList.add("dark", "scroll-smooth")
-  }, [])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("active")
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.12 }
-    )
-
-    document.querySelectorAll<HTMLElement>(".bloom").forEach((element) => observer.observe(element))
-    return () => observer.disconnect()
-  }, [])
-
-  // 3D Sanivex emblem (se renderiza en desktop >= 1024px, se pausa en móvil)
-  useEffect(() => {
-    const container = mountRef.current
-    if (!container) return
-
-    const scene = new THREE.Scene()
-
-    const width = container.clientWidth || 600
-    const height = container.clientHeight || 600
-
-    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000)
-    camera.position.set(0, 0.8, 21)
-
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true,
-      powerPreference: "high-performance",
-    })
-    renderer.setSize(width, height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.toneMapping = THREE.ACESFilmicToneMapping
-    renderer.toneMappingExposure = 1.15
-    container.appendChild(renderer.domElement)
-
-    // Soft studio reflections (environment map)
-    const pmrem = new THREE.PMREMGenerator(renderer)
-    const envTexture = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
-    scene.environment = envTexture
-
-    // Lighting (cool rim + key light + moving highlight)
-    scene.add(new THREE.AmbientLight(0xffffff, 0.35))
-
-    const keyLight = new THREE.DirectionalLight(0xe2e8f0, 2.6)
-    keyLight.position.set(12, 16, 18)
-    scene.add(keyLight)
-
-    const rimLight = new THREE.PointLight(0x94a3b8, 3.5, 34)
-    rimLight.position.set(-16, -10, -12)
-    scene.add(rimLight)
-
-    const cyanBack = new THREE.PointLight(0x61dafb, 2.2, 28)
-    cyanBack.position.set(0, -12, -8)
-    scene.add(cyanBack)
-
-    // Traveling highlight that sweeps across the surface
-    const sweepLight = new THREE.PointLight(0xffffff, 40, 26, 1.6)
-    scene.add(sweepLight)
-
-    // ---------------------------------------------------------------
-    // Emblem geometry (faithful to the official logo, refined profile)
-    // ---------------------------------------------------------------
-    const emblem = new THREE.Group()
-    emblem.rotation.z = (8 * Math.PI) / 180
-    scene.add(emblem)
-
-    const blueMat = new THREE.MeshPhysicalMaterial({
-      color: SANIVEX_BLUE,
-      metalness: 0.55,
-      roughness: 0.22,
-      clearcoat: 1,
-      clearcoatRoughness: 0.12,
-      envMapIntensity: 1.15,
-      emissive: SANIVEX_BLUE,
-      emissiveIntensity: 0.2,
-    })
-
-    // One half of the wings (left = -1, right = +1), logo units / 100
-    const buildHalfShape = (side: 1 | -1) => {
-      const x = (v: number) => v * side
-      const s = new THREE.Shape()
-
-      s.moveTo(x(-3.2), 3.6)
-      s.lineTo(x(-0.3), 0.75)
-      s.bezierCurveTo(x(-0.16), 0.5, x(-0.06), 0.26, x(-0.06), 0)
-      s.bezierCurveTo(x(-0.06), -0.26, x(-0.16), -0.5, x(-0.3), -0.75)
-      s.lineTo(x(-3.2), -3.6)
-      s.lineTo(x(-3.2), -1.85)
-      s.bezierCurveTo(x(-3.2), -1.2, x(-2.66), -0.67, x(-2.0), -0.67)
-      s.lineTo(x(-0.68), -0.67)
-      s.bezierCurveTo(x(-0.42), -0.67, x(-0.19), -0.38, x(-0.19), 0)
-      s.bezierCurveTo(x(-0.19), 0.38, x(-0.42), 0.67, x(-0.68), 0.67)
-      s.lineTo(x(-2.0), 0.67)
-      s.bezierCurveTo(x(-2.66), 0.67, x(-3.2), 1.2, x(-3.2), 1.85)
-      s.lineTo(x(-3.2), 3.6)
-
-      return s
-    }
-
-    const extrude: THREE.ExtrudeGeometryOptions = {
-      depth: 0.4,
-      curveSegments: 48,
-      bevelEnabled: true,
-      bevelSegments: 10,
-      bevelThickness: 0.1,
-      bevelSize: 0.035,
-      bevelOffset: 0,
-    }
-
-    const leftGeo = new THREE.ExtrudeGeometry(buildHalfShape(1), extrude)
-    leftGeo.translate(0, 0, -extrude.depth! / 2)
-    leftGeo.computeVertexNormals()
-
-    const rightGeo = new THREE.ExtrudeGeometry(buildHalfShape(-1), extrude)
-    rightGeo.translate(0, 0, -extrude.depth! / 2)
-    rightGeo.computeVertexNormals()
-
-    // -----------------------------------------------------------
-    // Pest images "inside" the emblem (subtle, low opacity)
-    // Canvas covers the logo bounds: 6.4 x 7.2 units, one pest per wing
-    // -----------------------------------------------------------
-    const texCanvas = document.createElement("canvas")
-    texCanvas.width = 2048
-    texCanvas.height = 2304
-    const tctx = texCanvas.getContext("2d")!
-
-    const hexBlue = "#0a3871"
-    const paintBase = () => {
-      tctx.globalAlpha = 1
-      tctx.filter = "none"
-      tctx.fillStyle = hexBlue
-      tctx.fillRect(0, 0, texCanvas.width, texCanvas.height)
-    }
-    paintBase()
-
-    const pestTexture = new THREE.CanvasTexture(texCanvas)
-    pestTexture.colorSpace = THREE.SRGBColorSpace
-    pestTexture.anisotropy = renderer.capabilities.getMaxAnisotropy()
-    // Shape UVs are raw (x, y) in logo units -> remap to 0..1 over the logo bounds
-    pestTexture.repeat.set(1 / 6.4, 1 / 7.2)
-    pestTexture.offset.set(0.5, 0.5)
-
-    // Quadrants: [col, row], crop focus (fractions of the source image)
-    const pestSources = [
-      // Top-Left: Rata macro de estudio (perfil con iluminación de borde)
-      {
-        src: "/images/pests/rata_studio.jpg",
-        col: 0,
-        row: 0,
-        fx: 0.52,
-        fy: 0.04,
-        fw: 0.48,
-        fh: 0.94,
-        mirrorX: false,
-      },
-      // Top-Right: Paloma macro de estudio (retrato nítido con plumaje tornasolado)
-      {
-        src: "/images/pests/paloma_studio.jpg",
-        col: 1,
-        row: 0,
-        fx: 0.53,
-        fy: 0.02,
-        fw: 0.47,
-        fh: 0.98,
-        mirrorX: false,
-      },
-      // Bottom-Left: Cucaracha macro de estudio (antenas y ojo compuesto)
-      {
-        src: "/images/pests/cucaracha_studio.jpg",
-        col: 0,
-        row: 1,
-        fx: 0.0,
-        fy: 0.0,
-        fw: 0.5,
-        fh: 0.98,
-        mirrorX: false,
-      },
-      // Bottom-Right: Termita / Insecto macro de estudio (mandíbulas y patas)
-      {
-        src: "/images/pests/plagas_trio.jpg",
-        col: 1,
-        row: 1,
-        fx: 0.0,
-        fy: 0.0,
-        fw: 0.35,
-        fh: 0.48,
-        mirrorX: true,
-      },
-    ]
-
-    let disposed = false
-    const loaded: { img: HTMLImageElement; cfg: (typeof pestSources)[number] }[] = []
-
-    const repaint = () => {
-      paintBase()
-      const qw = texCanvas.width / 2
-      const qh = texCanvas.height / 2
-
-      loaded.forEach(({ img, cfg }) => {
-        const sx = cfg.fx * img.naturalWidth
-        const sy = cfg.fy * img.naturalHeight
-        const sw = cfg.fw * img.naturalWidth
-        const sh = cfg.fh * img.naturalHeight
-
-        tctx.save()
-        const dx = cfg.col * qw
-        const dy = cfg.row * qh
-
-        if (cfg.mirrorX) {
-          tctx.translate(dx + qw, dy)
-          tctx.scale(-1, 1)
-        } else {
-          tctx.translate(dx, dy)
-        }
-
-        // Studio macro photography clarity with subtle atmospheric integration
-        tctx.filter = "contrast(1.15) saturate(1.1)"
-        tctx.globalAlpha = 0.65
-        tctx.drawImage(img, sx, sy, sw, sh, 0, 0, qw, qh)
-        tctx.restore()
-      })
-
-      // Royal blue wash so corporate Sanivex color remains cohesive
-      tctx.save()
-      tctx.globalAlpha = 0.22
-      tctx.filter = "none"
-      tctx.fillStyle = hexBlue
-      tctx.fillRect(0, 0, texCanvas.width, texCanvas.height)
-      tctx.restore()
-
-      pestTexture.needsUpdate = true
-    }
-
-    pestSources.forEach((cfg) => {
-      const img = new Image()
-      img.onload = () => {
-        if (disposed) return
-        loaded.push({ img, cfg })
-        repaint()
-      }
-      img.src = cfg.src
-    })
-
-    // Cap faces (front/back) show the pests; bevel sides stay solid blue
-    const capMat = new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
-      map: pestTexture,
-      metalness: 0.4,
-      roughness: 0.24,
-      clearcoat: 1,
-      clearcoatRoughness: 0.1,
-      envMapIntensity: 1.1,
-      emissive: 0xffffff,
-      emissiveMap: pestTexture,
-      emissiveIntensity: 0.35,
-    })
-
-    const wingMaterials = [capMat, blueMat]
-    const leftWing = new THREE.Mesh(leftGeo, wingMaterials)
-    const rightWing = new THREE.Mesh(rightGeo, wingMaterials)
-
-    const headGeo = new THREE.SphereGeometry(1.0, 96, 96)
-    const head = new THREE.Mesh(headGeo, blueMat)
-    head.position.set(0, 2.65, 0)
-
-    emblem.add(leftWing, rightWing, head)
-    emblem.scale.setScalar(1.35)
-
-    // Orbit controls (drag + wheel)
-    let isDragging = false
-    let prevX = 0
-    let prevY = 0
-    let theta = 0
-    let phi = Math.PI / 2.1
-    const distance = 21
-
-    const onDown = (e: MouseEvent | TouchEvent) => {
-      isDragging = true
-      prevX = "touches" in e ? e.touches[0].clientX : e.clientX
-      prevY = "touches" in e ? e.touches[0].clientY : e.clientY
-    }
-    const onMove = (e: MouseEvent | TouchEvent) => {
-      if (!isDragging) return
-      const cx = "touches" in e ? e.touches[0].clientX : e.clientX
-      const cy = "touches" in e ? e.touches[0].clientY : e.clientY
-      theta -= (cx - prevX) * 0.007
-      phi = Math.max(0.5, Math.min(Math.PI - 0.5, phi - (cy - prevY) * 0.007))
-      prevX = cx
-      prevY = cy
-    }
-    const onUp = () => {
-      isDragging = false
-    }
-
-    container.addEventListener("mousedown", onDown)
-    window.addEventListener("mousemove", onMove)
-    window.addEventListener("mouseup", onUp)
-    container.addEventListener("touchstart", onDown, { passive: true })
-    window.addEventListener("touchmove", onMove, { passive: true })
-    window.addEventListener("touchend", onUp)
-
-    const onResize = () => {
-      if (!container) return
-      const w = container.clientWidth || 600
-      const h = container.clientHeight || 600
-      camera.aspect = w / h
-      camera.updateProjectionMatrix()
-      renderer.setSize(w, h)
-    }
-    window.addEventListener("resize", onResize)
-
-    const clock = new THREE.Clock()
-    let rafId = 0
-
-    const animate = () => {
-      rafId = requestAnimationFrame(animate)
-      if (window.innerWidth < 1024) return // 0% consumo de GPU en móvil
-      const t = clock.getElapsedTime()
-
-      camera.position.x = distance * Math.sin(phi) * Math.sin(theta)
-      camera.position.y = distance * Math.cos(phi)
-      camera.position.z = distance * Math.sin(phi) * Math.cos(theta)
-      camera.lookAt(0, 0, 0)
-
-      if (isPlayingRef.current) {
-        emblem.rotation.y += 0.006
-      }
-      emblem.position.y = Math.sin(t * 0.9) * 0.18
-
-      // Highlight sweeping around the emblem
-      sweepLight.position.set(Math.cos(t * 0.7) * 10, Math.sin(t * 0.5) * 6, 9 + Math.sin(t * 0.7) * 3)
-
-      renderer.render(scene, camera)
-    }
-    animate()
-
+    let cancelled = false;
+    const urls = [
+      ...TIPS.map((t) => `/logos/loader/wing-${t}.png`),
+      '/logos/loader/head.png',
+      ...LETTERS.map((l) => `/logos/loader/letter-${l}.png`),
+      '/logos/sanivex-text-white.png',
+    ];
+    Promise.all(
+      urls.map(
+        (src) =>
+          new Promise<void>((resolve) => {
+            const img = new window.Image();
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+            img.src = src;
+          })
+      )
+    ).then(() => {
+      if (!cancelled) setReady(true);
+    });
     return () => {
-      cancelAnimationFrame(rafId)
-      disposed = true
-      window.removeEventListener("resize", onResize)
-      container.removeEventListener("mousedown", onDown)
-      window.removeEventListener("mousemove", onMove)
-      window.removeEventListener("mouseup", onUp)
-      container.removeEventListener("touchstart", onDown)
-      window.removeEventListener("touchmove", onMove)
-      window.removeEventListener("touchend", onUp)
+      cancelled = true;
+    };
+  }, []);
 
-      leftGeo.dispose()
-      rightGeo.dispose()
-      headGeo.dispose()
-      blueMat.dispose()
-      capMat.dispose()
-      pestTexture.dispose()
-      envTexture.dispose()
-      pmrem.dispose()
+  // Build the GSAP timeline with continuous fluid motion
+  useEffect(() => {
+    if (!ready) return;
 
-      if (renderer.domElement.parentNode) {
-        renderer.domElement.parentNode.removeChild(renderer.domElement)
+    const ctx = gsap.context(() => {
+      const q = gsap.utils.selector(containerRef);
+      const tip = (t: TipKey) => q(`[data-tip="${t}"]`)[0];
+      const letter = (l: LetterKey) => q(`[data-letter="${l}"]`)[0];
+      const head = q('[data-head]')[0];
+      const headAbsorbed = q('[data-head-absorbed]')[0];
+      const aura = q('[data-aura]')[0];
+      const shimmer = q('[data-shimmer]')[0];
+      const tagline = q('[data-tagline]')[0];
+      const fullLogo = q('[data-full-logo]')[0];
+
+      // Measure SVG path lengths
+      const lenTL = pathTLRef.current?.getTotalLength() || 720;
+      const lenBL = pathBLRef.current?.getTotalLength() || 440;
+      const lenTR = pathTRRef.current?.getTotalLength() || 540;
+      const lenBR = pathBRRef.current?.getTotalLength() || 700;
+
+      // Set initial SVG path stroke dash
+      [
+        { el: pathTLRef.current, len: lenTL },
+        { el: pathBLRef.current, len: lenBL },
+        { el: pathTRRef.current, len: lenTR },
+        { el: pathBRRef.current, len: lenBR },
+      ].forEach(({ el, len }) => {
+        if (el) {
+          gsap.set(el, {
+            strokeDasharray: len,
+            strokeDashoffset: len,
+            opacity: 1,
+          });
+        }
+      });
+
+      // Initial visual states
+      TIPS.forEach((t) => gsap.set(tip(t), { x: 0, y: 0, scaleX: 1, scaleY: 1, opacity: 1, filter: 'blur(0px)' }));
+      LETTERS.forEach((l) => gsap.set(letter(l), { opacity: 0, scale: 0.96 }));
+      gsap.set(head, { x: 0, y: 0, scale: 1, opacity: 1 });
+      gsap.set(headAbsorbed, { y: -30, scale: 0.7, opacity: 0 }); // starts above inside the I
+      gsap.set(aura, { opacity: 0.35, scale: 0.95 });
+      gsap.set(fullLogo, { opacity: 0 });
+      gsap.set(shimmer, { x: -300 });
+      gsap.set(tagline, { opacity: 0, y: 12 });
+
+      // Create continuous master timeline
+      const tl = gsap.timeline({
+        paused: false,
+        onUpdate: () => {
+          setProgress(tl.progress());
+          setTime(tl.time());
+        },
+        onComplete: () => setIsPlaying(false),
+      });
+      timelineRef.current = tl;
+
+      // =========================================================
+      // 1. ISOTIPO EN REPOSO (0.0s - 0.45s)
+      // =========================================================
+      tl.addLabel('rest', 0);
+      tl.to(aura, { opacity: 0.8, scale: 1.15, duration: 0.45, ease: 'sine.inOut' }, 0);
+
+      // =========================================================
+      // 2. SEPARACIÓN Y METAMORFOSIS EN 4 LÍNEAS (0.45s - 0.95s)
+      // Cada una de las 4 partes se estira y se convierte en 1 línea
+      // =========================================================
+      tl.addLabel('lines', 0.45);
+
+      // Desarmado continuo: cada parte se deforma y adelgaza convirtiéndose en un filamento láser
+      tl.to(
+        tip('tl'),
+        { x: -35, y: -16, scaleX: 1.9, scaleY: 0.12, opacity: 0, filter: 'blur(1.5px)', duration: 0.5, ease: 'power2.in' },
+        'lines'
+      );
+      tl.to(
+        tip('bl'),
+        { x: -35, y: 16, scaleX: 1.9, scaleY: 0.12, opacity: 0, filter: 'blur(1.5px)', duration: 0.5, ease: 'power2.in' },
+        'lines'
+      );
+      tl.to(
+        tip('tr'),
+        { x: 35, y: -16, scaleX: 1.9, scaleY: 0.12, opacity: 0, filter: 'blur(1.5px)', duration: 0.5, ease: 'power2.in' },
+        'lines'
+      );
+      tl.to(
+        tip('br'),
+        { x: 35, y: 16, scaleX: 1.9, scaleY: 0.12, opacity: 0, filter: 'blur(1.5px)', duration: 0.5, ease: 'power2.in' },
+        'lines'
+      );
+
+      // El círculo asciende suavemente para colocarse en el eje vertical de la "I" (x: 486)
+      tl.to(
+        head,
+        {
+          x: 6, // 480 -> 486 alineación vertical perfecta con la I
+          y: -58,
+          scale: 0.85,
+          duration: 0.85,
+          ease: 'power2.out',
+        },
+        'lines'
+      );
+
+      // =========================================================
+      // 3. LAS 4 LÍNEAS DIBUJAN SANIVEX (0.65s - 2.15s)
+      // Cada línea dibuja fluidamente su sección y se disuelve
+      // =========================================================
+      tl.addLabel('draw', 0.65);
+
+      // Línea 1 (desde TL): Dibuja S y A
+      if (pathTLRef.current) {
+        tl.to(
+          pathTLRef.current,
+          {
+            strokeDashoffset: 0,
+            duration: 1.35,
+            ease: 'power1.inOut',
+          },
+          'draw'
+        );
+        // La línea se desvanece suavemente al finalizar de trazar sus letras
+        tl.to(pathTLRef.current, { opacity: 0, duration: 0.35, ease: 'power2.out' }, 'draw+=1.25');
       }
-      renderer.dispose()
-    }
-  }, [])
+      tl.fromTo(letter('s'), { opacity: 0, scale: 0.94, filter: 'brightness(2)' }, { opacity: 1, scale: 1, filter: 'brightness(1)', duration: 0.45, ease: 'power2.out' }, 'draw+=0.4');
+      tl.fromTo(letter('a'), { opacity: 0, scale: 0.94, filter: 'brightness(2)' }, { opacity: 1, scale: 1, filter: 'brightness(1)', duration: 0.45, ease: 'power2.out' }, 'draw+=0.85');
 
-  const features = [
-    {
-      label: "Plagas",
-      title: "Rata, paloma, cucaracha y termita por dentro.",
-      text: "Las imágenes de las plagas que controlamos viven dentro del icono con baja opacidad, bajo el barniz brillante.",
-    },
-    {
-      label: "Iluminación",
-      title: "Reflejos de luz en movimiento.",
-      text: "Luz de recorte fría, luz principal rasante y un destello que recorre la superficie del icono.",
-    },
-    {
-      label: "Interacción",
-      title: "Arrastra y rota.",
-      text: "Control con el ratón para rotar libremente el icono sobre su eje e inspeccionarlo desde cualquier ángulo.",
-    },
-  ]
+      // Línea 2 (desde BL): Dibuja N
+      if (pathBLRef.current) {
+        tl.to(
+          pathBLRef.current,
+          {
+            strokeDashoffset: 0,
+            duration: 1.25,
+            ease: 'power1.inOut',
+          },
+          'draw+=0.08'
+        );
+        tl.to(pathBLRef.current, { opacity: 0, duration: 0.35, ease: 'power2.out' }, 'draw+=1.2');
+      }
+      tl.fromTo(letter('n'), { opacity: 0, scale: 0.94, filter: 'brightness(2)' }, { opacity: 1, scale: 1, filter: 'brightness(1)', duration: 0.45, ease: 'power2.out' }, 'draw+=0.65');
+
+      // Línea 3 (desde TR): Dibuja el tallo de la I y la V
+      if (pathTRRef.current) {
+        tl.to(
+          pathTRRef.current,
+          {
+            strokeDashoffset: 0,
+            duration: 1.3,
+            ease: 'power1.inOut',
+          },
+          'draw+=0.05'
+        );
+        tl.to(pathTRRef.current, { opacity: 0, duration: 0.35, ease: 'power2.out' }, 'draw+=1.25');
+      }
+      tl.fromTo(letter('i'), { opacity: 0, scale: 0.94, filter: 'brightness(2)' }, { opacity: 1, scale: 1, filter: 'brightness(1)', duration: 0.4, ease: 'power2.out' }, 'draw+=0.4');
+      tl.fromTo(letter('v'), { opacity: 0, scale: 0.94, filter: 'brightness(2)' }, { opacity: 1, scale: 1, filter: 'brightness(1)', duration: 0.45, ease: 'power2.out' }, 'draw+=0.8');
+
+      // Línea 4 (desde BR): Dibuja E y X
+      if (pathBRRef.current) {
+        tl.to(
+          pathBRRef.current,
+          {
+            strokeDashoffset: 0,
+            duration: 1.4,
+            ease: 'power1.inOut',
+          },
+          'draw+=0.12'
+        );
+        tl.to(pathBRRef.current, { opacity: 0, duration: 0.35, ease: 'power2.out' }, 'draw+=1.35');
+      }
+      tl.fromTo(letter('e'), { opacity: 0, scale: 0.94, filter: 'brightness(2)' }, { opacity: 1, scale: 1, filter: 'brightness(1)', duration: 0.45, ease: 'power2.out' }, 'draw+=0.75');
+      tl.fromTo(letter('x'), { opacity: 0, scale: 0.94, filter: 'brightness(2)' }, { opacity: 1, scale: 1, filter: 'brightness(1)', duration: 0.5, ease: 'power2.out' }, 'draw+=1.1');
+
+      // =========================================================
+      // 4. EL CÍRCULO ENTRA Y DESAPARECE DENTRO DE LA MISMA "I" (1.85s - 2.55s)
+      // Desciende desde arriba, penetra en la I y se absorbe por completo
+      // =========================================================
+      tl.addLabel('sink', 1.85);
+
+      // La cabeza externa desciende hacia el borde superior de la I
+      tl.to(
+        head,
+        {
+          y: 4, // llega al tope superior del tallo de la I
+          scale: 0.7,
+          duration: 0.42,
+          ease: 'power2.in',
+        },
+        'sink'
+      );
+
+      // Transición fluida: pasa de la esfera externa al interior de la "I"
+      tl.set(head, { opacity: 0 }, 'sink+=0.42');
+      tl.set(headAbsorbed, { opacity: 1, y: -28, scale: 0.75 }, 'sink+=0.42');
+
+      // El círculo viaja hacia abajo DENTRO del cuerpo de la I y se desintegra/absorbe
+      tl.to(
+        headAbsorbed,
+        {
+          y: 34, // se hunde hacia el centro del tallo de la I
+          scale: 0.3,
+          opacity: 0,
+          duration: 0.45,
+          ease: 'power2.out',
+        },
+        'sink+=0.42'
+      );
+
+      // Pulso luminoso interno de absorción en la "I"
+      tl.to(
+        letter('i'),
+        {
+          filter: 'drop-shadow(0 0 20px rgba(56, 189, 248, 1)) drop-shadow(0 0 35px rgba(255, 255, 255, 0.95)) brightness(1.5)',
+          duration: 0.25,
+          yoyo: true,
+          repeat: 1,
+          ease: 'sine.inOut',
+        },
+        'sink+=0.55'
+      );
+
+      // =========================================================
+      // 5. UNIFICACIÓN Y BRILLO FINAL DE SANIVEX (2.55s - 3.4s)
+      // =========================================================
+      tl.addLabel('final', 2.55);
+
+      // El logo final vectorizado toma el relevo con nitidez cristalina
+      tl.to(fullLogo, { opacity: 1, duration: 0.35, ease: 'power1.inOut' }, 'final');
+
+      // Haz de luz que barre de izquierda a derecha
+      tl.fromTo(
+        shimmer,
+        { x: -350, opacity: 0 },
+        {
+          x: TEXT_W + 350,
+          opacity: 1,
+          duration: 0.85,
+          ease: 'power2.inOut',
+        },
+        'final+=0.15'
+      );
+
+      // Subtítulo corporativo aparece suavemente
+      tl.to(
+        tagline,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power3.out',
+        },
+        'final+=0.35'
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, [ready]);
+
+  // Adjust speed multiplier
+  useEffect(() => {
+    timelineRef.current?.timeScale(speed);
+  }, [speed]);
+
+  // Playback handlers
+  const restart = useCallback(() => {
+    timelineRef.current?.restart();
+    setIsPlaying(true);
+  }, []);
+
+  const togglePlay = useCallback(() => {
+    const tl = timelineRef.current;
+    if (!tl) return;
+    if (isPlaying) {
+      tl.pause();
+      setIsPlaying(false);
+    } else {
+      if (tl.progress() >= 1) tl.restart();
+      else tl.play();
+      setIsPlaying(true);
+    }
+  }, [isPlaying]);
+
+  const scrub = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const tl = timelineRef.current;
+    if (!tl) return;
+    tl.pause();
+    const val = parseFloat(e.target.value);
+    tl.progress(val);
+    setIsPlaying(false);
+    setProgress(val);
+    setTime(tl.time());
+  };
+
+  const jumpToMilestone = (id: string) => {
+    const tl = timelineRef.current;
+    if (!tl) return;
+    tl.pause();
+    setIsPlaying(false);
+
+    // Seek to the most descriptive visual point for each milestone
+    if (id === 'rest') tl.seek(0);
+    else if (id === 'lines') tl.seek(0.68);
+    else if (id === 'draw') tl.seek(1.35);
+    else if (id === 'sink') tl.seek(2.1);
+    else if (id === 'final') tl.seek(2.9);
+    else tl.seek(id);
+
+    setProgress(tl.progress());
+    setTime(tl.time());
+  };
+
+  const headRectR = iconRect(iconPieces.head);
+  const iRectR = letterRect(letterBoxes.i);
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden bg-[#05070b] text-white">
-      {/* Background glow orbs */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {/* Top Header ambient glow (gives the floating liquid glass navbar rich light to blur and refract) */}
-        <div className="absolute -top-28 left-1/2 -translate-x-1/2 h-[24rem] w-[84vw] max-w-[1500px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(97,218,251,.16),rgba(10,56,113,.14)_50%,transparent_75%)] blur-3xl pointer-events-none" />
-        <div className="absolute -top-32 left-[10%] h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(97,218,251,.15),transparent_70%)] blur-3xl" />
-        <div className="absolute bottom-0 right-[5%] h-[32rem] w-[32rem] rounded-full bg-[radial-gradient(circle,rgba(10,56,113,.28),transparent_70%)] blur-3xl" />
+    <main
+      ref={containerRef}
+      className="relative h-screen w-full select-none overflow-hidden font-[var(--font-poppins),var(--font-montserrat),sans-serif]"
+      style={{ backgroundColor: '#0a3871' }}
+    >
+      {/* Fondo con profundidad azul corporativa */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_0%,rgba(10,56,113,0)_55%,rgba(3,20,45,0.4)_100%)]" />
+
+      {/* ============================================================ */}
+      {/* DESIGN STAGE (960px x 420px responsive canvas) */}
+      {/* ============================================================ */}
+      <div
+        className="absolute left-1/2 top-1/2 cursor-pointer"
+        style={{
+          width: STAGE_W,
+          height: STAGE_H,
+          transform: `translate(-50%, -50%) scale(${fit})`,
+          opacity: ready ? 1 : 0,
+          transition: 'opacity 0.3s',
+        }}
+        onClick={togglePlay}
+        title="Clic para pausar / reanudar"
+      >
+        {/* Aura de respiración ambiental */}
+        <div
+          data-aura
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-300/20 blur-[90px]"
+        />
+
+        {/* ============================================================ */}
+        {/* CAPA 1: LAS 4 PUNTAS DEL ISOTIPO (METAMORFOSIS EN LÍNEAS) */}
+        {/* ============================================================ */}
+        {TIPS.map((t) => {
+          const r = iconRect(iconPieces[t]);
+          return (
+            <div
+              key={t}
+              data-tip={t}
+              className="pointer-events-none absolute will-change-transform"
+              style={{
+                left: r.left,
+                top: r.top,
+                width: r.w,
+                height: r.h,
+                zIndex: 10,
+              }}
+            >
+              <Image
+                src={`/logos/loader/wing-${t}.png`}
+                alt=""
+                width={iconPieces[t].w}
+                height={iconPieces[t].h}
+                unoptimized
+                priority
+                draggable={false}
+                className="h-full w-full object-contain drop-shadow-[0_4px_14px_rgba(0,0,0,0.3)]"
+              />
+            </div>
+          );
+        })}
+
+        {/* ============================================================ */}
+        {/* CAPA 2: EL CÍRCULO (CABEZA EXTERNA) */}
+        {/* ============================================================ */}
+        <div
+          data-head
+          className="pointer-events-none absolute will-change-transform"
+          style={{
+            left: headRectR.left,
+            top: headRectR.top,
+            width: headRectR.w,
+            height: headRectR.h,
+            zIndex: 15,
+          }}
+        >
+          <Image
+            src="/logos/loader/head.png"
+            alt=""
+            width={iconPieces.head.w}
+            height={iconPieces.head.h}
+            unoptimized
+            priority
+            draggable={false}
+            className="h-full w-full object-contain drop-shadow-[0_0_15px_rgba(186,230,253,0.7)]"
+          />
+        </div>
+
+        {/* ============================================================ */}
+        {/* CAPA 3: SVG DE LAS 4 LÍNEAS DE TRAZO LUMINOSO */}
+        {/* ============================================================ */}
+        <svg
+          className="pointer-events-none absolute inset-0 h-full w-full"
+          viewBox={`0 0 ${STAGE_W} ${STAGE_H}`}
+          style={{ zIndex: 20 }}
+        >
+          <defs>
+            {/* Gradiente y filtro de neón para los trazos */}
+            <linearGradient id="neonCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ffffff" />
+              <stop offset="50%" stopColor="#7dd3fc" />
+              <stop offset="100%" stopColor="#38bdf8" />
+            </linearGradient>
+            <filter id="laserGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3.5" result="glow" />
+              <feMerge>
+                <feMergeNode in="glow" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          {/* Línea 1 (desde TL): Dibuja S y A */}
+          <path
+            ref={pathTLRef}
+            d={PATH_TL}
+            fill="none"
+            stroke="url(#neonCyan)"
+            strokeWidth="3.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            filter="url(#laserGlow)"
+          />
+
+          {/* Línea 2 (desde BL): Dibuja N */}
+          <path
+            ref={pathBLRef}
+            d={PATH_BL}
+            fill="none"
+            stroke="url(#neonCyan)"
+            strokeWidth="3.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            filter="url(#laserGlow)"
+          />
+
+          {/* Línea 3 (desde TR): Dibuja I y V */}
+          <path
+            ref={pathTRRef}
+            d={PATH_TR}
+            fill="none"
+            stroke="url(#neonCyan)"
+            strokeWidth="3.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            filter="url(#laserGlow)"
+          />
+
+          {/* Línea 4 (desde BR): Dibuja E y X */}
+          <path
+            ref={pathBRRef}
+            d={PATH_BR}
+            fill="none"
+            stroke="url(#neonCyan)"
+            strokeWidth="3.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            filter="url(#laserGlow)"
+          />
+        </svg>
+
+        {/* ============================================================ */}
+        {/* CAPA 4: LETRAS SOLIDIFICADAS DE SANIVEX */}
+        {/* ============================================================ */}
+        {LETTERS.map((l) => {
+          const r = letterRect(letterBoxes[l]);
+
+          // Especial: La 'I' tiene un contenedor con overflow:hidden para que el círculo
+          // entre dentro de ella y desaparezca en su interior
+          if (l === 'i') {
+            return (
+              <div
+                key={l}
+                data-letter-container="i"
+                className="pointer-events-none absolute overflow-hidden will-change-transform"
+                style={{
+                  left: r.left - 6,
+                  top: r.top - 6,
+                  width: r.w + 12,
+                  height: r.h + 12,
+                  zIndex: 25,
+                }}
+              >
+                {/* Cuerpo de la I */}
+                <div
+                  data-letter="i"
+                  className="relative h-full w-full"
+                  style={{ padding: '6px' }}
+                >
+                  <Image
+                    src="/logos/loader/letter-i.png"
+                    alt=""
+                    width={Math.round(letterBoxes.i.w)}
+                    height={Math.round(letterBoxes.i.h)}
+                    unoptimized
+                    priority
+                    draggable={false}
+                    className="h-full w-full object-contain drop-shadow-[0_4px_18px_rgba(0,0,0,0.35)]"
+                  />
+                </div>
+
+                {/* El círculo que viaja DENTRO de la I y se absorbe */}
+                <div
+                  data-head-absorbed
+                  className="absolute left-1/2 top-1/2 -ml-3 -mt-3 h-6 w-6 rounded-full bg-white shadow-[0_0_12px_#38bdf8,0_0_20px_#ffffff] will-change-transform"
+                />
+              </div>
+            );
+          }
+
+          return (
+            <div
+              key={l}
+              data-letter={l}
+              className="pointer-events-none absolute will-change-transform"
+              style={{
+                left: r.left,
+                top: r.top,
+                width: r.w,
+                height: r.h,
+                zIndex: 22,
+              }}
+            >
+              <Image
+                src={`/logos/loader/letter-${l}.png`}
+                alt=""
+                width={Math.round(letterBoxes[l].w)}
+                height={Math.round(letterBoxes[l].h)}
+                unoptimized
+                priority
+                draggable={false}
+                className="h-full w-full object-contain drop-shadow-[0_4px_18px_rgba(0,0,0,0.35)]"
+              />
+            </div>
+          );
+        })}
+
+        {/* ============================================================ */}
+        {/* CAPA 5: LOGO COMPLETO UNIFICADO + SHIMMER FINAL */}
+        {/* ============================================================ */}
+        <div
+          data-full-logo
+          className="pointer-events-none absolute will-change-opacity"
+          style={{
+            left: X0,
+            top: Y0,
+            width: TEXT_W,
+            height: TEXT_H,
+            zIndex: 30,
+          }}
+        >
+          <div className="relative h-full w-full overflow-hidden">
+            <Image
+              src="/logos/sanivex-text-white.png"
+              alt="SANIVEX"
+              width={542}
+              height={60}
+              priority
+              className="h-full w-full object-contain drop-shadow-[0_8px_25px_rgba(0,0,0,0.4)]"
+            />
+
+            {/* Haz de brillo que barre las letras al finalizar */}
+            <div
+              data-shimmer
+              className="absolute inset-y-0 -left-[140px] w-[140px] -skew-x-[25deg] mix-blend-overlay"
+              style={{
+                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent)',
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Subtítulo corporativo */}
+        <div
+          data-tagline
+          className="pointer-events-none absolute w-full text-center"
+          style={{ top: Y0 + TEXT_H + 22, zIndex: 30 }}
+        >
+          <p className="text-xs sm:text-sm font-semibold tracking-[0.26em] uppercase text-sky-200/85 drop-shadow-md">
+            Control de Plagas y Sanidad Ambiental
+          </p>
+        </div>
       </div>
 
-      {/* Main Navbar */}
-      <Navbar onOpenQuote={() => setQuoteModalOpen(true)} />
+      {/* ============================================================ */}
+      {/* PANEL DE PRUEBAS INTERACTIVO */}
+      {/* ============================================================ */}
 
-      <main className="relative z-10 overflow-hidden px-5 sm:px-6 md:px-10 pt-[116px] sm:pt-[130px] lg:pt-32 pb-24 md:pb-0">
-        {/* ========================================================================= */}
-        {/* SECCIÓN 1: SPLIT HERO (Prototipo Opción 1 para Página Principal)           */}
-        {/* ========================================================================= */}
-        <section id="hero" className="relative mx-auto flex flex-col justify-start lg:justify-center min-h-[calc(100vh-140px)] sm:min-h-[auto] lg:min-h-[90vh] lg:grid lg:grid-cols-[1.08fr_0.92fr] items-center gap-6 sm:gap-8 lg:gap-14 max-w-[1600px] pt-[100px] sm:pt-[112px] lg:pt-[124px] xl:pt-[134px] pb-12 sm:pb-16">
-          {/* Columna Izquierda: Mensaje Comercial, Título Auténtico y Botones de Acción */}
-          <div className="relative z-20 max-w-2xl flex flex-col items-start w-full order-1 my-auto">
-            {/* Top Liquid Pill: "Somos los mejores en" */}
-            <div className="bloom active inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 rounded-full hero-top-pill text-[11px] sm:text-xs font-normal text-slate-300 tracking-wide select-none mb-2.5 sm:mb-4">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-              </span>
-              <span>Somos los mejores en</span>
-            </div>
+      {/* Selector rápido de hitos */}
+      <div className="absolute left-1/2 top-5 z-50 -translate-x-1/2">
+        <div className="flex max-w-[94vw] items-center gap-1 overflow-x-auto rounded-full border border-white/15 bg-[#051c3a]/85 p-1.5 shadow-2xl shadow-black/40 backdrop-blur-xl">
+          {MILESTONES.map((m) => (
+            <button
+              key={m.id}
+              onClick={() => jumpToMilestone(m.id)}
+              className="whitespace-nowrap rounded-full px-3 py-1.5 text-[11px] font-medium text-white/80 transition-all hover:bg-white/10 hover:text-white sm:text-xs"
+            >
+              {m.label}
+            </button>
+          ))}
+        </div>
+      </div>
 
-            {/* H1 Heading - Cuadrado, Profesional y Adaptado para Móvil y Zoom Alto */}
-            <h1 className="text-[clamp(2.15rem,4.8vw,4.1rem)] font-bold text-white leading-[1.08] tracking-tight">
-              <span className="block">Control de plagas</span>
-              <span className="block text-[#5c7090]">y sanidad ambiental</span>
-            </h1>
+      {/* Controles flotantes */}
+      <div
+        className={`absolute bottom-6 left-1/2 z-50 w-[92%] max-w-xl -translate-x-1/2 transition-all duration-300 ${
+          showControls ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
+        }`}
+      >
+        <div className="rounded-2xl border border-white/15 bg-[#051c3a]/90 p-3.5 text-white shadow-2xl shadow-black/50 backdrop-blur-2xl sm:p-4">
+          <div className="mb-3 flex items-center gap-3">
+            <span className="w-12 font-mono text-[11px] text-sky-300">{time.toFixed(2)}s</span>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.002"
+              value={progress}
+              onChange={scrub}
+              className="h-2 flex-1 cursor-pointer appearance-none rounded-lg bg-white/15 accent-sky-400 hover:accent-sky-300"
+            />
+            <span className="w-10 text-right font-mono text-[11px] text-white/60">{speed}x</span>
+          </div>
 
-            {/* Subtítulo Auténtico Sanivex */}
-            <p className="mt-3 sm:mt-4 text-[13px] sm:text-sm md:text-base text-slate-300/85 max-w-xl leading-relaxed font-light">
-              Tu operación segura, nuestra razón de ser. Somos tu aliado estratégico en bioseguridad y manejo integrado para que tú y tu empresa estén 100% protegidos.
-            </p>
-
-            {/* Red Alert Pill */}
-            <div className="mt-4 sm:mt-5 inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 rounded-full hero-alert-pill text-[11px] sm:text-xs font-medium text-red-200/90 tracking-wide max-w-full">
-              <AlertTriangle className="h-3.5 w-3.5 text-red-400 shrink-0" />
-              <span>¡Alerta de ROEDORES e Insectos en tu área!</span>
-            </div>
-
-            {/* Botones de Acción (En móvil: botón de llamada en hero y botón de cotización sticky abajo) */}
-            <div className="mt-5 sm:mt-7 flex flex-wrap items-center gap-3 sm:gap-4 w-full">
-              {/* Botón Principal (visible en desktop, sticky en móvil) */}
+          <div className="flex items-center justify-between border-t border-white/10 pt-3">
+            <div className="flex items-center gap-2">
               <button
-                onClick={() => setQuoteModalOpen(true)}
-                className="hidden sm:inline-flex py-3.5 px-7 rounded-xl hero-primary-btn font-extrabold text-xs sm:text-sm tracking-widest uppercase transition-all shadow-[0_4px_20px_rgba(92,112,144,0.4)] active:scale-[0.98] items-center justify-center gap-2.5 cursor-pointer text-white"
+                onClick={restart}
+                className="flex items-center gap-1.5 rounded-lg bg-white/10 px-3 py-1.5 text-xs font-medium transition-all hover:bg-white/20 active:scale-95"
               >
-                <span>SOLICITAR PRESUPUESTO</span>
-                <ArrowRight className="h-4 w-4" />
+                <RotateCcw className="h-3.5 w-3.5 text-sky-300" />
+                Reiniciar
               </button>
 
-              {/* Botón Secundario: Llamar directamente */}
-              <a
-                href="tel:+573009123456"
-                className="inline-flex w-full sm:w-auto items-center justify-center gap-2.5 px-5 sm:px-6 py-3.5 rounded-xl hero-secondary-btn font-bold text-xs sm:text-[13px] tracking-wider uppercase transition-all shadow-lg active:scale-95 cursor-pointer text-[#5c7090] border border-[#5c7090]/40 bg-[#0e1726]/90 hover:bg-[#152338]"
+              <button
+                onClick={togglePlay}
+                className="flex items-center gap-1.5 rounded-lg bg-sky-500/80 px-3.5 py-1.5 text-xs font-semibold shadow-md shadow-sky-500/20 transition-all hover:bg-sky-500 active:scale-95"
               >
-                <Phone className="h-4 w-4 text-[#5c7090] fill-[#5c7090]" />
-                <span>Llamar: 300-912-3456</span>
-              </a>
+                {isPlaying ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5 fill-current" />}
+                {isPlaying ? 'Pausar' : 'Reproducir'}
+              </button>
             </div>
 
-            {/* WhatsApp Helper link */}
-            <a
-              href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 sm:mt-3.5 text-[11.5px] sm:text-xs text-slate-400 hover:text-[#5c7090] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
-            >
-              <span>Puedes comunicarte con nosotros vía <span className="font-semibold text-slate-300">WHATSAPP</span></span>
-              <span className="font-bold">→</span>
-            </a>
-
-            {/* Trust Badges Bar */}
-            <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-white/10 flex flex-wrap items-center gap-2.5 sm:gap-4 text-[11px] sm:text-xs text-slate-400">
-              <span className="flex items-center gap-1.5 text-slate-300">
-                <ShieldCheck className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-400" />
-                Normatividad BPM & INVIMA
-              </span>
-              <span className="text-white/20 hidden sm:inline">•</span>
-              <span className="flex items-center gap-1.5 text-slate-300">
-                <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#61DAFB]" />
-                Protocolo Metodológico MIP
-              </span>
-              <span className="text-white/20 hidden sm:inline">•</span>
-              <span className="text-slate-300">Respuesta &lt; 24h</span>
+            <div className="flex items-center gap-1">
+              {[0.25, 0.5, 1, 1.5].map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setSpeed(s)}
+                  className={`rounded-md px-2 py-1 font-mono text-[11px] transition-all ${
+                    speed === s ? 'bg-white font-bold text-[#0a3871] shadow-sm' : 'text-white/70 hover:bg-white/10'
+                  }`}
+                >
+                  {s}x
+                </button>
+              ))}
             </div>
           </div>
-
-          {/* Columna Derecha: Icono 3D de Sanivex en Volumen (ELIMINADO en móvil, solo visible en escritorio >= lg) */}
-          <div className="hidden lg:flex relative flex-col items-center justify-center lg:items-end w-full lg:mt-0 order-2">
-            <div className="relative w-full max-w-[440px] lg:max-w-[680px] mx-auto lg:mr-0">
-              <div className="organic-shell float-core relative aspect-square w-full scroll-grow bg-[#05070b]/40 min-h-[400px] lg:min-h-[500px]">
-                {/* 3D WebGL Canvas */}
-                <div ref={mountRef} className="h-full w-full cursor-grab active:cursor-grabbing" />
-
-                {/* Radial subtle vignette */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_55%,rgba(5,7,11,0.5)_100%)] pointer-events-none" />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ========================================================================= */}
-        {/* SECCIÓN 2: EXPLICACIÓN DE INTEGRACIÓN Y DETALLES TÉCNICOS                  */}
-        {/* ========================================================================= */}
-        <section className="relative mx-auto mt-28 max-w-[1600px] pb-32">
-          <div className="mb-10 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-[11px] font-semibold text-cyan-300 mb-3 backdrop-blur-md">
-              <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
-              Prototipo de Implementación
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              ¿Por qué el Split Hero es la mejor opción?
-            </h2>
-            <p className="mt-2 text-sm text-slate-300/80 leading-relaxed font-light">
-              Así se verá en la página principal: el contenido comercial y de llamada a la acción en el lado izquierdo, equilibrado con el icono 3D de alta gama en el lado derecho.
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            <article className="liquid-panel bloom rounded-[2.5rem] p-8">
-              <div className="flex items-center justify-between">
-                <div className="font-sans text-[10px] uppercase tracking-[0.28em] text-[#61DAFB]">Impacto de Marca</div>
-                <div className="pulse-react h-3 w-3 rounded-full bg-[#61DAFB]" />
-              </div>
-              <h3 className="mt-6 text-xl font-bold leading-tight">Efecto WOW sin perder conversión</h3>
-              <p className="mt-3 text-sm leading-relaxed text-white/50">
-                El usuario ve de inmediato los botones de cotización y teléfono a la izquierda, mientras que el icono 3D le otorga una presencia tecnológica de primer nivel.
-              </p>
-            </article>
-
-            <article className="liquid-panel bloom rounded-[2.5rem] p-8">
-              <div className="flex items-center justify-between">
-                <div className="font-sans text-[10px] uppercase tracking-[0.28em] text-emerald-400">Plagas en el Interior</div>
-                <div className="pulse-react h-3 w-3 rounded-full bg-emerald-400" />
-              </div>
-              <h3 className="mt-6 text-xl font-bold leading-tight">Fotos macro integradas con sutileza</h3>
-              <p className="mt-3 text-sm leading-relaxed text-white/50">
-                Rata, paloma, cucaracha y termita viven dentro de las alas con baja opacidad bajo el barniz brillante, manteniendo el azul corporativo como protagonista.
-              </p>
-            </article>
-
-            <article className="liquid-panel bloom rounded-[2.5rem] p-8">
-              <div className="flex items-center justify-between">
-                <div className="font-sans text-[10px] uppercase tracking-[0.28em] text-cyan-400">Rendimiento</div>
-                <div className="pulse-react h-3 w-3 rounded-full bg-cyan-400" />
-              </div>
-              <h3 className="mt-6 text-xl font-bold leading-tight">60 FPS y 0% consumo en scroll</h3>
-              <p className="mt-3 text-sm leading-relaxed text-white/50">
-                El motor WebGL se pausa automáticamente cuando la persona hace scroll a otras secciones, asegurando cero consumo innecesario de batería o GPU.
-              </p>
-            </article>
-          </div>
-        </section>
-      </main>
-
-      {/* Mobile Sticky Bottom CTA Bar (Solicitar Presupuesto) - Idéntico a la página principal */}
-      <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-[#060b14]/95 backdrop-blur-xl border-t border-[#5c7090]/30 px-4 py-3 shadow-[0_-10px_35px_rgba(0,0,0,0.7)] animate-in fade-in duration-300">
-        <button
-          onClick={() => setQuoteModalOpen(true)}
-          className="w-full py-3.5 px-6 rounded-xl hero-primary-btn font-black text-xs sm:text-sm tracking-widest uppercase transition-all shadow-[0_4px_20px_rgba(92,112,144,0.4)] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer text-white"
-        >
-          <span>SOLICITAR PRESUPUESTO</span>
-          <ArrowRight className="h-4 w-4" />
-        </button>
+        </div>
       </div>
 
-      {/* Modal Real de Cotización */}
-      <QuoteModal
-        isOpen={quoteModalOpen}
-        onClose={() => setQuoteModalOpen(false)}
-        defaultService="Cotización General - Hero 3D"
-      />
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        :root {
-          color-scheme: dark;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-
-        html {
-          scroll-behavior: smooth;
-        }
-
-        body {
-          margin: 0;
-          overflow-x: hidden;
-          background:
-            radial-gradient(circle at 20% 10%, rgba(97, 218, 251, 0.12), transparent 28%),
-            radial-gradient(circle at 80% 40%, rgba(10, 56, 113, 0.12), transparent 24%),
-            radial-gradient(circle at 50% 100%, rgba(97, 218, 251, 0.06), transparent 35%),
-            #05070b;
-          color: white;
-          font-family: var(--font-poppins), var(--font-montserrat), sans-serif;
-        }
-
-        body::before {
-          content: "";
-          position: fixed;
-          inset: 0;
-          pointer-events: none;
-          background-image:
-            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-          background-size: 110px 110px;
-          -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 78%);
-          mask-image: radial-gradient(circle at center, black 30%, transparent 78%);
-          opacity: 0.35;
-          z-index: -1;
-        }
-
-        .liquid-panel {
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-          backdrop-filter: blur(60px) saturate(1.4);
-          -webkit-backdrop-filter: blur(60px) saturate(1.4);
-          border: 1px solid rgba(255, 255, 255, 0.07);
-          box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.07),
-            0 30px 120px rgba(0, 0, 0, 0.5),
-            0 0 80px rgba(97, 218, 251, 0.04);
-        }
-
-        .dew {
-          position: relative;
-          overflow: hidden;
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
-          backdrop-filter: blur(30px) saturate(1.8);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.15),
-            0 0 40px rgba(97, 218, 251, 0.14);
-          transition:
-            transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-            box-shadow 0.6s ease;
-        }
-
-        .dew:hover {
-          transform: translateY(-5px) scale(1.02);
-          box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.18),
-            0 0 60px rgba(97, 218, 251, 0.22);
-        }
-
-        .wind-sway {
-          display: inline-block;
-          transform-origin: center bottom;
-          animation: wind 8s ease-in-out infinite;
-        }
-
-        .organic-shell {
-          position: relative;
-          overflow: hidden;
-          isolation: isolate;
-          border-radius: 44% 56% 58% 42% / 42% 36% 64% 58%;
-          -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 74%);
-          mask-image: radial-gradient(circle at center, black 40%, transparent 74%);
-          filter: drop-shadow(0 0 80px rgba(97, 218, 251, 0.14));
-        }
-
-        .organic-shell::before {
-          content: "";
-          position: absolute;
-          inset: -10%;
-          background: radial-gradient(circle, rgba(97, 218, 251, 0.12), transparent 60%);
-          filter: blur(50px);
-          z-index: 2;
-          pointer-events: none;
-        }
-
-        .bloom {
-          opacity: 0;
-          transform: translateY(60px) scale(0.96);
-          transition:
-            opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
-            transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .bloom.active {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-
-        .pulse-react {
-          animation: pulseReact 4s ease-in-out infinite;
-        }
-
-        @keyframes wind {
-          0%, 100% {
-            transform: rotate(-1deg) translateX(-2px);
-          }
-          50% {
-            transform: rotate(1deg) translateX(2px);
-          }
-        }
-
-        @keyframes pulseReact {
-          0%, 100% {
-            transform: scale(1);
-            opacity: 0.9;
-          }
-          50% {
-            transform: scale(1.03);
-            opacity: 1;
-          }
-        }
-
-        .float-core {
-          animation: drift 9s ease-in-out infinite;
-        }
-
-        @keyframes drift {
-          0% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-12px);
-          }
-          100% {
-            transform: translateY(0px);
-          }
-        }
-
-        @supports (animation-timeline: view()) {
-          .scroll-grow {
-            animation: grow linear both;
-            animation-timeline: view();
-            animation-range: entry 10% cover 65%;
-          }
-
-          @keyframes grow {
-            from {
-              transform: scale(0.92);
-              opacity: 0.6;
-            }
-            to {
-              transform: scale(1);
-              opacity: 1;
-            }
-          }
-        }
-      `}} />
+      {/* Botón de alternar controles */}
+      <button
+        onClick={() => setShowControls((s) => !s)}
+        className="absolute bottom-6 right-6 z-50 rounded-full border border-white/15 bg-black/40 p-2.5 text-white/80 shadow-lg backdrop-blur-md transition-all hover:bg-black/60 hover:text-white active:scale-90"
+        title={showControls ? 'Ocultar controles' : 'Mostrar controles'}
+      >
+        {showControls ? <Sliders className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+      </button>
     </main>
-  )
+  );
 }

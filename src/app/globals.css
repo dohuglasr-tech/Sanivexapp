@@ -18,16 +18,36 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
+  overflow-y: auto;
+  scrollbar-color: rgba(92, 112, 144, 0.4) #05070b;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #05070b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(92, 112, 144, 0.45);
+  border-radius: 9999px;
+  border: 2px solid #05070b;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(92, 112, 144, 0.75);
 }
 
 body {
   font-family: var(--font-poppins), var(--font-montserrat), sans-serif;
   background: var(--background);
   color: var(--foreground);
-  max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
 }
@@ -54,24 +74,6 @@ pre, code {
 img, svg, video, canvas, audio, iframe {
   max-width: 100%;
   height: auto;
-}
-
-/* Custom Sleek Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #09111c;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(92, 112, 144, 0.45);
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(92, 112, 144, 0.75);
 }
 
 /* Glassmorphism & Liquid Glass primitives */
@@ -672,3 +674,146 @@ img, svg, video, canvas, audio, iframe {
 .animate-drawer-stagger-7 {
   animation: mobileDrawerItemEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.42s both;
 }
+
+/* ========================================================================= */
+/* Global Ambient Liquid Light Orbs (Floating Smoothly)                      */
+/* ========================================================================= */
+@keyframes floatOrb {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(45px, -60px) scale(1.12);
+  }
+  66% {
+    transform: translate(-35px, 40px) scale(0.92);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-float-orb {
+  animation: floatOrb 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ========================================================================= */
+/* Scroll-Driven Entrance & Exit Motion System                               */
+/* ========================================================================= */
+/* Sections remain fixed in document flow to prevent white background gaps/seams */
+.motion-section {
+  position: relative;
+  width: 100%;
+}
+
+.motion-section-hidden {
+  /* Keep background stable */
+}
+
+.motion-section-visible {
+  /* Keep background stable */
+}
+
+.motion-section-exit-top {
+  /* Keep background stable */
+}
+
+/* Elementos internos escalonados (Headers, Tarjetas, Botones) */
+.motion-item {
+  transition: 
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--motion-delay, 0ms);
+  will-change: transform, opacity, filter;
+}
+
+.motion-item-hidden {
+  opacity: 0;
+  transform: translateY(26px);
+  filter: blur(4px);
+}
+
+.motion-item-visible {
+  opacity: 1;
+  transform: translateY(0px);
+  filter: blur(0px);
+}
+
+/* ========================================================================= */
+/* Hero Initial Page-Load Cinematic Entrance Sequence                        */
+/* ========================================================================= */
+.hero-enter-item {
+  transition: 
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--hero-delay, 0ms);
+  will-change: transform, opacity, filter;
+}
+
+.hero-enter-hidden {
+  opacity: 0;
+  transform: translateY(32px);
+  filter: blur(8px);
+}
+
+.hero-enter-visible {
+  opacity: 1;
+  transform: translateY(0px);
+  filter: blur(0px);
+}
+
+.hero-emblem-enter {
+  transition: 
+    opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 240ms;
+  will-change: transform, opacity, filter;
+}
+
+.hero-emblem-hidden {
+  opacity: 0;
+  transform: scale(0.9) translateY(24px);
+  filter: blur(12px);
+}
+
+.hero-emblem-visible {
+  opacity: 1;
+  transform: scale(1) translateY(0px);
+  filter: blur(0px);
+}
+
+/* Parallax suave para las imágenes macro laterales de plagas */
+.parallax-bg-media {
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+/* Botones y tarjetas con micro-interacciones de alta gama */
+.btn-magnetic {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background 0.3s ease;
+}
+.btn-magnetic:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+.btn-magnetic:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* Shimmer animado para el botón principal del Hero */
+@keyframes heroBtnShimmer {
+  0% {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(250%) skewX(-20deg);
+  }
+}
+
+.animate-shimmer-sweep {
+  animation: heroBtnShimmer 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+

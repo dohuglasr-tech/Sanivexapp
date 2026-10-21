@@ -378,6 +378,79 @@ export default function Home() {
     };
   }, []);
 
+  const [heroMounted, setHeroMounted] = useState(false);
+  const [revealedSections, setRevealedSections] = useState<Record<string, boolean>>({
+    hero: true,
+  });
+
+  // Disparar animación de inicio del Hero inmediatamente al cargar la página principal
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHeroMounted(true);
+    }, 60);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // IntersectionObserver SOLO PARA ENTRADAS (una vez visibles, NUNCA se ocultan ni desaparecen)
+  useEffect(() => {
+    const sections = document.querySelectorAll<HTMLElement>('section[id]');
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.id;
+          if (!id) return;
+
+          // Solo entrada: permanece visible permanentemente
+          if (entry.isIntersecting) {
+            setRevealedSections((prev) => {
+              if (prev[id]) return prev;
+              return { ...prev, [id]: true };
+            });
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -20px 0px',
+      }
+    );
+
+    sections.forEach((sec) => observer.observe(sec));
+    return () => observer.disconnect();
+  }, []);
+
+  // Parallax suave en imágenes macro laterales de plagas
+  useEffect(() => {
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const windowHeight = window.innerHeight;
+          document.querySelectorAll<HTMLElement>('.parallax-bg-media').forEach((el) => {
+            const parent = el.parentElement;
+            if (!parent) return;
+            const rect = parent.getBoundingClientRect();
+            if (rect.top < windowHeight && rect.bottom > 0) {
+              const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+              const translateY = (progress - 0.5) * 45;
+              el.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0) scale(1.05)`;
+            }
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const isSectionVisible = (id: string) => !!revealedSections[id];
+  const getSectionMotion = (id: string) => 'motion-section';
+
   const handleOpenQuote = (serviceName?: string, details?: string) => {
     if (serviceName) {
       setSelectedService(serviceName);
@@ -389,11 +462,11 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#09111c] text-slate-100 font-sans selection:bg-[#5c7090] selection:text-white overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#09111c] text-slate-100 font-sans selection:bg-[#5c7090] selection:text-white">
       {/* Navigation Bar */}
       <Navbar onOpenQuote={() => handleOpenQuote('Cotización General')} />
 
-      {/* Side Scroll Indicator */}
+      {/* Menú de Acceso Rápido Lateral (Quick Access Dock) */}
       <ScrollDots />
 
       {/* Floating Actions (WhatsApp & Scroll-to-top) */}
@@ -403,7 +476,7 @@ export default function Home() {
       <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-[#060b14]/95 backdrop-blur-xl border-t border-[#5c7090]/30 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] shadow-[0_-10px_35px_rgba(0,0,0,0.7)] animate-in fade-in duration-300">
         <button
           onClick={() => handleOpenQuote('Cotización General')}
-          className="w-full py-3.5 px-6 rounded-xl hero-primary-btn font-black text-xs sm:text-sm tracking-widest uppercase transition-all shadow-[0_4px_20px_rgba(92,112,144,0.4)] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer text-white"
+          className="w-full py-3.5 px-6 rounded-xl hero-primary-btn font-black text-xs sm:text-sm tracking-widest uppercase transition-all shadow-[0_4px_20px_rgba(92,112,144,0.4)] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer text-white btn-magnetic"
         >
           <span>SOLICITAR PRESUPUESTO</span>
           <span className="text-base font-black">→</span>
@@ -433,7 +506,7 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="hero"
-          className="relative min-h-[92vh] lg:min-h-screen flex flex-col justify-start lg:justify-center bg-[#05070b] px-4 sm:px-8 lg:px-16 pt-[calc(100px+env(safe-area-inset-top,0px))] sm:pt-[112px] lg:pt-[124px] xl:pt-[134px] pb-12 sm:pb-16"
+          className={`relative min-h-[92vh] lg:min-h-screen flex flex-col justify-start lg:justify-center bg-[#05070b] px-4 sm:px-8 lg:px-16 pt-[calc(100px+env(safe-area-inset-top,0px))] sm:pt-[112px] lg:pt-[124px] xl:pt-[134px] pb-12 sm:pb-16 ${getSectionMotion('hero')}`}
         >
           {/* Ambient Lighting, Techno Grid & Top Header Glow */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -458,7 +531,12 @@ export default function Home() {
             {/* Columna Izquierda: Mensaje Comercial, Título Auténtico y Botones de Acción */}
             <div className="relative z-20 max-w-2xl flex flex-col items-start w-full my-auto">
               {/* Top Liquid Pill: "Somos los mejores en" */}
-              <div className="bloom active inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 rounded-full hero-top-pill text-[11px] sm:text-xs font-normal text-slate-300 tracking-wide select-none mb-2.5 sm:mb-4">
+              <div
+                className={`bloom active inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 rounded-full hero-top-pill text-[11px] sm:text-xs font-normal text-slate-300 tracking-wide select-none mb-2.5 sm:mb-4 hero-enter-item ${
+                  heroMounted ? 'hero-enter-visible' : 'hero-enter-hidden'
+                }`}
+                style={{ '--hero-delay': '100ms' } as React.CSSProperties}
+              >
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
@@ -467,37 +545,58 @@ export default function Home() {
               </div>
 
               {/* H1 Heading - Cuadrado, Profesional y Adaptado para Móvil y Zoom Alto */}
-              <h1 className="text-[clamp(1.85rem,4.5vw,4.1rem)] font-bold text-white leading-[1.08] tracking-tight break-words max-w-full">
+              <h1
+                className={`text-[clamp(1.85rem,4.5vw,4.1rem)] font-bold text-white leading-[1.08] tracking-tight break-words max-w-full hero-enter-item ${
+                  heroMounted ? 'hero-enter-visible' : 'hero-enter-hidden'
+                }`}
+                style={{ '--hero-delay': '220ms' } as React.CSSProperties}
+              >
                 <span className="block">Control de plagas</span>
                 <span className="block text-[#5c7090]">y sanidad ambiental</span>
               </h1>
 
               {/* Subtítulo Auténtico Sanivex */}
-              <p className="mt-3 sm:mt-4 text-[13px] sm:text-sm md:text-base text-slate-300/85 max-w-xl leading-relaxed font-light break-words">
+              <p
+                className={`mt-3 sm:mt-4 text-[13px] sm:text-sm md:text-base text-slate-300/85 max-w-xl leading-relaxed font-light break-words hero-enter-item ${
+                  heroMounted ? 'hero-enter-visible' : 'hero-enter-hidden'
+                }`}
+                style={{ '--hero-delay': '360ms' } as React.CSSProperties}
+              >
                 Tu operación segura, nuestra razón de ser. Somos tu aliado estratégico en bioseguridad y manejo integrado para que tú y tu empresa estén 100% protegidos.
               </p>
 
               {/* Red Alert Pill */}
-              <div className="mt-4 sm:mt-5 inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 rounded-full hero-alert-pill text-[11px] sm:text-xs font-medium text-red-200/90 tracking-wide max-w-full flex-wrap">
-                <AlertTriangle className="h-3.5 w-3.5 text-red-400 shrink-0" />
+              <div
+                className={`mt-4 sm:mt-5 inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 rounded-full hero-alert-pill text-[11px] sm:text-xs font-medium text-red-200/90 tracking-wide max-w-full flex-wrap hero-enter-item ${
+                  heroMounted ? 'hero-enter-visible' : 'hero-enter-hidden'
+                }`}
+                style={{ '--hero-delay': '480ms' } as React.CSSProperties}
+              >
+                <AlertTriangle className="h-3.5 w-3.5 text-red-400 shrink-0 animate-pulse" />
                 <span className="break-words">¡Alerta de ROEDORES e Insectos en tu área!</span>
               </div>
 
               {/* Botones de Acción (En desktop: Cotizar y Llamar. En móvil: Llamar en hero y Cotizar sticky abajo) */}
-              <div className="mt-5 sm:mt-7 flex flex-wrap items-center gap-3 sm:gap-4 w-full">
+              <div
+                className={`mt-5 sm:mt-7 flex flex-wrap items-center gap-3 sm:gap-4 w-full hero-enter-item ${
+                  heroMounted ? 'hero-enter-visible' : 'hero-enter-hidden'
+                }`}
+                style={{ '--hero-delay': '600ms' } as React.CSSProperties}
+              >
                 {/* Botón Principal (visible en desktop, sticky en móvil) */}
                 <button
                   onClick={() => handleOpenQuote('Cotización General')}
-                  className="hidden sm:inline-flex py-3.5 px-7 rounded-xl hero-primary-btn font-extrabold text-xs sm:text-sm tracking-widest uppercase transition-all shadow-[0_4px_20px_rgba(92,112,144,0.4)] active:scale-[0.98] items-center justify-center gap-2.5 cursor-pointer text-white shrink-0"
+                  className="relative overflow-hidden hidden sm:inline-flex py-3.5 px-7 rounded-xl hero-primary-btn font-extrabold text-xs sm:text-sm tracking-widest uppercase transition-all shadow-[0_4px_20px_rgba(92,112,144,0.4)] active:scale-[0.98] items-center justify-center gap-2.5 cursor-pointer text-white shrink-0 btn-magnetic"
                 >
-                  <span className="break-words">SOLICITAR PRESUPUESTO</span>
-                  <span className="font-bold text-sm">→</span>
+                  <span className="relative z-10 break-words">SOLICITAR PRESUPUESTO</span>
+                  <span className="relative z-10 font-bold text-sm">→</span>
+                  <div className="absolute inset-0 pointer-events-none opacity-30 animate-shimmer-sweep bg-gradient-to-r from-transparent via-white to-transparent" />
                 </button>
 
                 {/* Botón Secundario: Llamar directamente */}
                 <a
                   href="tel:+573009123456"
-                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2.5 px-5 sm:px-6 py-3.5 rounded-xl hero-secondary-btn font-bold text-xs sm:text-[13px] tracking-wider uppercase transition-all shadow-lg active:scale-95 cursor-pointer text-[#5c7090] border border-[#5c7090]/40 bg-[#0e1726]/90 hover:bg-[#152338] shrink-0"
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2.5 px-5 sm:px-6 py-3.5 rounded-xl hero-secondary-btn font-bold text-xs sm:text-[13px] tracking-wider uppercase transition-all shadow-lg active:scale-95 cursor-pointer text-[#5c7090] border border-[#5c7090]/40 bg-[#0e1726]/90 hover:bg-[#152338] shrink-0 btn-magnetic"
                 >
                   <Phone className="h-4 w-4 text-[#5c7090] fill-[#5c7090] shrink-0" />
                   <span className="break-words">Llamar: 300-912-3456</span>
@@ -509,14 +608,22 @@ export default function Home() {
                 href="https://wa.me/573009123456?text=Hola%20SANIVEX,%20deseo%20comunicarme%20para%20un%20servicio%20de%20sanidad."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 sm:mt-3.5 text-[11.5px] sm:text-xs text-slate-400 hover:text-[#5c7090] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+                className={`mt-3 sm:mt-3.5 text-[11.5px] sm:text-xs text-slate-400 hover:text-[#5c7090] transition-colors inline-flex items-center gap-1.5 cursor-pointer hero-enter-item ${
+                  heroMounted ? 'hero-enter-visible' : 'hero-enter-hidden'
+                }`}
+                style={{ '--hero-delay': '700ms' } as React.CSSProperties}
               >
                 <span>Puedes comunicarte con nosotros vía <span className="font-semibold text-slate-300">WHATSAPP</span></span>
                 <span className="font-bold">→</span>
               </a>
 
               {/* Redes Sociales Oficiales en Hero (Escritorio & Móvil) */}
-              <div className="mt-2.5 sm:mt-3 flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs">
+              <div
+                className={`mt-2.5 sm:mt-3 flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs hero-enter-item ${
+                  heroMounted ? 'hero-enter-visible' : 'hero-enter-hidden'
+                }`}
+                style={{ '--hero-delay': '780ms' } as React.CSSProperties}
+              >
                 <span className="text-[11.5px] sm:text-xs text-slate-300 font-medium">
                   Conoce más de nuestro trabajo en...
                 </span>
@@ -571,7 +678,12 @@ export default function Home() {
               </div>
 
               {/* Trust Badges Bar */}
-              <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-white/10 flex flex-wrap items-center gap-2.5 sm:gap-4 text-[11px] sm:text-xs text-slate-400">
+              <div
+                className={`mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-white/10 flex flex-wrap items-center gap-2.5 sm:gap-4 text-[11px] sm:text-xs text-slate-400 hero-enter-item ${
+                  heroMounted ? 'hero-enter-visible' : 'hero-enter-hidden'
+                }`}
+                style={{ '--hero-delay': '860ms' } as React.CSSProperties}
+              >
                 <span className="flex items-center gap-1.5 text-slate-300">
                   <ShieldCheck className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-400" />
                   Normatividad BPM & INVIMA
@@ -587,7 +699,9 @@ export default function Home() {
             </div>
 
             {/* Columna Derecha: Icono 3D de Sanivex en Volumen (ELIMINADO en móvil, visible en escritorio >= lg) */}
-            <div className="hidden lg:flex relative flex-col items-center justify-center lg:items-end w-full lg:mt-0 order-2">
+            <div className={`hidden lg:flex relative flex-col items-center justify-center lg:items-end w-full lg:mt-0 order-2 hero-emblem-enter ${
+              heroMounted ? 'hero-emblem-visible' : 'hero-emblem-hidden'
+            }`}>
               <div className="relative w-full max-w-[440px] lg:max-w-[680px] mx-auto lg:mr-0">
                 <div className="organic-shell float-core relative aspect-square w-full scroll-grow bg-[#05070b]/40 min-h-[340px] lg:min-h-[440px] xl:min-h-[500px] max-h-[68vh]">
                   {/* 3D WebGL Canvas */}
@@ -606,42 +720,70 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="mip"
-          className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#121e2c] via-[#162331] to-[#121e2b]"
+          className={`relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#121e2c] via-[#162331] to-[#121e2b] ${getSectionMotion('mip')}`}
         >
           {/* Subtle Ambient Liquid Orbs */}
           <div className="absolute top-1/3 left-10 h-96 w-96 rounded-full bg-[#5c7090]/15 blur-[130px] pointer-events-none" />
 
-          {/* User's CoMIP Asset on Left Side (Ant, Cockroach, Rat) looking towards right */}
-          <div className="absolute left-0 top-0 bottom-0 w-full lg:w-[52%] opacity-35 lg:opacity-75 pointer-events-none z-0">
-            <Image
-              src="/images/Propias/CoMIP-left.jpg"
-              alt="Manejo Integrado de Plagas Sanivex"
-              fill
-              quality={90}
-              className="object-cover object-left"
-            />
-            {/* Subtle Gradient Masks */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#121e2c]/60 to-[#121e2c]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#121e2b] via-transparent to-[#121e2c]" />
+          {/* User's CoMIP Asset on Left Side with Smooth Organic Alpha Mask (Zero middle cuts) */}
+          <div
+            className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-45 lg:opacity-85"
+            style={{
+              WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 22%, rgba(0,0,0,0.6) 38%, transparent 64%)',
+              maskImage: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 22%, rgba(0,0,0,0.6) 38%, transparent 64%)',
+            }}
+          >
+            <div className="relative h-full w-full lg:w-[56%] parallax-bg-media">
+              <Image
+                src="/images/Propias/CoMIP-left.jpg"
+                alt="Manejo Integrado de Plagas Sanivex"
+                fill
+                quality={90}
+                className="object-cover object-left"
+              />
+              {/* Tinte azul tenue institucional para integrar con el fondo y no quitar protagonismo a los contenedores */}
+              <div className="absolute inset-0 bg-[#0a1828]/55 mix-blend-multiply pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#0a1624]/60 via-[#0e1f33]/50 to-[#121e2c]/90 pointer-events-none" />
+            </div>
           </div>
 
           <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col my-auto items-end">
             {/* Header */}
             <div className="mb-3 lg:mb-4 max-w-2xl w-full text-left self-end">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-[11px] font-semibold text-[#5c7090] mb-2">
+              <div
+                className={`inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-[11px] font-semibold text-[#5c7090] mb-2 motion-item ${
+                  isSectionVisible('mip') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '80ms' } as React.CSSProperties}
+              >
                 <ShieldCheck className="h-3.5 w-3.5 text-[#5c7090]" />
                 Protocolo Metodológico MIP
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+              <h2
+                className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight motion-item ${
+                  isSectionVisible('mip') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '160ms' } as React.CSSProperties}
+              >
                 Manejo Integrado de Plagas (MIP)
               </h2>
-              <p className="mt-1 text-xs sm:text-sm text-slate-300/90 leading-relaxed font-light">
+              <p
+                className={`mt-1 text-xs sm:text-sm text-slate-300/90 leading-relaxed font-light motion-item ${
+                  isSectionVisible('mip') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '240ms' } as React.CSSProperties}
+              >
                 Metodología biorracional y preventiva en 3 fases continuas. Minimizamos el uso de químicos nocivos protegiendo tu capital humano y activos críticos.
               </p>
             </div>
 
             {/* Interactive Timeline Stepper */}
-            <div className="max-w-5xl w-full self-end">
+            <div
+              className={`max-w-5xl w-full self-end motion-item ${
+                isSectionVisible('mip') ? 'motion-item-visible' : 'motion-item-hidden'
+              }`}
+              style={{ '--motion-delay': '340ms' } as React.CSSProperties}
+            >
               <MipTimeline onOpenQuote={handleOpenQuote} />
             </div>
           </div>
@@ -652,42 +794,70 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="roedores"
-          className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#121e2b] via-[#142130] to-[#111d2a]"
+          className={`relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#121e2b] via-[#142130] to-[#111d2a] ${getSectionMotion('roedores')}`}
         >
           {/* Subtle Ambient Red Glow */}
           <div className="absolute top-1/4 right-1/4 h-80 w-80 rounded-full bg-red-500/10 blur-[130px] pointer-events-none" />
 
-          {/* User's asas.jpg Asset on Right Side (Rat macro facing left) */}
-          <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[48%] opacity-40 lg:opacity-75 pointer-events-none z-0">
-            <Image
-              src="/images/Propias/asas.jpg"
-              alt="Control Avanzado de Roedores Sanivex"
-              fill
-              quality={90}
-              className="object-cover object-right"
-            />
-            {/* Subtle Gradient Blend Masks */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#142130] via-[#142130]/75 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#111d2a] via-transparent to-[#121e2b]" />
+          {/* User's asas.jpg Asset on Right Side with Smooth Organic Alpha Mask (Zero middle cuts) */}
+          <div
+            className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-45 lg:opacity-85"
+            style={{
+              WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 22%, rgba(0,0,0,0.6) 38%, transparent 64%)',
+              maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 22%, rgba(0,0,0,0.6) 38%, transparent 64%)',
+            }}
+          >
+            <div className="relative h-full w-full lg:w-[56%] ml-auto parallax-bg-media">
+              <Image
+                src="/images/Propias/asas.jpg"
+                alt="Control Avanzado de Roedores Sanivex"
+                fill
+                quality={90}
+                className="object-cover object-right"
+              />
+              {/* Tinte azul tenue institucional para integrar con el fondo y no quitar protagonismo a los contenedores */}
+              <div className="absolute inset-0 bg-[#091522]/55 mix-blend-multiply pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-l from-[#091522]/60 via-[#0d1e2f]/50 to-[#121e2b]/90 pointer-events-none" />
+            </div>
           </div>
 
           <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col my-auto">
             {/* Header */}
             <div className="mb-3 lg:mb-4 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-[11px] font-semibold text-red-300 mb-2 backdrop-blur-md">
+              <div
+                className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-[11px] font-semibold text-red-300 mb-2 backdrop-blur-md motion-item ${
+                  isSectionVisible('roedores') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '80ms' } as React.CSSProperties}
+              >
                 <AlertTriangle className="h-3 w-3 text-red-400" />
                 Vectores de Alta Criticidad Sanitaria
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+              <h2
+                className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight motion-item ${
+                  isSectionVisible('roedores') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '160ms' } as React.CSSProperties}
+              >
                 Control Avanzado de Roedores
               </h2>
-              <p className="mt-1 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+              <p
+                className={`mt-1 text-xs sm:text-sm text-slate-300 leading-relaxed font-light motion-item ${
+                  isSectionVisible('roedores') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '240ms' } as React.CSSProperties}
+              >
                 Erradicación técnica y exclusión estructural de Rattus norvegicus y Mus musculus. Protegemos la salud de tu equipo y el sistema eléctrico de tu empresa.
               </p>
             </div>
 
             {/* Interactive Risk Inspector */}
-            <div className="w-full max-w-5xl">
+            <div
+              className={`w-full max-w-5xl motion-item ${
+                isSectionVisible('roedores') ? 'motion-item-visible' : 'motion-item-hidden'
+              }`}
+              style={{ '--motion-delay': '340ms' } as React.CSSProperties}
+            >
               <RodentsRiskInspector onOpenQuote={handleOpenQuote} />
             </div>
           </div>
@@ -698,20 +868,22 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="insectos"
-          className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#111d2a] via-[#152332] to-[#121e2c]"
+          className={`relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#111d2a] via-[#152332] to-[#121e2c] ${getSectionMotion('insectos')}`}
         >
           {/* Subtle Ambient Emerald/Cyan Glow */}
           <div className="absolute bottom-1/4 left-1/4 h-80 w-80 rounded-full bg-emerald-500/10 blur-[140px] pointer-events-none" />
 
-          {/* User's Fondo2.jpg Asset on Left Side (Macro Cockroach/Insect) */}
-          <div className="absolute left-0 top-0 bottom-0 w-full lg:w-[48%] opacity-40 lg:opacity-75 pointer-events-none z-0">
-            <Image
-              src="/images/Propias/Fondo2.jpg"
-              alt="Control Profesional de Insectos Sanivex"
-              fill
-              quality={90}
-              className="object-cover object-left"
-            />
+          {/* User's Fondo2.jpg Asset on Left Side (Macro Cockroach/Insect) with Parallax */}
+          <div className="absolute left-0 top-0 bottom-0 w-full lg:w-[48%] opacity-40 lg:opacity-75 pointer-events-none z-0 overflow-hidden">
+            <div className="relative h-full w-full parallax-bg-media">
+              <Image
+                src="/images/Propias/Fondo2.jpg"
+                alt="Control Profesional de Insectos Sanivex"
+                fill
+                quality={90}
+                className="object-cover object-left"
+              />
+            </div>
             {/* Subtle Gradient Blend Masks */}
             <div className="absolute inset-0 bg-gradient-to-l from-[#152332] via-[#152332]/75 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#121e2c] via-transparent to-[#111d2a]" />
@@ -720,20 +892,40 @@ export default function Home() {
           <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-end my-auto">
             {/* Header (Aligned to right for visual harmony with insect on left) */}
             <div className="mb-3 lg:mb-4 max-w-2xl w-full text-left lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-semibold text-emerald-300 mb-2 backdrop-blur-md">
+              <div
+                className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-semibold text-emerald-300 mb-2 backdrop-blur-md motion-item ${
+                  isSectionVisible('insectos') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '80ms' } as React.CSSProperties}
+              >
                 <Bug className="h-3 w-3 text-emerald-400" />
                 Control de Rastreros y Voladores
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+              <h2
+                className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight motion-item ${
+                  isSectionVisible('insectos') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '160ms' } as React.CSSProperties}
+              >
                 Control Integral de Insectos
               </h2>
-              <p className="mt-1 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+              <p
+                className={`mt-1 text-xs sm:text-sm text-slate-300 leading-relaxed font-light motion-item ${
+                  isSectionVisible('insectos') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '240ms' } as React.CSSProperties}
+              >
                 Erradicación de cucarachas (Blattodea), hormigas y moscas mediante geles biorracionales y trampas UV de captura limpia.
               </p>
             </div>
 
             {/* Interactive Vector Matrix */}
-            <div className="w-full max-w-5xl">
+            <div
+              className={`w-full max-w-5xl motion-item ${
+                isSectionVisible('insectos') ? 'motion-item-visible' : 'motion-item-hidden'
+              }`}
+              style={{ '--motion-delay': '340ms' } as React.CSSProperties}
+            >
               <InsectsMatrix onOpenQuote={handleOpenQuote} />
             </div>
           </div>
@@ -744,20 +936,22 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="aves"
-          className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#121e2c] via-[#142131] to-[#101b28]"
+          className={`relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#121e2c] via-[#142131] to-[#101b28] ${getSectionMotion('aves')}`}
         >
           {/* Subtle Ambient Glow behind the bird */}
           <div className="absolute top-1/3 right-10 h-[450px] w-[450px] rounded-full bg-[#5c7090]/15 blur-[150px] pointer-events-none" />
 
-          {/* User's Paloma Asset on Right Side (Pigeon macro facing left) - Cinematic Studio Quality matching asas.jpg */}
-          <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[50%] opacity-75 lg:opacity-100 pointer-events-none z-0">
-            <Image
-              src="/images/Propias/PalomaSanivex_dark.jpg"
-              alt="Manejo y Exclusión de Aves Urbanas Sanivex"
-              fill
-              quality={95}
-              className="object-cover object-right"
-            />
+          {/* User's Paloma Asset on Right Side with Parallax */}
+          <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[50%] opacity-75 lg:opacity-100 pointer-events-none z-0 overflow-hidden">
+            <div className="relative h-full w-full parallax-bg-media">
+              <Image
+                src="/images/Propias/PalomaSanivex_dark.jpg"
+                alt="Manejo y Exclusión de Aves Urbanas Sanivex"
+                fill
+                quality={95}
+                className="object-cover object-right"
+              />
+            </div>
             {/* Subtle Gradient Blend Masks on left edge only */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#142131] via-[#142131]/40 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#101b28] via-transparent to-[#121e2c]" />
@@ -766,20 +960,40 @@ export default function Home() {
           <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col my-auto">
             {/* Header */}
             <div className="mb-3 lg:mb-4 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-[11px] font-semibold text-[#5c7090] mb-2">
+              <div
+                className={`inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-[11px] font-semibold text-[#5c7090] mb-2 motion-item ${
+                  isSectionVisible('aves') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '80ms' } as React.CSSProperties}
+              >
                 <Building2 className="h-3 w-3 text-[#5c7090]" />
                 Protección Estructural & Fachadas
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+              <h2
+                className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight motion-item ${
+                  isSectionVisible('aves') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '160ms' } as React.CSSProperties}
+              >
                 Manejo y Exclusión de Aves Urbanas
               </h2>
-              <p className="mt-1 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+              <p
+                className={`mt-1 text-xs sm:text-sm text-slate-300 leading-relaxed font-light motion-item ${
+                  isSectionVisible('aves') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '240ms' } as React.CSSProperties}
+              >
                 Control ético, disuasivo y no cruento de palomas (Columba livia) en naves industriales y techumbres. Frenamos la corrosión por ácido úrico y riesgos biológicos.
               </p>
             </div>
 
             {/* Interactive Birds Showcase */}
-            <div className="w-full max-w-5xl">
+            <div
+              className={`w-full max-w-5xl motion-item ${
+                isSectionVisible('aves') ? 'motion-item-visible' : 'motion-item-hidden'
+              }`}
+              style={{ '--motion-delay': '340ms' } as React.CSSProperties}
+            >
               <BirdsShowcase onOpenQuote={handleOpenQuote} />
             </div>
           </div>
@@ -791,38 +1005,64 @@ export default function Home() {
         <section
           id="termitas"
           data-theme="light"
-          className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-white text-slate-900"
+          className={`relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-white text-slate-900 ${getSectionMotion('termitas')}`}
         >
-          {/* User's Termita Asset on Left Side - Macro limpia abarcando lateral */}
-          <div className="absolute left-0 top-0 bottom-0 w-full lg:w-[48%] pointer-events-none z-0 opacity-25 lg:opacity-100">
-            <Image
-              src="/images/Propias/TermitaSanivex.jpg"
-              alt="Control Profesional de Termitas Sanivex"
-              fill
-              quality={95}
-              className="object-cover object-left"
-            />
-            {/* Máscara suave hacia la derecha en blanco puro para fundirse con las tarjetas */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-white" />
+          {/* User's Termita Asset on Left Side with Smooth Organic Alpha Mask (Zero middle cuts) */}
+          <div
+            className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-25 lg:opacity-100"
+            style={{
+              WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 22%, rgba(0,0,0,0.6) 38%, transparent 64%)',
+              maskImage: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 22%, rgba(0,0,0,0.6) 38%, transparent 64%)',
+            }}
+          >
+            <div className="relative h-full w-full lg:w-[56%] parallax-bg-media">
+              <Image
+                src="/images/Propias/TermitaSanivex.jpg"
+                alt="Control Profesional de Termitas Sanivex"
+                fill
+                quality={95}
+                className="object-cover object-left"
+              />
+            </div>
           </div>
 
           <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-end my-auto">
             {/* Header */}
             <div className="mb-3 lg:mb-4 max-w-2xl w-full text-left lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-300 text-[11px] font-semibold text-amber-900 mb-2 shadow-xs">
+              <div
+                className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-300 text-[11px] font-semibold text-amber-900 mb-2 shadow-xs motion-item ${
+                  isSectionVisible('termitas') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '80ms' } as React.CSSProperties}
+              >
                 <Search className="h-3 w-3 text-amber-700" />
                 Protección Invisible de la Infraestructura
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#09111c] tracking-tight">
+              <h2
+                className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#09111c] tracking-tight motion-item ${
+                  isSectionVisible('termitas') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '160ms' } as React.CSSProperties}
+              >
                 Servicios de Control de Termitas
               </h2>
-              <p className="mt-1 text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
+              <p
+                className={`mt-1 text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal motion-item ${
+                  isSectionVisible('termitas') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '240ms' } as React.CSSProperties}
+              >
                 Las termitas consumen celulosa desde el interior causando deterioro progresivo e invisible. Implementamos sistemas de detección temprana, blindaje estructural y erradicación biológica.
               </p>
             </div>
 
             {/* Interactive Termites Radar */}
-            <div className="w-full max-w-5xl">
+            <div
+              className={`w-full max-w-5xl motion-item ${
+                isSectionVisible('termitas') ? 'motion-item-visible' : 'motion-item-hidden'
+              }`}
+              style={{ '--motion-delay': '340ms' } as React.CSSProperties}
+            >
               <TermitesRadar onOpenQuote={handleOpenQuote} />
             </div>
           </div>
@@ -833,7 +1073,7 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="sanitizacion"
-          className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#101b27] via-[#0d1622] to-[#0c1522]"
+          className={`relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#101b27] via-[#0d1622] to-[#0c1522] ${getSectionMotion('sanitizacion')}`}
         >
           {/* Subtle Ambient Teal/Cyan Glow */}
           <div className="absolute top-1/3 left-1/3 h-96 w-96 rounded-full bg-teal-500/10 blur-[150px] pointer-events-none" />
@@ -841,20 +1081,40 @@ export default function Home() {
           <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col my-auto">
             {/* Header */}
             <div className="mb-3 lg:mb-4 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-[11px] font-semibold text-teal-300 mb-2">
+              <div
+                className={`inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-[11px] font-semibold text-teal-300 mb-2 motion-item ${
+                  isSectionVisible('sanitizacion') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '80ms' } as React.CSSProperties}
+              >
                 <Sparkles className="h-3 w-3 text-teal-400" />
                 Bioseguridad Grado Quirúrgico & Corporativo
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+              <h2
+                className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight motion-item ${
+                  isSectionVisible('sanitizacion') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '160ms' } as React.CSSProperties}
+              >
                 Sanitización y Desinfección de Alto Nivel
               </h2>
-              <p className="mt-1 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+              <p
+                className={`mt-1 text-xs sm:text-sm text-slate-300 leading-relaxed font-light motion-item ${
+                  isSectionVisible('sanitizacion') ? 'motion-item-visible' : 'motion-item-hidden'
+                }`}
+                style={{ '--motion-delay': '240ms' } as React.CSSProperties}
+              >
                 Ambientes clínicos y corporativos libres de patógenos. Micro-nebulización en frío ULV con desinfectantes certificados de amplio espectro.
               </p>
             </div>
 
-            {/* Interactive Clinical Sanitization Showcase (Homologado con las demás secciones) */}
-            <div className="w-full max-w-5xl">
+            {/* Interactive Clinical Sanitization Showcase */}
+            <div
+              className={`w-full max-w-5xl motion-item ${
+                isSectionVisible('sanitizacion') ? 'motion-item-visible' : 'motion-item-hidden'
+              }`}
+              style={{ '--motion-delay': '340ms' } as React.CSSProperties}
+            >
               <SanitizationShowcase />
             </div>
           </div>
@@ -870,13 +1130,18 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="calculadora"
-          className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#0a1524] via-[#09111c] to-[#0c1522]"
+          className={`relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#0a1524] via-[#09111c] to-[#0c1522] ${getSectionMotion('calculadora')}`}
         >
           {/* Subtle Ambient Glows */}
           <div className="absolute top-1/4 right-1/4 h-96 w-96 rounded-full bg-cyan-500/10 blur-[160px] pointer-events-none" />
           <div className="absolute bottom-1/4 left-1/4 h-96 w-96 rounded-full bg-blue-600/10 blur-[160px] pointer-events-none" />
 
-          <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col my-auto items-center">
+          <div
+            className={`max-w-7xl mx-auto w-full relative z-10 flex flex-col my-auto items-center motion-item ${
+              isSectionVisible('calculadora') ? 'motion-item-visible' : 'motion-item-hidden'
+            }`}
+            style={{ '--motion-delay': '120ms' } as React.CSSProperties}
+          >
             <BudgetCalculator
               onGenerateQuote={(data) => {
                 handleOpenQuote(data.serviceName, data.details);
@@ -890,13 +1155,18 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="sanivex"
-          className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#0c1522] via-[#09111c] to-[#05080e]"
+          className={`relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#0c1522] via-[#09111c] to-[#05080e] ${getSectionMotion('sanivex')}`}
         >
           {/* Subtle Ambient Glows */}
           <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-cyan-500/10 blur-[160px] pointer-events-none" />
           <div className="absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-blue-600/10 blur-[160px] pointer-events-none" />
 
-          <div className="max-w-7xl mx-auto w-full h-full relative z-10 flex flex-col justify-center my-auto">
+          <div
+            className={`max-w-7xl mx-auto w-full h-full relative z-10 flex flex-col justify-center my-auto motion-item ${
+              isSectionVisible('sanivex') ? 'motion-item-visible' : 'motion-item-hidden'
+            }`}
+            style={{ '--motion-delay': '120ms' } as React.CSSProperties}
+          >
             <AboutSanivex onOpenQuote={handleOpenQuote} />
           </div>
         </section>
@@ -906,13 +1176,18 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="contacto"
-          className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 pt-16 sm:pt-20 lg:pt-24 pb-[calc(7.5rem+env(safe-area-inset-bottom,0px))] sm:pb-20 lg:pb-16 overflow-hidden bg-gradient-to-b from-[#09111c] via-[#060b13] to-[#03060a]"
+          className={`relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 pt-16 sm:pt-20 lg:pt-24 pb-[calc(7.5rem+env(safe-area-inset-bottom,0px))] sm:pb-20 lg:pb-16 overflow-hidden bg-gradient-to-b from-[#09111c] via-[#060b13] to-[#03060a] ${getSectionMotion('contacto')}`}
         >
           {/* Subtle Ambient Glows */}
           <div className="absolute top-1/4 right-1/4 h-96 w-96 rounded-full bg-cyan-500/10 blur-[170px] pointer-events-none" />
           <div className="absolute bottom-1/4 left-1/4 h-96 w-96 rounded-full bg-blue-700/10 blur-[170px] pointer-events-none" />
 
-          <div className="max-w-7xl mx-auto w-full h-full relative z-10 flex flex-col justify-center my-auto">
+          <div
+            className={`max-w-7xl mx-auto w-full h-full relative z-10 flex flex-col justify-center my-auto motion-item ${
+              isSectionVisible('contacto') ? 'motion-item-visible' : 'motion-item-hidden'
+            }`}
+            style={{ '--motion-delay': '120ms' } as React.CSSProperties}
+          >
             <Footer onOpenQuote={handleOpenQuote} />
           </div>
         </section>
