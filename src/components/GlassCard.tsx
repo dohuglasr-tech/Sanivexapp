@@ -138,21 +138,21 @@ export const GlassCard: React.FC<GlassCardProps> = ({
         </div>
 
         {/* Bottom Content: Title, Subtitle, Description, Action CTA */}
-        <div className="relative z-10 mt-auto pt-6 flex flex-col">
+        <div className="relative z-10 mt-auto pt-6 flex flex-col min-w-0 max-w-full">
           {/* Main Title (Bold white, exactly like reference) */}
-          <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight group-hover:text-slate-100 transition-colors">
+          <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight group-hover:text-slate-100 transition-colors break-words max-w-full">
             {title}
           </h3>
 
           {/* Subtitle (in accent red like reference: 'Ratas y ratones', 'Alemana y Americana') */}
           {subtitle && (
-            <div className={`mt-1 text-xs sm:text-sm font-bold tracking-wide ${subtitleColor || 'text-red-500'}`}>
+            <div className={`mt-1 text-xs sm:text-sm font-bold tracking-wide break-words max-w-full ${subtitleColor || 'text-red-500'}`}>
               {subtitle}
             </div>
           )}
 
           {/* Description */}
-          <p className="mt-2 text-xs sm:text-[13px] text-slate-300 font-normal leading-relaxed">
+          <p className="mt-2 text-xs sm:text-[13px] text-slate-300 font-normal leading-relaxed break-words max-w-full">
             {description}
           </p>
 
@@ -237,13 +237,13 @@ export const GlassCard: React.FC<GlassCardProps> = ({
         </div>
 
         {subtitle && (
-          <div className="mb-1 text-[11px] font-bold uppercase tracking-wider text-[#5c7090]">
+          <div className="mb-1 text-[11px] font-bold uppercase tracking-wider text-[#5c7090] break-words">
             {subtitle}
           </div>
         )}
 
         <h3
-          className={`font-bold tracking-tight transition-colors ${
+          className={`font-bold tracking-tight transition-colors break-words ${
             compact ? 'text-base sm:text-lg leading-snug' : 'text-lg sm:text-xl'
           } ${
             isLight ? 'text-[#09111c] group-hover:text-black' : 'text-white group-hover:text-slate-100'
@@ -253,7 +253,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
         </h3>
 
         <p
-          className={`mt-1.5 leading-relaxed ${
+          className={`mt-1.5 leading-relaxed break-words ${
             compact ? 'text-xs' : 'text-xs sm:text-sm'
           } ${
             isLight ? 'text-slate-600 font-normal' : 'text-slate-300/90 font-light'

@@ -136,6 +136,7 @@ const sections: NavSection[] = [
 
 export const ScrollDots: React.FC = () => {
   const [activeSection, setActiveSection] = useState('hero');
+  const [isLightSection, setIsLightSection] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -151,6 +152,18 @@ export const ScrollDots: React.FC = () => {
           }
         }
       }
+
+      // Detectar si el dock pasa por encima de una sección clara (data-theme="light")
+      const lightElements = document.querySelectorAll('[data-theme="light"]');
+      const dockMiddleY = window.innerHeight * 0.5;
+      let isLight = false;
+      lightElements.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= dockMiddleY && rect.bottom >= dockMiddleY) {
+          isLight = true;
+        }
+      });
+      setIsLightSection(isLight);
     };
 
     const scrollEl = document.getElementById('main-scroll');
@@ -158,6 +171,7 @@ export const ScrollDots: React.FC = () => {
       scrollEl.addEventListener('scroll', handleScroll, { passive: true });
     }
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
     handleScroll();
 
     return () => {
@@ -165,6 +179,7 @@ export const ScrollDots: React.FC = () => {
         scrollEl.removeEventListener('scroll', handleScroll);
       }
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
     };
   }, []);
 
@@ -178,8 +193,15 @@ export const ScrollDots: React.FC = () => {
   return (
     <aside
       aria-label="Navegación rápida de servicios y secciones"
-      className="fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-center gap-2 p-2 rounded-full bg-[#060b13]/85 backdrop-blur-2xl border border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.6)] transition-all duration-300"
+      className={`fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-center gap-1.5 p-2 rounded-full backdrop-blur-2xl transition-all duration-300 select-none ${
+        isLightSection
+          ? 'liquid-glass-dock-vertical-light'
+          : 'liquid-glass-dock-vertical'
+      }`}
     >
+      {/* Top Specular Caustic Highlight Line */}
+      <div className="pointer-events-none absolute inset-x-2.5 top-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/50 to-transparent rounded-full" />
+
       {sections.map((section) => {
         const isActive = activeSection === section.id;
         const IconComponent = section.icon;
@@ -191,12 +213,22 @@ export const ScrollDots: React.FC = () => {
             className="group relative flex items-center justify-center focus:outline-none cursor-pointer"
             aria-label={`Ir a ${section.label}`}
           >
-            {/* Tooltip on left */}
-            <div className="pointer-events-none absolute right-11 rounded-xl bg-slate-900/95 px-3 py-1.5 opacity-0 backdrop-blur-md border border-white/15 shadow-2xl transition-all duration-200 group-hover:opacity-100 group-hover:-translate-x-1 whitespace-nowrap flex flex-col items-start z-50">
-              <span className="text-[10px] uppercase font-bold text-cyan-300 tracking-wider">
+            {/* Liquid Glass Tooltip on left */}
+            <div
+              className={`pointer-events-none absolute right-12 rounded-xl px-3 py-1.5 opacity-0 backdrop-blur-xl border transition-all duration-200 group-hover:opacity-100 group-hover:-translate-x-1 whitespace-nowrap flex flex-col items-start z-50 shadow-2xl ${
+                isLightSection
+                  ? 'bg-white/95 border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.15)] text-slate-800'
+                  : 'bg-[#060e1c]/95 border-white/15 shadow-[0_15px_35px_rgba(0,0,0,0.6)] text-white'
+              }`}
+            >
+              <span
+                className={`text-[9.5px] uppercase font-bold tracking-wider ${
+                  isLightSection ? 'text-[#0a3871]' : 'text-cyan-300'
+                }`}
+              >
                 {section.category}
               </span>
-              <span className="text-xs font-semibold text-white">
+              <span className="text-xs font-semibold">
                 {section.label}
               </span>
             </div>
@@ -209,7 +241,9 @@ export const ScrollDots: React.FC = () => {
               className={`flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 ${
                 isActive
                   ? `${section.activeColor} scale-110 shadow-lg`
-                  : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/15 hover:scale-105'
+                  : isLightSection
+                  ? 'bg-slate-200/50 text-[#0a3871]/70 hover:text-[#0a3871] hover:bg-slate-300/80 hover:scale-105 active:scale-95'
+                  : 'bg-white/[0.04] text-slate-300/80 hover:text-white hover:bg-white/15 hover:shadow-[0_0_12px_rgba(255,255,255,0.15)] hover:scale-105 active:scale-95'
               }`}
             >
               <IconComponent className="h-4 w-4" />

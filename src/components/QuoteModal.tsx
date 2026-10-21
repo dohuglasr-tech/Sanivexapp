@@ -101,7 +101,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-xl overflow-hidden rounded-3xl bg-slate-900/95 p-6 sm:p-8 backdrop-blur-2xl border border-white/10 shadow-[0_0_50px_rgba(92,112,144,0.25)] text-slate-100 z-10 animate-in zoom-in-95 duration-300">
+      <div className="relative w-full max-w-xl max-h-[92vh] overflow-y-auto rounded-3xl bg-slate-900/95 p-5 sm:p-8 backdrop-blur-2xl border border-white/10 shadow-[0_0_50px_rgba(92,112,144,0.25)] text-slate-100 z-10 animate-in zoom-in-95 duration-300">
         {/* Glow ambient light */}
         <div className="pointer-events-none absolute -top-24 -right-24 h-48 w-48 rounded-full bg-[#5c7090]/20 blur-3xl" />
 

@@ -433,7 +433,7 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="hero"
-          className="relative min-h-[92vh] lg:min-h-screen flex flex-col justify-center overflow-hidden bg-[#05070b] px-4 sm:px-8 lg:px-16 pt-[calc(104px+env(safe-area-inset-top,0px))] sm:pt-[120px] lg:pt-0 pb-16 lg:pb-0"
+          className="relative min-h-[92vh] lg:min-h-screen flex flex-col justify-start lg:justify-center bg-[#05070b] px-4 sm:px-8 lg:px-16 pt-[calc(100px+env(safe-area-inset-top,0px))] sm:pt-[112px] lg:pt-[124px] xl:pt-[134px] pb-12 sm:pb-16"
         >
           {/* Ambient Lighting, Techno Grid & Top Header Glow */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -466,21 +466,21 @@ export default function Home() {
                 <span>Somos los mejores en</span>
               </div>
 
-              {/* H1 Heading - Cuadrado, Profesional y Adaptado para Móvil */}
-              <h1 className="text-[clamp(2.15rem,9.2vw,4.2rem)] font-bold text-white leading-[1.08] tracking-tight">
+              {/* H1 Heading - Cuadrado, Profesional y Adaptado para Móvil y Zoom Alto */}
+              <h1 className="text-[clamp(1.85rem,4.5vw,4.1rem)] font-bold text-white leading-[1.08] tracking-tight break-words max-w-full">
                 <span className="block">Control de plagas</span>
                 <span className="block text-[#5c7090]">y sanidad ambiental</span>
               </h1>
 
               {/* Subtítulo Auténtico Sanivex */}
-              <p className="mt-3 sm:mt-4 text-[13px] sm:text-sm md:text-base text-slate-300/85 max-w-xl leading-relaxed font-light">
+              <p className="mt-3 sm:mt-4 text-[13px] sm:text-sm md:text-base text-slate-300/85 max-w-xl leading-relaxed font-light break-words">
                 Tu operación segura, nuestra razón de ser. Somos tu aliado estratégico en bioseguridad y manejo integrado para que tú y tu empresa estén 100% protegidos.
               </p>
 
               {/* Red Alert Pill */}
-              <div className="mt-4 sm:mt-5 inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 rounded-full hero-alert-pill text-[11px] sm:text-xs font-medium text-red-200/90 tracking-wide max-w-full">
+              <div className="mt-4 sm:mt-5 inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 rounded-full hero-alert-pill text-[11px] sm:text-xs font-medium text-red-200/90 tracking-wide max-w-full flex-wrap">
                 <AlertTriangle className="h-3.5 w-3.5 text-red-400 shrink-0" />
-                <span>¡Alerta de ROEDORES e Insectos en tu área!</span>
+                <span className="break-words">¡Alerta de ROEDORES e Insectos en tu área!</span>
               </div>
 
               {/* Botones de Acción (En desktop: Cotizar y Llamar. En móvil: Llamar en hero y Cotizar sticky abajo) */}
@@ -488,19 +488,19 @@ export default function Home() {
                 {/* Botón Principal (visible en desktop, sticky en móvil) */}
                 <button
                   onClick={() => handleOpenQuote('Cotización General')}
-                  className="hidden sm:inline-flex py-3.5 px-7 rounded-xl hero-primary-btn font-extrabold text-xs sm:text-sm tracking-widest uppercase transition-all shadow-[0_4px_20px_rgba(92,112,144,0.4)] active:scale-[0.98] items-center justify-center gap-2.5 cursor-pointer text-white"
+                  className="hidden sm:inline-flex py-3.5 px-7 rounded-xl hero-primary-btn font-extrabold text-xs sm:text-sm tracking-widest uppercase transition-all shadow-[0_4px_20px_rgba(92,112,144,0.4)] active:scale-[0.98] items-center justify-center gap-2.5 cursor-pointer text-white shrink-0"
                 >
-                  <span>SOLICITAR PRESUPUESTO</span>
+                  <span className="break-words">SOLICITAR PRESUPUESTO</span>
                   <span className="font-bold text-sm">→</span>
                 </button>
 
                 {/* Botón Secundario: Llamar directamente */}
                 <a
                   href="tel:+573009123456"
-                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2.5 px-5 sm:px-6 py-3.5 rounded-xl hero-secondary-btn font-bold text-xs sm:text-[13px] tracking-wider uppercase transition-all shadow-lg active:scale-95 cursor-pointer text-[#5c7090] border border-[#5c7090]/40 bg-[#0e1726]/90 hover:bg-[#152338]"
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2.5 px-5 sm:px-6 py-3.5 rounded-xl hero-secondary-btn font-bold text-xs sm:text-[13px] tracking-wider uppercase transition-all shadow-lg active:scale-95 cursor-pointer text-[#5c7090] border border-[#5c7090]/40 bg-[#0e1726]/90 hover:bg-[#152338] shrink-0"
                 >
-                  <Phone className="h-4 w-4 text-[#5c7090] fill-[#5c7090]" />
-                  <span>Llamar: 300-912-3456</span>
+                  <Phone className="h-4 w-4 text-[#5c7090] fill-[#5c7090] shrink-0" />
+                  <span className="break-words">Llamar: 300-912-3456</span>
                 </a>
               </div>
 
@@ -589,7 +589,7 @@ export default function Home() {
             {/* Columna Derecha: Icono 3D de Sanivex en Volumen (ELIMINADO en móvil, visible en escritorio >= lg) */}
             <div className="hidden lg:flex relative flex-col items-center justify-center lg:items-end w-full lg:mt-0 order-2">
               <div className="relative w-full max-w-[440px] lg:max-w-[680px] mx-auto lg:mr-0">
-                <div className="organic-shell float-core relative aspect-square w-full scroll-grow bg-[#05070b]/40 min-h-[400px] lg:min-h-[500px]">
+                <div className="organic-shell float-core relative aspect-square w-full scroll-grow bg-[#05070b]/40 min-h-[340px] lg:min-h-[440px] xl:min-h-[500px] max-h-[68vh]">
                   {/* 3D WebGL Canvas */}
                   <div ref={mountRef} className="h-full w-full cursor-grab active:cursor-grabbing" />
 

@@ -118,19 +118,19 @@ export const BirdsShowcase: React.FC<BirdsShowcaseProps> = ({ onOpenQuote: _onOp
             </p>
 
             {/* Feature Bullets + Metric Box */}
-            <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center gap-4 py-2.5 px-4 rounded-xl bg-white/5 border border-white/10 w-full max-w-md">
-              <div className="flex flex-col">
-                <span className="text-xl sm:text-2xl font-black text-cyan-300 tracking-tight leading-none">
+            <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 py-2.5 px-3.5 sm:px-4 rounded-xl bg-white/5 border border-white/10 w-full max-w-md">
+              <div className="flex flex-col shrink-0">
+                <span className="text-xl sm:text-2xl font-black text-cyan-300 tracking-tight leading-none break-words">
                   {current.metric}
                 </span>
-                <span className="text-[10px] sm:text-xs text-slate-400 font-normal">
+                <span className="text-[10px] sm:text-xs text-slate-400 font-normal break-words">
                   {current.metricDesc}
                 </span>
               </div>
               <div className="h-8 w-px bg-white/10 hidden sm:block ml-auto mr-2" />
-              <div className="flex flex-col gap-1 text-[11px] text-slate-300">
+              <div className="flex flex-col gap-1 text-[11px] text-slate-300 min-w-0 flex-1">
                 {current.features.slice(0, 2).map((item, i) => (
-                  <span key={i} className="flex items-center gap-1.5 text-[11px] text-slate-300 truncate">
+                  <span key={i} className="flex items-center gap-1.5 text-[11px] text-slate-300 min-w-0">
                     <CheckCircle2 className="h-3 w-3 text-cyan-400 shrink-0" />
                     <span className="truncate">{item}</span>
                   </span>

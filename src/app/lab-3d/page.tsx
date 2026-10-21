@@ -429,7 +429,7 @@ export default function Lab3DPage() {
         {/* ========================================================================= */}
         {/* SECCIÓN 1: SPLIT HERO (Prototipo Opción 1 para Página Principal)           */}
         {/* ========================================================================= */}
-        <section id="hero" className="relative mx-auto flex flex-col justify-center min-h-[calc(100vh-140px)] sm:min-h-[auto] lg:min-h-[90vh] lg:grid lg:grid-cols-[1.08fr_0.92fr] items-center gap-6 sm:gap-8 lg:gap-14 max-w-[1600px] py-2 sm:py-6 lg:py-0">
+        <section id="hero" className="relative mx-auto flex flex-col justify-start lg:justify-center min-h-[calc(100vh-140px)] sm:min-h-[auto] lg:min-h-[90vh] lg:grid lg:grid-cols-[1.08fr_0.92fr] items-center gap-6 sm:gap-8 lg:gap-14 max-w-[1600px] pt-[100px] sm:pt-[112px] lg:pt-[124px] xl:pt-[134px] pb-12 sm:pb-16">
           {/* Columna Izquierda: Mensaje Comercial, Título Auténtico y Botones de Acción */}
           <div className="relative z-20 max-w-2xl flex flex-col items-start w-full order-1 my-auto">
             {/* Top Liquid Pill: "Somos los mejores en" */}
@@ -441,8 +441,8 @@ export default function Lab3DPage() {
               <span>Somos los mejores en</span>
             </div>
 
-            {/* H1 Heading - Cuadrado, Profesional y Adaptado para Móvil */}
-            <h1 className="text-[clamp(2.15rem,9.2vw,4.2rem)] font-bold text-white leading-[1.08] tracking-tight">
+            {/* H1 Heading - Cuadrado, Profesional y Adaptado para Móvil y Zoom Alto */}
+            <h1 className="text-[clamp(2.15rem,4.8vw,4.1rem)] font-bold text-white leading-[1.08] tracking-tight">
               <span className="block">Control de plagas</span>
               <span className="block text-[#5c7090]">y sanidad ambiental</span>
             </h1>

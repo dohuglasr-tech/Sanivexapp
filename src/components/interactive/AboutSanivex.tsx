@@ -149,14 +149,14 @@ export const AboutSanivex: React.FC<AboutSanivexProps> = ({ onOpenQuote: _onOpen
 
             {/* Active Pillar Detail Box */}
             <div className="p-3.5 rounded-xl bg-[#070e1a]/90 border border-white/10 flex flex-col gap-2">
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-cyan-400" />
-                  <span className="text-xs sm:text-[13px] font-bold text-white">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="h-2 w-2 rounded-full bg-cyan-400 shrink-0" />
+                  <span className="text-xs sm:text-[13px] font-bold text-white break-words">
                     {current.title}
                   </span>
                 </div>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 font-medium shrink-0">
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 font-medium shrink-0 self-start sm:self-auto">
                   {current.badgeText}
                 </span>
               </div>
@@ -224,10 +224,10 @@ export const AboutSanivex: React.FC<AboutSanivexProps> = ({ onOpenQuote: _onOpen
 
           {/* Manager Contact Details with Clickable links */}
           <div className="p-3 rounded-xl bg-[#09111e]/85 border border-white/10 flex flex-col gap-1.5 text-xs text-slate-300">
-            <div className="font-semibold text-white flex items-center gap-1.5">
+            <div className="font-semibold text-white flex flex-wrap items-center gap-1.5 break-words">
               <span>Fernando Fernández</span>
               <span className="text-slate-500">—</span>
-              <span className="text-cyan-300 font-medium">Gerente Comercial & Operativo</span>
+              <span className="text-cyan-300 font-medium break-words">Gerente Comercial & Operativo</span>
             </div>
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-slate-300 pt-0.5">
               <a

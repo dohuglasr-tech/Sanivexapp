@@ -18,15 +18,42 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 body {
   font-family: var(--font-poppins), var(--font-montserrat), sans-serif;
   background: var(--background);
   color: var(--foreground);
+  max-width: 100vw;
   overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
+}
+
+/* Universal text containment and responsive auto-wrap across all viewports */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Ensure all textual elements wrap, stay contained, and never burst out of parent containers */
+h1, h2, h3, h4, h5, h6, p, span, a, button, label, li, dd, dt, th, td {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+pre, code {
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+img, svg, video, canvas, audio, iframe {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Custom Sleek Scrollbar */
@@ -103,6 +130,124 @@ body {
   box-shadow: 
     inset 0 1px 2px 0 rgba(255, 255, 255, 0.9),
     0 15px 35px -10px rgba(9, 17, 28, 0.12);
+}
+
+/* ========================================================================= */
+/* Liquid Glass Vertical Navigation Dock (ScrollDots / Accesos Rápidos)      */
+/* ========================================================================= */
+.liquid-glass-dock-vertical {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(14, 25, 42, 0.72) 15%,
+    rgba(7, 13, 23, 0.86) 100%
+  );
+  -webkit-backdrop-filter: blur(28px) saturate(220%);
+  backdrop-filter: blur(28px) saturate(220%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-top-color: rgba(255, 255, 255, 0.52);
+  border-left-color: rgba(255, 255, 255, 0.32);
+  border-right-color: rgba(255, 255, 255, 0.14);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.45),
+    inset 1px 0 1.5px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.45),
+    0 22px 50px -10px rgba(0, 0, 0, 0.75),
+    0 0 28px rgba(56, 189, 248, 0.16);
+}
+
+.liquid-glass-dock-vertical-light {
+  background: rgba(255, 255, 255, 0.78);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(92, 112, 144, 0.24);
+  border-top-color: rgba(255, 255, 255, 0.95);
+  border-left-color: rgba(255, 255, 255, 0.8);
+  border-bottom-color: rgba(92, 112, 144, 0.16);
+  box-shadow: 
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.95),
+    inset 1px 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 18px 42px -10px rgba(9, 17, 28, 0.2);
+}
+
+/* ========================================================================= */
+/* Liquid Glass Dropdown Submenus (Desktop Mega-Menu & Mobile Drawer Panel)  */
+/* ========================================================================= */
+.liquid-glass-dropdown {
+  background: linear-gradient(
+    170deg,
+    rgba(16, 28, 46, 0.99) 0%,
+    rgba(10, 18, 30, 0.99) 40%,
+    rgba(5, 10, 18, 1) 100%
+  );
+  -webkit-backdrop-filter: blur(48px) saturate(220%);
+  backdrop-filter: blur(48px) saturate(220%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-top-color: rgba(255, 255, 255, 0.55);
+  border-left-color: rgba(255, 255, 255, 0.25);
+  border-right-color: rgba(255, 255, 255, 0.14);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.6),
+    0 35px 85px -10px rgba(0, 0, 0, 0.95),
+    0 0 45px rgba(56, 189, 248, 0.18);
+}
+
+.liquid-glass-dropdown-light {
+  background: #ffffff;
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgba(92, 112, 144, 0.35);
+  border-top-color: rgba(255, 255, 255, 1);
+  border-left-color: rgba(255, 255, 255, 0.95);
+  border-bottom-color: rgba(92, 112, 144, 0.25);
+  box-shadow: 
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 1),
+    0 25px 70px -10px rgba(10, 56, 113, 0.3),
+    0 0 35px rgba(10, 56, 113, 0.12);
+}
+
+/* Service Item Card within Submenu */
+.liquid-glass-subcard {
+  background: rgba(14, 25, 42, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-top-color: rgba(255, 255, 255, 0.25);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-glass-subcard:hover {
+  background: rgba(20, 36, 60, 0.98);
+  border-color: rgba(56, 189, 248, 0.55);
+  border-top-color: rgba(255, 255, 255, 0.75);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.35),
+    0 12px 28px -5px rgba(0, 0, 0, 0.6),
+    0 0 24px rgba(56, 189, 248, 0.25);
+  transform: translateY(-2px);
+}
+
+.liquid-glass-subcard-light {
+  background: #f8fafc;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-top-color: rgba(255, 255, 255, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-glass-subcard-light:hover {
+  background: rgba(255, 255, 255, 0.98);
+  border-color: rgba(10, 56, 113, 0.45);
+  border-top-color: rgba(255, 255, 255, 1);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
+    0 10px 25px -5px rgba(10, 56, 113, 0.14),
+    0 0 18px rgba(10, 56, 113, 0.12);
+  transform: translateY(-2px);
 }
 
 .liquid-glass-hover {
@@ -457,4 +602,73 @@ body {
   }
 }
 
+/* ========================================================================= */
+/* High Zoom & Compact Viewport Height Optimizations (125% - 175% Zoom)      */
+/* ========================================================================= */
+@media (min-width: 1024px) and (max-height: 880px) {
+  #hero {
+    min-height: auto !important;
+    padding-top: 116px !important;
+    padding-bottom: 2.5rem !important;
+  }
+  #hero h1 {
+    font-size: clamp(2rem, 3.6vw, 3.3rem) !important;
+    line-height: 1.1 !important;
+  }
+  #hero .organic-shell {
+    min-height: 320px !important;
+    max-height: 54vh !important;
+  }
+}
 
+@media (min-width: 1024px) and (max-height: 740px) {
+  #hero {
+    min-height: auto !important;
+    padding-top: 104px !important;
+    padding-bottom: 2rem !important;
+  }
+  #hero h1 {
+    font-size: clamp(1.85rem, 3.2vw, 2.75rem) !important;
+    line-height: 1.1 !important;
+  }
+  #hero .organic-shell {
+    min-height: 270px !important;
+    max-height: 48vh !important;
+  }
+}
+
+/* ========================================================================= */
+/* Mobile Off-Canvas Drawer Fluid Entrance Animations                       */
+/* ========================================================================= */
+@keyframes mobileDrawerItemEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-drawer-stagger-1 {
+  animation: mobileDrawerItemEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.06s both;
+}
+.animate-drawer-stagger-2 {
+  animation: mobileDrawerItemEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+}
+.animate-drawer-stagger-3 {
+  animation: mobileDrawerItemEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+}
+.animate-drawer-stagger-4 {
+  animation: mobileDrawerItemEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
+}
+.animate-drawer-stagger-5 {
+  animation: mobileDrawerItemEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.30s both;
+}
+.animate-drawer-stagger-6 {
+  animation: mobileDrawerItemEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.36s both;
+}
+.animate-drawer-stagger-7 {
+  animation: mobileDrawerItemEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.42s both;
+}
