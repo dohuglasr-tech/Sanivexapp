@@ -506,7 +506,7 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="hero"
-          className={`relative min-h-[92vh] lg:min-h-screen flex flex-col justify-start lg:justify-center bg-[#05070b] px-4 sm:px-8 lg:px-16 pt-[calc(100px+env(safe-area-inset-top,0px))] sm:pt-[112px] lg:pt-[124px] xl:pt-[134px] pb-12 sm:pb-16 ${getSectionMotion('hero')}`}
+          className={`relative w-full min-h-[100dvh] lg:h-screen lg:max-h-screen flex flex-col justify-center bg-[#05070b] px-4 sm:px-8 lg:px-16 pt-[calc(92px+env(safe-area-inset-top,0px))] sm:pt-[104px] lg:pt-[110px] pb-6 sm:pb-8 lg:pb-10 overflow-hidden ${getSectionMotion('hero')}`}
         >
           {/* Ambient Lighting, Techno Grid & Top Header Glow */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -527,7 +527,7 @@ export default function Home() {
             <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent via-[#05070b]/80 to-[#121e2c]" />
           </div>
 
-          <div className="relative mx-auto flex flex-col justify-center min-h-[calc(100vh-140px)] sm:min-h-[auto] lg:min-h-0 lg:grid lg:grid-cols-[1.08fr_0.92fr] items-center gap-6 sm:gap-8 lg:gap-14 w-full max-w-[1600px] my-auto z-10">
+          <div className="relative mx-auto flex flex-col justify-center w-full max-w-[1600px] lg:grid lg:grid-cols-[1.08fr_0.92fr] items-center gap-6 sm:gap-8 lg:gap-12 xl:gap-14 my-auto z-10">
             {/* Columna Izquierda: Mensaje Comercial, Título Auténtico y Botones de Acción */}
             <div className="relative z-20 max-w-2xl flex flex-col items-start w-full my-auto">
               {/* Top Liquid Pill: "Somos los mejores en" */}
@@ -703,7 +703,7 @@ export default function Home() {
               heroMounted ? 'hero-emblem-visible' : 'hero-emblem-hidden'
             }`}>
               <div className="relative w-full max-w-[440px] lg:max-w-[680px] mx-auto lg:mr-0">
-                <div className="organic-shell float-core relative aspect-square w-full scroll-grow bg-[#05070b]/40 min-h-[340px] lg:min-h-[440px] xl:min-h-[500px] max-h-[68vh]">
+                <div className="organic-shell float-core relative aspect-square w-full scroll-grow bg-[#05070b]/40 min-h-[280px] lg:min-h-[360px] xl:min-h-[440px] max-h-[58vh]">
                   {/* 3D WebGL Canvas */}
                   <div ref={mountRef} className="h-full w-full cursor-grab active:cursor-grabbing" />
 
