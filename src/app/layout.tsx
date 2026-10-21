@@ -25,7 +25,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sanivex.co"),
+  metadataBase: new URL("https://sanivex.com.co"),
   title: {
     default: "Sanivex | Control de Plagas, Fumigación y Sanidad Ambiental",
     template: "%s | Sanivex",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     "normatividad BPM INVIMA",
     "bioseguridad empresarial",
   ],
-  authors: [{ name: "Sanivex Sanidad Ambiental", url: "https://sanivex.co" }],
+  authors: [{ name: "Sanivex Sanidad Ambiental", url: "https://sanivex.com.co" }],
   creator: "Sanivex",
   publisher: "Sanivex",
   formatDetection: {
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     title: "Sanivex | Control de Plagas, Fumigación y Sanidad Ambiental",
     description:
       "Tu operación segura, nuestra razón de ser. Soluciones avanzadas en bioseguridad, control de vectores y sanidad ambiental institucional y corporativa en Colombia.",
-    url: "https://sanivex.co",
+    url: "https://sanivex.com.co",
     siteName: "Sanivex",
     locale: "es_CO",
     type: "website",
@@ -121,15 +121,15 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "PestControlService",
-      "@id": "https://sanivex.co/#organization",
+      "@id": "https://sanivex.com.co/#organization",
       "name": "Sanivex - Control de Plagas y Sanidad Ambiental",
-      "url": "https://sanivex.co",
-      "logo": "https://sanivex.co/logos/brand-full-white.png",
-      "image": "https://sanivex.co/logos/Logo%20Sanivex-09.png",
+      "url": "https://sanivex.com.co",
+      "logo": "https://sanivex.com.co/logos/brand-full-white.png",
+      "image": "https://sanivex.com.co/logos/Logo%20Sanivex-09.png",
       "description":
         "Tu operación segura, nuestra razón de ser. Soluciones avanzadas en bioseguridad, control de vectores y sanidad ambiental institucional y corporativa en Colombia.",
       "telephone": "+573009123456",
-      "email": "contacto@sanivex.co",
+      "email": "ventas@sanivex.com.co",
       "priceRange": "$$",
       "address": {
         "@type": "PostalAddress",

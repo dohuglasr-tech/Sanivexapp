@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://sanivex.co';
+  const baseUrl = 'https://sanivex.com.co';
   const currentDate = new Date().toISOString();
 
   return [
