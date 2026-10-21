@@ -56,18 +56,7 @@ interface BrandLogoProps {
   isMobile?: boolean;
 }
 
-const BrandLogoInteractive: React.FC<BrandLogoProps> = ({ isLightSection, onNavigate, isMobile }) => {
-  const [isIntroduced, setIsIntroduced] = useState(false);
-
-  useEffect(() => {
-    if (isMobile) return;
-    // Initial welcome peek for desktop: reveal wordmark for 2.2s on first load, then collapse to hover-only
-    const timer = setTimeout(() => {
-      setIsIntroduced(true);
-    }, 2200);
-    return () => clearTimeout(timer);
-  }, [isMobile]);
-
+const BrandLogoInteractive: React.FC<BrandLogoProps> = ({ isLightSection, onNavigate }) => {
   return (
     <a
       href="#hero"
@@ -75,20 +64,16 @@ const BrandLogoInteractive: React.FC<BrandLogoProps> = ({ isLightSection, onNavi
         e.preventDefault();
         onNavigate();
       }}
-      className="group/brand flex items-center cursor-pointer relative z-10 py-1 transition-opacity hover:opacity-90"
+      className="group/brand flex items-center cursor-pointer relative z-10 py-1 transition-opacity hover:opacity-95 shrink-0"
       aria-label="SANIVEX - Inicio"
       title="SANIVEX - Soluciones Profesionales en Sanidad Ambiental"
     >
-      {/* Permanent Brand Icon (Isolated PNG symbol with GPU 3D Y-axis spin on mobile) */}
+      {/* Permanent Brand Icon (Isolated PNG symbol with GPU 3D Y-axis spin) */}
       <div
         className="relative flex items-center justify-center shrink-0"
         style={{ perspective: '500px' }}
       >
-        <div
-          className={`flex items-center justify-center ${
-            isMobile ? 'animate-mobile-logo-icon' : ''
-          }`}
-        >
+        <div className="flex items-center justify-center animate-brand-logo-icon">
           <Image
             src={isLightSection ? '/logos/brand-icon-prop-dark.webp' : '/logos/brand-icon-prop-white.webp'}
             alt="Sanivex Icono"
@@ -100,17 +85,9 @@ const BrandLogoInteractive: React.FC<BrandLogoProps> = ({ isLightSection, onNavi
         </div>
       </div>
 
-      {/* Dynamic Expandable Wordmark (Mobile 3-phase loop / Desktop hover expand) */}
+      {/* Dynamic Expandable Wordmark (Continuous loop + Desktop hover expand) */}
       <div
-        className={`flex items-center ${
-          isMobile
-            ? 'animate-mobile-logo-wordmark'
-            : `overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                !isIntroduced
-                  ? 'max-w-[130px] opacity-100 ml-1.5'
-                  : 'max-w-0 opacity-0 ml-0 pointer-events-none group-hover/brand:max-w-[130px] group-hover/brand:opacity-100 group-hover/brand:ml-1.5 group-hover/brand:pointer-events-auto'
-              }`
-        }`}
+        className="flex items-center animate-brand-logo-wordmark group-hover/brand:!max-w-[130px] group-hover/brand:!opacity-100 group-hover/brand:!ml-1.5 group-hover/brand:pointer-events-auto"
       >
         <Image
           src={isLightSection ? '/logos/brand-text-prop-dark.webp' : '/logos/brand-text-prop-white.webp'}
@@ -126,6 +103,7 @@ const BrandLogoInteractive: React.FC<BrandLogoProps> = ({ isLightSection, onNavi
 };
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote: _onOpenQuote }) => {
+  const [navMounted, setNavMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isLightSection, setIsLightSection] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -133,6 +111,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote: _onOpenQuote }) => 
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [userModalOpen, setUserModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    const timer = setTimeout(() => setNavMounted(true), 60);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleOpenPortal = () => setUserModalOpen(true);
@@ -301,7 +284,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote: _onOpenQuote }) => 
         aria-hidden="true"
       />
 
-      <header className="fixed top-[calc(0.625rem+env(safe-area-inset-top,0px))] sm:top-4 inset-x-0 z-50 pointer-events-none">
+      <header
+        className={`fixed top-[calc(0.625rem+env(safe-area-inset-top,0px))] sm:top-4 inset-x-0 z-50 pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          navMounted ? 'translate-y-0 opacity-100' : '-translate-y-5 opacity-0'
+        }`}
+      >
         {/* ================================================================= */}
         {/* MOBILE LIQUID GLASS DOCK                                          */}
         {/* ================================================================= */}
@@ -438,8 +425,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote: _onOpenQuote }) => 
             onNavigate={() => handleLinkClick('#hero')}
           />
 
-          {/* Desktop Center Navigation Links */}
-          <nav className="flex items-center gap-1.5 md:gap-2.5 lg:gap-5 xl:gap-7 relative z-10">
+          {/* Desktop Center Navigation Links - Centrado permanentemente en el centro exacto */}
+          <nav className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1.5 md:gap-2.5 lg:gap-5 xl:gap-7 z-10 pointer-events-auto">
             <a
               href="#hero"
               onClick={(e) => {
@@ -515,7 +502,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote: _onOpenQuote }) => 
           </nav>
 
           {/* Desktop Right Action Icons: Search + Instagram + User/Portal + WhatsApp */}
-          <div className="flex items-center gap-2 sm:gap-2.5 relative z-10">
+          <div className="flex items-center gap-2 sm:gap-2.5 relative z-10 shrink-0">
             {/* 1. Search */}
             <button
               onClick={() => setSearchModalOpen(true)}

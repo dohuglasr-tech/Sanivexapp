@@ -436,14 +436,16 @@ img, svg, video, canvas, audio, iframe {
   }
 }
 
-.animate-mobile-logo-icon {
+.animate-mobile-logo-icon,
+.animate-brand-logo-icon {
   animation: mobileLogoIconLoop 7.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
   transform-style: preserve-3d;
   backface-visibility: visible;
   will-change: transform;
 }
 
-.animate-mobile-logo-wordmark {
+.animate-mobile-logo-wordmark,
+.animate-brand-logo-wordmark {
   animation: mobileLogoWordmarkLoop 7.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
   overflow: hidden;
   will-change: max-width, opacity;
