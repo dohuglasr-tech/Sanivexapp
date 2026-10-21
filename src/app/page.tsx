@@ -544,9 +544,9 @@ export default function Home() {
                 <span>Somos los mejores en</span>
               </div>
 
-              {/* H1 Heading - Cuadrado, Profesional y Adaptado para Móvil y Zoom Alto */}
+              {/* H1 Heading - Cuadrado, Profesional y Destacado en Móvil / Intacto en Web */}
               <h1
-                className={`text-[clamp(1.85rem,4.5vw,4.1rem)] font-bold text-white leading-[1.08] tracking-tight break-words max-w-full hero-enter-item ${
+                className={`text-[clamp(2.35rem,8.2vw,2.85rem)] sm:text-[clamp(1.85rem,4.5vw,4.1rem)] font-bold text-white leading-[1.06] tracking-tight break-words max-w-full hero-enter-item ${
                   heroMounted ? 'hero-enter-visible' : 'hero-enter-hidden'
                 }`}
                 style={{ '--hero-delay': '220ms' } as React.CSSProperties}
