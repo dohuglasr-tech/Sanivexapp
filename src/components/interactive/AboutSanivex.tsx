@@ -6,8 +6,6 @@ import {
   Activity,
   Phone,
   Mail,
-  ArrowRight,
-  Sparkles,
   CheckCircle2,
   Target,
   Leaf,
@@ -17,7 +15,7 @@ import {
 } from 'lucide-react';
 
 interface AboutSanivexProps {
-  onOpenQuote: (serviceName: string) => void;
+  onOpenQuote?: (serviceName: string) => void;
 }
 
 const PILLARS = [
@@ -59,7 +57,7 @@ const PILLARS = [
   },
 ];
 
-export const AboutSanivex: React.FC<AboutSanivexProps> = ({ onOpenQuote }) => {
+export const AboutSanivex: React.FC<AboutSanivexProps> = ({ onOpenQuote: _onOpenQuote }) => {
   const [activePillar, setActivePillar] = useState<number>(0);
   const current = PILLARS[activePillar];
 
@@ -126,7 +124,7 @@ export const AboutSanivex: React.FC<AboutSanivexProps> = ({ onOpenQuote }) => {
             </p>
 
             {/* Interactive Pillar Selector Tabs */}
-            <div className="grid grid-cols-3 gap-2 pt-1">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
               {PILLARS.map((pillar, idx) => {
                 const Icon = pillar.icon;
                 const isSelected = idx === activePillar;
@@ -134,14 +132,14 @@ export const AboutSanivex: React.FC<AboutSanivexProps> = ({ onOpenQuote }) => {
                   <button
                     key={pillar.id}
                     onClick={() => setActivePillar(idx)}
-                    className={`flex items-center gap-1.5 sm:gap-2 p-2.5 rounded-xl transition-all text-left cursor-pointer select-none border ${
+                    className={`flex items-center gap-2.5 sm:gap-2 px-3 py-2.5 rounded-xl transition-all text-left cursor-pointer select-none border min-w-0 w-full ${
                       isSelected
                         ? 'bg-sky-500/20 border-cyan-400/60 text-white shadow-[0_0_15px_rgba(97,218,251,0.2)]'
                         : 'bg-white/5 border-white/5 text-slate-400 hover:text-slate-200 hover:bg-white/10'
                     }`}
                   >
-                    <Icon className={`h-3.5 w-3.5 shrink-0 ${isSelected ? 'text-cyan-400' : 'text-slate-400'}`} />
-                    <span className="text-[10px] sm:text-[11px] font-semibold truncate">
+                    <Icon className={`h-4 w-4 shrink-0 ${isSelected ? 'text-cyan-400' : 'text-slate-400'}`} />
+                    <span className="text-xs sm:text-[11px] font-semibold leading-snug break-words flex-1 min-w-0">
                       {pillar.short}
                     </span>
                   </button>
@@ -249,15 +247,6 @@ export const AboutSanivex: React.FC<AboutSanivexProps> = ({ onOpenQuote }) => {
               </a>
             </div>
           </div>
-
-          {/* Diagnostic Button */}
-          <button
-            onClick={() => onOpenQuote('Diagnóstico Integral de Operación - Sobre Sanivex')}
-            className="w-full py-3.5 px-4 rounded-xl hero-primary-btn font-extrabold text-xs sm:text-[13px] tracking-wider uppercase transition-all shadow-[0_4px_25px_rgba(97,218,251,0.35)] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer text-white"
-          >
-            <span>AGENDA TU DIAGNÓSTICO</span>
-            <ArrowRight className="h-4 w-4" />
-          </button>
         </div>
       </div>
     </div>

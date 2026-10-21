@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { AlertTriangle, Zap, Building2, ShieldAlert, ArrowRight, CheckCircle2, Lock } from 'lucide-react';
+import { AlertTriangle, Zap, Building2, CheckCircle2, Lock } from 'lucide-react';
 
 interface RodentsRiskInspectorProps {
-  onOpenQuote: (serviceName: string) => void;
+  onOpenQuote?: (serviceName: string) => void;
 }
 
 const ZONES = [
@@ -62,14 +62,14 @@ const ZONES = [
   },
 ];
 
-export const RodentsRiskInspector: React.FC<RodentsRiskInspectorProps> = ({ onOpenQuote }) => {
+export const RodentsRiskInspector: React.FC<RodentsRiskInspectorProps> = ({ onOpenQuote: _onOpenQuote }) => {
   const [selectedZone, setSelectedZone] = useState(0);
   const current = ZONES[selectedZone];
 
   return (
     <div className="w-full flex flex-col gap-4 lg:gap-5">
       {/* Zone selection buttons */}
-      <div className="grid grid-cols-3 gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl bg-[#0d1624]/80 border border-white/10 backdrop-blur-xl">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl bg-[#0d1624]/80 border border-white/10 backdrop-blur-xl">
         {ZONES.map((zone, idx) => {
           const Icon = zone.icon;
           const isActive = idx === selectedZone;
@@ -77,25 +77,25 @@ export const RodentsRiskInspector: React.FC<RodentsRiskInspectorProps> = ({ onOp
             <button
               key={zone.id}
               onClick={() => setSelectedZone(idx)}
-              className={`relative flex flex-col sm:flex-row items-center gap-1.5 sm:gap-2.5 px-2 sm:px-4 py-2 sm:py-3 rounded-xl transition-all duration-300 text-left cursor-pointer select-none ${
+              className={`relative flex flex-row items-center gap-2.5 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl transition-all duration-300 text-left cursor-pointer select-none min-w-0 w-full ${
                 isActive
                   ? 'bg-gradient-to-r from-[#2a1215] to-[#1e1017] border border-red-500/40 shadow-[0_0_25px_rgba(239,68,68,0.2)] text-white'
                   : 'hover:bg-white/5 border border-transparent text-slate-400 hover:text-slate-200'
               }`}
             >
               <div
-                className={`flex items-center justify-center h-6 w-6 sm:h-7 sm:w-7 rounded-lg transition-colors shrink-0 ${
-                  isActive ? 'bg-red-500 text-white shadow-md' : 'bg-white/10 text-slate-300'
+                className={`flex items-center justify-center h-7 w-7 sm:h-8 sm:w-8 rounded-lg transition-colors shrink-0 ${
+                  isActive ? 'bg-red-500 text-white shadow-md font-bold' : 'bg-white/10 text-slate-300'
                 }`}
               >
-                <Icon className="h-3.5 w-3.5" />
+                <Icon className="h-4 w-4" />
               </div>
-              <div className="flex flex-col min-w-0 text-center sm:text-left">
-                <span className="text-[10px] sm:text-xs font-bold text-white truncate">
-                  {zone.tabLabel.split(' ')[0]} {zone.tabLabel.split(' ')[1] || ''}
+              <div className="flex flex-col min-w-0 text-left flex-1">
+                <span className="text-xs sm:text-xs font-bold text-white leading-tight break-words">
+                  {zone.tabLabel}
                 </span>
-                <span className={`text-[9px] sm:text-[10px] font-semibold truncate ${isActive ? 'text-red-300' : 'text-slate-400'}`}>
-                  {zone.dangerLevel.split(' ')[0]} {zone.dangerLevel.split(' ')[1] || ''}
+                <span className={`text-[10px] sm:text-[11px] font-semibold mt-0.5 leading-tight break-words ${isActive ? 'text-red-300' : 'text-slate-400'}`}>
+                  {zone.dangerLevel}
                 </span>
               </div>
             </button>
@@ -151,17 +151,9 @@ export const RodentsRiskInspector: React.FC<RodentsRiskInspectorProps> = ({ onOp
               ))}
             </div>
 
-            <div className="mt-5 flex flex-wrap items-center gap-3 w-full sm:w-auto">
-              <button
-                onClick={() => onOpenQuote(current.serviceKey)}
-                className="w-full sm:w-auto py-3 px-6 rounded-xl hero-primary-btn font-extrabold text-xs sm:text-sm tracking-wider uppercase transition-all shadow-[0_4px_20px_rgba(239,68,68,0.3)] active:scale-95 flex items-center justify-center gap-2 cursor-pointer text-white"
-              >
-                <span>{current.actionLabel}</span>
-                <ArrowRight className="h-4 w-4" />
-              </button>
-              <span className="text-[11px] text-slate-400 font-light">
-                Inspección técnica en menos de 24 horas.
-              </span>
+            <div className="mt-5 flex items-center gap-2 text-[11px] text-slate-400 font-light">
+              <CheckCircle2 className="h-3.5 w-3.5 text-red-400 shrink-0" />
+              <span>Inspección técnica y diagnóstico estructural en menos de 24 horas.</span>
             </div>
           </div>
 

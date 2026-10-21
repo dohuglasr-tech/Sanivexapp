@@ -305,7 +305,7 @@ export default function Lab3DPage() {
     let prevY = 0
     let theta = 0
     let phi = Math.PI / 2.1
-    let distance = 21
+    const distance = 21
 
     const onDown = (e: MouseEvent | TouchEvent) => {
       isDragging = true

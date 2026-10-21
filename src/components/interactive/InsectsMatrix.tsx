@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Bug, Sparkles, ArrowRight, ShieldCheck, CheckCircle2, Clock, Zap } from 'lucide-react';
+import { Bug, Sparkles, CheckCircle2 } from 'lucide-react';
 
 interface InsectsMatrixProps {
-  onOpenQuote: (serviceName: string) => void;
+  onOpenQuote?: (serviceName: string) => void;
 }
 
 const SPECIMENS = [
@@ -59,38 +59,38 @@ const SPECIMENS = [
   },
 ];
 
-export const InsectsMatrix: React.FC<InsectsMatrixProps> = ({ onOpenQuote }) => {
+export const InsectsMatrix: React.FC<InsectsMatrixProps> = ({ onOpenQuote: _onOpenQuote }) => {
   const [selectedIdx, setSelectedIdx] = useState(0);
   const current = SPECIMENS[selectedIdx];
 
   return (
     <div className="w-full flex flex-col gap-4 lg:gap-5">
       {/* Specimen chips bar */}
-      <div className="grid grid-cols-3 gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl bg-[#0e1927]/80 border border-white/10 backdrop-blur-xl">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl bg-[#0e1927]/80 border border-white/10 backdrop-blur-xl">
         {SPECIMENS.map((specimen, idx) => {
           const isActive = idx === selectedIdx;
           return (
             <button
               key={specimen.id}
               onClick={() => setSelectedIdx(idx)}
-              className={`relative flex flex-col sm:flex-row items-center gap-1.5 sm:gap-2.5 px-2 sm:px-4 py-2 sm:py-3 rounded-xl transition-all duration-300 text-left cursor-pointer select-none ${
+              className={`relative flex flex-row items-center gap-2.5 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-xl transition-all duration-300 text-left cursor-pointer select-none min-w-0 w-full ${
                 isActive
                   ? 'bg-gradient-to-r from-[#0d2a23] to-[#0a1e1b] border border-emerald-400/40 shadow-[0_0_25px_rgba(16,185,129,0.2)] text-white'
                   : 'hover:bg-white/5 border border-transparent text-slate-400 hover:text-slate-200'
               }`}
             >
               <div
-                className={`flex items-center justify-center h-6 w-6 sm:h-7 sm:w-7 rounded-lg transition-colors shrink-0 ${
+                className={`flex items-center justify-center h-7 w-7 rounded-lg transition-colors shrink-0 ${
                   isActive ? 'bg-emerald-500 text-white shadow-md' : 'bg-white/10 text-slate-300'
                 }`}
               >
                 <Bug className="h-3.5 w-3.5" />
               </div>
-              <div className="flex flex-col min-w-0 text-center sm:text-left">
-                <span className="text-[10px] sm:text-xs font-bold text-white truncate">
+              <div className="flex flex-col min-w-0 text-left flex-1">
+                <span className="text-xs sm:text-xs font-bold text-white break-words leading-tight">
                   {specimen.name}
                 </span>
-                <span className="text-[9px] sm:text-[10px] text-slate-400 italic truncate hidden sm:block">
+                <span className="text-[10px] text-slate-400 italic break-words leading-tight mt-0.5">
                   {specimen.scientific}
                 </span>
               </div>
@@ -121,29 +121,20 @@ export const InsectsMatrix: React.FC<InsectsMatrixProps> = ({ onOpenQuote }) => 
             </p>
 
             {/* Quick Specs Grid */}
-            <div className="mt-4 grid grid-cols-2 gap-2.5 w-full max-w-md">
-              <div className="p-2.5 rounded-xl bg-white/5 border border-white/10">
-                <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Método Técnico</span>
-                <span className="text-xs font-semibold text-slate-200 mt-0.5 block truncate">{current.techMethod}</span>
+            <div className="mt-4 grid grid-cols-1 min-[380px]:grid-cols-2 gap-2 sm:gap-2.5 w-full max-w-md">
+              <div className="p-2.5 sm:p-3 rounded-xl bg-white/5 border border-white/10 min-w-0 flex flex-col justify-center">
+                <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-medium">Método Técnico</span>
+                <span className="text-xs font-semibold text-slate-200 mt-1 block leading-snug break-words">{current.techMethod}</span>
               </div>
-              <div className="p-2.5 rounded-xl bg-white/5 border border-white/10">
-                <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Tiempo Reingreso</span>
-                <span className="text-xs font-semibold text-emerald-300 mt-0.5 block truncate">{current.reentryTime}</span>
+              <div className="p-2.5 sm:p-3 rounded-xl bg-white/5 border border-white/10 min-w-0 flex flex-col justify-center">
+                <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-medium">Tiempo Reingreso</span>
+                <span className="text-xs font-semibold text-emerald-300 mt-1 block leading-snug break-words">{current.reentryTime}</span>
               </div>
             </div>
 
-            {/* Action CTA */}
-            <div className="mt-5 flex flex-wrap items-center gap-3 w-full sm:w-auto">
-              <button
-                onClick={() => onOpenQuote(current.serviceKey)}
-                className="w-full sm:w-auto py-3 px-6 rounded-xl hero-primary-btn font-extrabold text-xs sm:text-sm tracking-wider uppercase transition-all shadow-[0_4px_20px_rgba(16,185,129,0.3)] active:scale-95 flex items-center justify-center gap-2 cursor-pointer text-white"
-              >
-                <span>{current.actionLabel}</span>
-                <ArrowRight className="h-4 w-4" />
-              </button>
-              <span className="text-[11px] text-slate-400 font-light">
-                Certificado oficial INVIMA incluido.
-              </span>
+            <div className="mt-5 flex items-center gap-2 text-[11px] text-slate-400 font-light">
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+              <span>Tratamientos certificados con actas digitales y ficha técnica INVIMA.</span>
             </div>
           </div>
 

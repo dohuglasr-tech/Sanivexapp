@@ -11,12 +11,14 @@ interface QuoteModalProps {
   isOpen: boolean;
   onClose: () => void;
   defaultService?: string;
+  defaultDetails?: string;
 }
 
 export const QuoteModal: React.FC<QuoteModalProps> = ({
   isOpen,
   onClose,
   defaultService = 'Manejo Integrado de Plagas (MIP)',
+  defaultDetails = '',
 }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -24,8 +26,21 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
     phone: '',
     city: 'Bogotá D.C.',
     service: defaultService,
-    details: '',
+    details: defaultDetails,
   });
+
+  const [prevService, setPrevService] = useState(defaultService);
+  const [prevDetails, setPrevDetails] = useState(defaultDetails);
+
+  if (defaultService !== prevService || defaultDetails !== prevDetails) {
+    setPrevService(defaultService);
+    setPrevDetails(defaultDetails);
+    setFormData((prev) => ({
+      ...prev,
+      service: defaultService,
+      details: defaultDetails || prev.details,
+    }));
+  }
 
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -197,6 +212,17 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                   onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                   className="w-full rounded-2xl bg-slate-950/70 border border-white/10 px-4 py-2.5 text-base sm:text-xs text-white focus:border-[#5c7090] focus:outline-none focus:ring-1 focus:ring-[#5c7090] transition"
                 >
+                  {formData.service &&
+                    ![
+                      'Manejo Integrado de Plagas (MIP)',
+                      'Control de Roedores',
+                      'Control de Aves',
+                      'Control de Termitas',
+                      'Sanitización y Desinfección',
+                      'Plan Integral Empresa',
+                    ].includes(formData.service) && (
+                      <option value={formData.service}>{formData.service}</option>
+                    )}
                   <option value="Manejo Integrado de Plagas (MIP)">Manejo Integrado de Plagas (MIP)</option>
                   <option value="Control de Roedores">Control de Roedores de Importancia Sanitaria</option>
                   <option value="Control de Aves">Control y Exclusión de Aves Urbanas</option>

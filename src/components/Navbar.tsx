@@ -91,7 +91,7 @@ const BrandLogoInteractive: React.FC<BrandLogoProps> = ({ isLightSection, onNavi
   );
 };
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote: _onOpenQuote }) => {
   const [scrolled, setScrolled] = useState(false);
   const [isLightSection, setIsLightSection] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -99,7 +99,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [userModalOpen, setUserModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeSegment, setActiveSegment] = useState<'residencial' | 'comercial'>('residencial');
+
+  useEffect(() => {
+    const handleOpenPortal = () => setUserModalOpen(true);
+    window.addEventListener('open-portal-modal', handleOpenPortal);
+    return () => window.removeEventListener('open-portal-modal', handleOpenPortal);
+  }, []);
 
   useEffect(() => {
     const checkScrollState = () => {
@@ -233,42 +238,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 {mobileMenuOpen ? <X className="h-5 w-5 stroke-[2.2]" /> : <Menu className="h-5 w-5 stroke-[2.2]" />}
               </button>
             </div>
-          </div>
-
-          {/* Bottom Row: Segmented Buttons */}
-          <div
-            className={`flex w-full p-1 border-t transition-colors ${
-              isLightSection ? 'border-slate-200/80 bg-slate-100/60' : 'border-white/10 bg-black/25'
-            }`}
-          >
-            <button
-              onClick={() => setActiveSegment('residencial')}
-              className={`flex-1 py-1.5 text-center text-xs font-bold tracking-wider uppercase rounded-xl transition-all cursor-pointer ${
-                activeSegment === 'residencial'
-                  ? isLightSection
-                    ? 'bg-[#0a3871] text-white shadow-md'
-                    : 'bg-[#5c7090] text-white shadow-inner'
-                  : isLightSection
-                    ? 'text-[#0a3871]/75 hover:text-[#0a3871]'
-                    : 'text-white/70 hover:text-white'
-              }`}
-            >
-              <span>Residencial</span>
-            </button>
-            <button
-              onClick={() => setActiveSegment('comercial')}
-              className={`flex-1 py-1.5 text-center text-xs font-bold tracking-wider uppercase rounded-xl transition-all cursor-pointer ${
-                activeSegment === 'comercial'
-                  ? isLightSection
-                    ? 'bg-[#0a3871] text-white shadow-md'
-                    : 'bg-[#5c7090] text-white shadow-inner'
-                  : isLightSection
-                    ? 'text-[#0a3871]/75 hover:text-[#0a3871]'
-                    : 'text-white/70 hover:text-white'
-              }`}
-            >
-              <span>Comercial</span>
-            </button>
           </div>
         </div>
 
@@ -519,16 +488,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
             >
               <User className="h-3.5 w-3.5 text-[#5c7090]" />
               <span>Portal de Clientes (Actas / NIT)</span>
-            </button>
-
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenQuote();
-              }}
-              className="w-full py-3 rounded-xl hero-primary-btn font-bold text-xs cursor-pointer shadow-lg mt-1"
-            >
-              Pedir un Presupuesto Gratuito
             </button>
 
             <a

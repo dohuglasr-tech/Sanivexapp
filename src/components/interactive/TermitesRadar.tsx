@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Search, ShieldAlert, ArrowRight, CheckCircle2, Sparkles, Layers } from 'lucide-react';
+import { CheckCircle2, Sparkles } from 'lucide-react';
 
 interface TermitesRadarProps {
-  onOpenQuote: (serviceName: string) => void;
+  onOpenQuote?: (serviceName: string) => void;
 }
 
 const LEVELS = [
@@ -56,39 +56,39 @@ const LEVELS = [
   },
 ];
 
-export const TermitesRadar: React.FC<TermitesRadarProps> = ({ onOpenQuote }) => {
+export const TermitesRadar: React.FC<TermitesRadarProps> = ({ onOpenQuote: _onOpenQuote }) => {
   const [activeLevel, setActiveLevel] = useState(0);
   const current = LEVELS[activeLevel];
 
   return (
     <div className="w-full flex flex-col gap-4 lg:gap-5">
       {/* Light-themed level selector */}
-      <div className="grid grid-cols-3 gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl bg-slate-100/90 border border-slate-200/80 shadow-md">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl bg-slate-100/90 border border-slate-200/80 shadow-md">
         {LEVELS.map((item, idx) => {
           const isActive = idx === activeLevel;
           return (
             <button
               key={item.id}
               onClick={() => setActiveLevel(idx)}
-              className={`relative flex flex-col sm:flex-row items-center gap-1.5 sm:gap-2.5 px-2 sm:px-4 py-2 sm:py-3 rounded-xl transition-all duration-300 text-left cursor-pointer select-none ${
+              className={`relative flex flex-row items-center gap-2.5 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl transition-all duration-300 text-left cursor-pointer select-none min-w-0 w-full ${
                 isActive
                   ? 'bg-white border border-amber-500/30 shadow-[0_4px_15px_rgba(217,119,6,0.15)] text-slate-900'
                   : 'hover:bg-slate-200/60 border border-transparent text-slate-600'
               }`}
             >
               <div
-                className={`flex items-center justify-center h-6 w-6 sm:h-7 sm:w-7 rounded-lg font-bold text-xs transition-colors shrink-0 ${
+                className={`flex items-center justify-center h-7 w-7 sm:h-8 sm:w-8 rounded-lg font-bold text-xs transition-colors shrink-0 ${
                   isActive ? 'bg-amber-600 text-white shadow-sm' : 'bg-slate-200 text-slate-700'
                 }`}
               >
                 {item.id}
               </div>
-              <div className="flex flex-col min-w-0 text-center sm:text-left">
-                <span className="text-[10px] sm:text-xs font-bold text-slate-900 truncate">
-                  {item.title.split(' ')[0]} {item.title.split(' ')[1] || ''}
+              <div className="flex flex-col min-w-0 text-left flex-1">
+                <span className="text-xs sm:text-xs font-bold text-slate-900 leading-tight break-words">
+                  {item.title}
                 </span>
-                <span className={`text-[9px] sm:text-[10px] font-semibold truncate ${isActive ? 'text-amber-700' : 'text-slate-500'}`}>
-                  {item.level.split('•')[1]?.trim() || ''}
+                <span className={`text-[10px] sm:text-[11px] font-semibold mt-0.5 leading-tight break-words ${isActive ? 'text-amber-700' : 'text-slate-500'}`}>
+                  {item.level}
                 </span>
               </div>
             </button>
@@ -118,29 +118,20 @@ export const TermitesRadar: React.FC<TermitesRadarProps> = ({ onOpenQuote }) => 
             </p>
 
             {/* Technical specs pill */}
-            <div className="mt-4 grid grid-cols-2 gap-2.5 w-full max-w-md">
-              <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
+            <div className="mt-4 grid grid-cols-1 min-[380px]:grid-cols-2 gap-2 sm:gap-2.5 w-full max-w-md">
+              <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50 border border-slate-200/80 min-w-0 flex flex-col justify-center">
                 <span className="text-[10px] text-slate-500 uppercase tracking-wider block font-medium">Método</span>
-                <span className="text-xs font-bold text-slate-800 mt-0.5 block truncate">{current.method}</span>
+                <span className="text-xs font-bold text-slate-800 mt-1 block leading-snug break-words">{current.method}</span>
               </div>
-              <div className="p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/60">
+              <div className="p-2.5 sm:p-3 rounded-xl bg-amber-50/60 border border-amber-200/60 min-w-0 flex flex-col justify-center">
                 <span className="text-[10px] text-amber-700 uppercase tracking-wider block font-medium">Entregable</span>
-                <span className="text-xs font-bold text-amber-900 mt-0.5 block truncate">{current.deliverable}</span>
+                <span className="text-xs font-bold text-amber-900 mt-1 block leading-snug break-words">{current.deliverable}</span>
               </div>
             </div>
 
-            {/* Action CTA */}
-            <div className="mt-5 flex flex-wrap items-center gap-3 w-full sm:w-auto">
-              <button
-                onClick={() => onOpenQuote(current.serviceKey)}
-                className="w-full sm:w-auto py-3 px-6 rounded-xl bg-[#09111c] hover:bg-[#142235] font-extrabold text-xs sm:text-sm tracking-wider uppercase transition-all shadow-[0_4px_18px_rgba(9,17,28,0.25)] active:scale-95 flex items-center justify-center gap-2 cursor-pointer text-white"
-              >
-                <span>{current.actionLabel}</span>
-                <ArrowRight className="h-4 w-4" />
-              </button>
-              <span className="text-[11px] text-slate-500 font-normal">
-                Inspección no invasiva para residencias y empresas.
-              </span>
+            <div className="mt-5 flex items-center gap-2 text-[11px] text-slate-500 font-normal">
+              <CheckCircle2 className="h-3.5 w-3.5 text-amber-700 shrink-0" />
+              <span>Inspección térmica no invasiva para protección de infraestructuras críticas.</span>
             </div>
           </div>
 

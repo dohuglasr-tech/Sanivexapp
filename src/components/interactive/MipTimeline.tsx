@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ShieldCheck, Search, Activity, FileCheck2, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, Sparkles } from 'lucide-react';
 
 interface MipTimelineProps {
-  onOpenQuote: (serviceName: string) => void;
+  onOpenQuote?: (serviceName: string) => void;
 }
 
 const PHASES = [
@@ -56,39 +56,39 @@ const PHASES = [
   },
 ];
 
-export const MipTimeline: React.FC<MipTimelineProps> = ({ onOpenQuote }) => {
+export const MipTimeline: React.FC<MipTimelineProps> = ({ onOpenQuote: _onOpenQuote }) => {
   const [activeIdx, setActiveIdx] = useState(0);
   const current = PHASES[activeIdx];
 
   return (
     <div className="w-full flex flex-col gap-4 lg:gap-5">
       {/* Interactive Step Navigator / Liquid Timeline Bar */}
-      <div className="grid grid-cols-3 gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl bg-[#0b1422]/80 border border-white/10 backdrop-blur-xl shadow-xl">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl bg-[#0b1422]/80 border border-white/10 backdrop-blur-xl shadow-xl">
         {PHASES.map((phase, idx) => {
           const isActive = idx === activeIdx;
           return (
             <button
               key={phase.id}
               onClick={() => setActiveIdx(idx)}
-              className={`relative flex flex-col sm:flex-row items-center sm:items-center gap-1.5 sm:gap-3 px-2 sm:px-4 py-2 sm:py-3 rounded-xl transition-all duration-300 text-left cursor-pointer select-none ${
+              className={`relative flex flex-row items-center gap-2.5 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl transition-all duration-300 text-left cursor-pointer select-none min-w-0 w-full ${
                 isActive
                   ? 'bg-gradient-to-r from-[#172b44] to-[#122238] border border-cyan-400/40 shadow-[0_0_25px_rgba(97,218,251,0.2)] text-white'
                   : 'hover:bg-white/5 border border-transparent text-slate-400 hover:text-slate-200'
               }`}
             >
               <div
-                className={`flex items-center justify-center h-6 w-6 sm:h-8 sm:w-8 rounded-lg font-black text-[11px] sm:text-xs transition-colors shrink-0 ${
+                className={`flex items-center justify-center h-7 w-7 sm:h-8 sm:w-8 rounded-lg font-black text-xs transition-colors shrink-0 ${
                   isActive ? 'bg-cyan-500 text-white shadow-md' : 'bg-white/10 text-slate-300'
                 }`}
               >
                 {phase.id}
               </div>
-              <div className="flex flex-col min-w-0 text-center sm:text-left">
-                <span className={`text-[9px] sm:text-[11px] uppercase tracking-wider font-semibold truncate ${isActive ? 'text-cyan-300' : 'text-slate-400'}`}>
-                  {idx === 0 ? 'Diagnóstico' : idx === 1 ? 'Monitoreo' : 'Blindaje'}
+              <div className="flex flex-col min-w-0 text-left flex-1">
+                <span className="text-xs sm:text-xs font-bold text-white leading-tight break-words">
+                  {phase.title}
                 </span>
-                <span className="text-[11px] sm:text-xs font-bold text-white truncate hidden sm:block">
-                  {phase.title.split(' ')[0]} {phase.title.split(' ')[1] || ''}
+                <span className={`text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold mt-0.5 leading-tight break-words ${isActive ? 'text-cyan-300' : 'text-slate-400'}`}>
+                  {idx === 0 ? 'Fase 01 • Diagnóstico' : idx === 1 ? 'Fase 02 • Monitoreo' : 'Fase 03 • Blindaje'}
                 </span>
               </div>
               {isActive && (
@@ -146,18 +146,10 @@ export const MipTimeline: React.FC<MipTimelineProps> = ({ onOpenQuote }) => {
               </div>
             </div>
 
-            {/* Action CTA */}
-            <div className="mt-5 flex flex-wrap items-center gap-3 w-full sm:w-auto">
-              <button
-                onClick={() => onOpenQuote(current.serviceKey)}
-                className="w-full sm:w-auto py-3 px-6 rounded-xl hero-primary-btn font-extrabold text-xs sm:text-sm tracking-wider uppercase transition-all shadow-[0_4px_20px_rgba(92,112,144,0.4)] active:scale-95 flex items-center justify-center gap-2 cursor-pointer text-white"
-              >
-                <span>{current.actionLabel}</span>
-                <ArrowRight className="h-4 w-4" />
-              </button>
-              <span className="text-[11px] text-slate-400 font-light">
-                Respuesta en &lt; 24h con acta técnica preliminar.
-              </span>
+            {/* Guarantee and protocol notice */}
+            <div className="mt-5 flex items-center gap-2 text-[11px] text-slate-400 font-light">
+              <ShieldCheck className="h-3.5 w-3.5 text-cyan-400 shrink-0" />
+              <span>Respuesta técnica en &lt; 24h con acta digital preliminar de inspección.</span>
             </div>
           </div>
 
