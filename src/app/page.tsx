@@ -506,7 +506,7 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="hero"
-          className={`relative w-full min-h-[100dvh] lg:h-screen lg:max-h-screen flex flex-col justify-center bg-[#05070b] px-4 sm:px-8 lg:px-16 pt-[calc(92px+env(safe-area-inset-top,0px))] sm:pt-[104px] lg:pt-[110px] pb-6 sm:pb-8 lg:pb-10 overflow-hidden ${getSectionMotion('hero')}`}
+          className={`relative w-full min-h-[100dvh] lg:min-h-screen flex flex-col justify-center bg-[#05070b] px-4 sm:px-8 lg:px-16 pt-[calc(96px+env(safe-area-inset-top,0px))] sm:pt-[116px] lg:pt-[136px] xl:pt-[144px] pb-8 sm:pb-10 lg:pb-14 overflow-hidden ${getSectionMotion('hero')}`}
         >
           {/* Ambient Lighting, Techno Grid & Top Header Glow */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -529,7 +529,7 @@ export default function Home() {
 
           <div className="relative mx-auto flex flex-col justify-center w-full max-w-[1600px] lg:grid lg:grid-cols-[1.08fr_0.92fr] items-center gap-6 sm:gap-8 lg:gap-12 xl:gap-14 my-auto z-10">
             {/* Columna Izquierda: Mensaje Comercial, Título Auténtico y Botones de Acción */}
-            <div className="relative z-20 max-w-2xl flex flex-col items-start w-full my-auto">
+            <div className="relative z-20 max-w-2xl flex flex-col items-start w-full">
               {/* Top Liquid Pill: "Somos los mejores en" */}
               <div
                 className={`bloom active inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 rounded-full hero-top-pill text-[11px] sm:text-xs font-normal text-slate-300 tracking-wide select-none mb-2.5 sm:mb-4 hero-enter-item ${
