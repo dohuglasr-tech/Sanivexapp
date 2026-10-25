@@ -16,15 +16,15 @@ const SECTORS = [
 
 const NEEDS = [
   { id: 'mip', label: 'Manejo MIP Integral', desc: 'Diagnóstico + Tratamiento + Acta' },
-  { id: 'plagas', label: 'Roedores o Insectos', desc: 'Erradicación de choque y blindaje' },
-  { id: 'sanitizacion', label: 'Sanitización Quirúrgica', desc: 'Nebulización ULV 99.999%' },
+  { id: 'plagas', label: 'Roedores o Insectos', desc: 'Tratamiento focalizado y exclusión' },
+  { id: 'sanitizacion', label: 'Sanitización Quirúrgica', desc: 'Nebulización ULV de amplio espectro' },
   { id: 'aves_termitas', label: 'Aves o Termitas', desc: 'Exclusión y detección no destructiva' },
 ];
 
 const URGENCIES = [
   { id: 'urgente', label: 'Urgencia < 4h', desc: 'Respuesta prioritaria en ruta' },
   { id: 'normal', label: 'En 24 Horas', desc: 'Inspección técnica programada' },
-  { id: 'preventivo', label: 'Plan Mensual', desc: 'Blindaje continuo con descuento' },
+  { id: 'preventivo', label: 'Plan Periódico', desc: 'Control continuo y seguimiento técnico' },
 ];
 
 export const SanitizationEstimator: React.FC<SanitizationEstimatorProps> = ({ onOpenQuote }) => {
@@ -43,8 +43,8 @@ export const SanitizationEstimator: React.FC<SanitizationEstimatorProps> = ({ on
       {/* Top Biological Key Metrics Bar */}
       <div className="grid grid-cols-3 gap-3 p-3 rounded-2xl bg-[#091522]/80 border border-teal-500/20 backdrop-blur-xl">
         <div className="flex flex-col items-center sm:items-start text-center sm:text-left px-2 sm:px-4">
-          <span className="text-xl sm:text-2xl font-black text-teal-300 leading-none">99.999%</span>
-          <span className="text-[10px] sm:text-xs text-slate-400 font-light mt-1">Eliminación de virus y bacterias</span>
+          <span className="text-xl sm:text-2xl font-black text-teal-300 leading-none">Amplio Espectro</span>
+          <span className="text-[10px] sm:text-xs text-slate-400 font-light mt-1">Control efectivo de patógenos y virus</span>
         </div>
         <div className="flex flex-col items-center sm:items-start text-center sm:text-left px-2 sm:px-4 border-x border-white/10">
           <span className="text-xl sm:text-2xl font-black text-cyan-300 leading-none">&lt; 2 Horas</span>

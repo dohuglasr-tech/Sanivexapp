@@ -16,8 +16,8 @@ const PHASES = [
     title: 'Evaluación y Mapeo Digital',
     subtitle: 'Inspección No Destructiva de Puntos Ciegos',
     description:
-      'Inspección termográfica y mapeo digital de vulnerabilidades estructurales para neutralizar riesgos antes de que se manifiesten.',
-    metric: '100% Mapeo',
+      'Inspección termográfica y mapeo digital de vulnerabilidades estructurales para identificar factores de atracción y refugio.',
+    metric: 'Mapeo Integral',
     metricLabel: 'Puntos ciegos identificados',
     deliverables: ['Mapeo de accesos críticos', 'Análisis de vectores en el área', 'Plan de intervención sin paro de planta'],
     imageSrc: '/images/hero_technician.jpg',
@@ -31,10 +31,10 @@ const PHASES = [
     title: 'Conservación Activa y Monitoreo',
     subtitle: 'Protección de Infraestructura y Redes Críticas',
     description:
-      'Blindaje continuo de bandejas eléctricas y maquinaria pesada con dispositivos de captura digital y trazabilidad preventiva.',
-    metric: '0% Paradas',
-    metricLabel: 'En líneas de producción',
-    deliverables: ['Cebado técnico inviolable', 'Monitoreo preventivo 24/7', 'Protección de racks y tableros'],
+      'Monitoreo técnico de bandejas eléctricas y maquinaria pesada con dispositivos de captura digital y trazabilidad preventiva.',
+    metric: 'Mínimo Impacto',
+    metricLabel: 'Operatividad continua',
+    deliverables: ['Cebado técnico inviolable', 'Monitoreo preventivo periódico', 'Protección de racks y tableros'],
     imageSrc: '/images/cards/card_blindaje_roedores.jpg',
     actionLabel: 'Conocer Tecnología de Monitoreo',
     serviceKey: 'MIP - Fase Monitoreo',
@@ -43,15 +43,15 @@ const PHASES = [
     id: '03',
     badge: 'Fase 03 • Normatividad',
     badgeVariant: 'emerald',
-    title: 'Blindaje Sanitario y Certificación',
+    title: 'Control Normativo y Certificación',
     subtitle: 'Cumplimiento Estricto BPM, HACCP & INVIMA',
     description:
-      'Garantía de aprobación ante Secretarías de Salud mediante actas técnicas digitales, fichas técnicas y protocolos biorracionales certificados.',
-    metric: '100% Auditoría',
-    metricLabel: 'Aprobación INVIMA & BPM',
+      'Acompañamiento técnico y documental ante autoridades y Secretarías de Salud con actas digitales, fichas técnicas y protocolos certificados.',
+    metric: 'Soporte Técnico',
+    metricLabel: 'Alineación BPM & HACCP',
     deliverables: ['Actas digitales al instante', 'Fichas técnicas con código QR', 'Certificado oficial de sanidad ambiental'],
     imageSrc: '/images/sanitization_clean.jpg',
-    actionLabel: 'Solicitar Auditoría Sanitaria',
+    actionLabel: 'Solicitar Asesoría Normativa',
     serviceKey: 'MIP - Fase Normatividad',
   },
 ];
@@ -63,7 +63,7 @@ export const MipTimeline: React.FC<MipTimelineProps> = ({ onOpenQuote: _onOpenQu
   return (
     <div className="w-full flex flex-col gap-4 lg:gap-5">
       {/* Interactive Step Navigator / Liquid Timeline Bar */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl bg-[#0b1422]/80 border border-white/10 backdrop-blur-xl shadow-xl">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl bg-[#0b1422]/90 border border-white/20 backdrop-blur-2xl shadow-2xl">
         {PHASES.map((phase, idx) => {
           const isActive = idx === activeIdx;
           return (
@@ -72,8 +72,8 @@ export const MipTimeline: React.FC<MipTimelineProps> = ({ onOpenQuote: _onOpenQu
               onClick={() => setActiveIdx(idx)}
               className={`relative flex flex-row items-center gap-2.5 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl transition-all duration-300 text-left cursor-pointer select-none min-w-0 w-full ${
                 isActive
-                  ? 'bg-gradient-to-r from-[#172b44] to-[#122238] border border-cyan-400/40 shadow-[0_0_25px_rgba(97,218,251,0.2)] text-white'
-                  : 'hover:bg-white/5 border border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'bg-gradient-to-r from-[#172b44] to-[#122238] border border-cyan-400/50 shadow-[0_0_25px_rgba(97,218,251,0.25)] text-white'
+                  : 'hover:bg-white/10 border border-transparent text-slate-300 hover:text-white'
               }`}
             >
               <div
@@ -88,7 +88,7 @@ export const MipTimeline: React.FC<MipTimelineProps> = ({ onOpenQuote: _onOpenQu
                   {phase.title}
                 </span>
                 <span className={`text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold mt-0.5 leading-tight break-words ${isActive ? 'text-cyan-300' : 'text-slate-400'}`}>
-                  {idx === 0 ? 'Fase 01 • Diagnóstico' : idx === 1 ? 'Fase 02 • Monitoreo' : 'Fase 03 • Blindaje'}
+                  {idx === 0 ? 'Fase 01 • Diagnóstico' : idx === 1 ? 'Fase 02 • Monitoreo' : 'Fase 03 • Normatividad'}
                 </span>
               </div>
               {isActive && (
@@ -105,12 +105,12 @@ export const MipTimeline: React.FC<MipTimelineProps> = ({ onOpenQuote: _onOpenQu
       </div>
 
       {/* Dynamic Interactive Stage Card */}
-      <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-gradient-to-b from-[#0f1d2e]/90 to-[#0a1320]/95 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.6)] p-5 sm:p-7 transition-all duration-500">
+      <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-b from-[#0e1d2e]/95 to-[#08121c]/98 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.65)] p-5 sm:p-7 transition-all duration-500">
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.9fr] gap-6 items-center">
           {/* Left info column */}
           <div className="flex flex-col items-start text-left">
             {/* Badge pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-[11px] font-semibold text-cyan-300 mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-[11px] font-semibold text-cyan-300 mb-3 shadow-xs">
               <Sparkles className="h-3 w-3 text-cyan-400" />
               <span>{current.badge}</span>
             </div>
@@ -118,28 +118,28 @@ export const MipTimeline: React.FC<MipTimelineProps> = ({ onOpenQuote: _onOpenQu
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight leading-snug">
               {current.title}
             </h3>
-            <p className="text-xs sm:text-sm font-medium text-cyan-200/80 mt-1">
+            <p className="text-xs sm:text-sm font-semibold text-cyan-300 mt-1">
               {current.subtitle}
             </p>
-            <p className="mt-3 text-xs sm:text-sm text-slate-300 leading-relaxed font-light max-w-xl">
+            <p className="mt-3 text-xs sm:text-sm text-slate-200/90 leading-relaxed font-light max-w-xl">
               {current.description}
             </p>
 
             {/* Metric highlight box */}
-            <div className="mt-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 py-2.5 px-3.5 sm:px-4 rounded-xl bg-white/5 border border-white/10 w-full max-w-md">
+            <div className="mt-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 py-2.5 px-3.5 sm:px-4 rounded-xl bg-[#060e18]/90 border border-white/15 w-full max-w-md shadow-inner">
               <div className="flex flex-col shrink-0">
                 <span className="text-xl sm:text-2xl font-black text-cyan-300 tracking-tight leading-none break-words">
                   {current.metric}
                 </span>
-                <span className="text-[10px] sm:text-xs text-slate-400 font-normal break-words">
+                <span className="text-[10px] sm:text-xs text-slate-300 font-normal break-words">
                   {current.metricLabel}
                 </span>
               </div>
               <div className="h-8 w-px bg-white/10 hidden sm:block ml-auto mr-2" />
-              <div className="flex flex-col gap-1 text-[11px] text-slate-300 min-w-0 flex-1">
+              <div className="flex flex-col gap-1 text-[11px] text-slate-200 min-w-0 flex-1">
                 {current.deliverables.slice(0, 2).map((item, i) => (
-                  <span key={i} className="flex items-center gap-1.5 text-[11px] text-slate-300 min-w-0">
-                    <CheckCircle2 className="h-3 w-3 text-emerald-400 shrink-0" />
+                  <span key={i} className="flex items-center gap-1.5 min-w-0">
+                    <CheckCircle2 className="h-3 w-3 text-cyan-400 shrink-0" />
                     <span className="truncate">{item}</span>
                   </span>
                 ))}
@@ -149,7 +149,7 @@ export const MipTimeline: React.FC<MipTimelineProps> = ({ onOpenQuote: _onOpenQu
             {/* Guarantee and protocol notice */}
             <div className="mt-5 flex items-center gap-2 text-[11px] text-slate-400 font-light">
               <ShieldCheck className="h-3.5 w-3.5 text-cyan-400 shrink-0" />
-              <span>Respuesta técnica en &lt; 24h con acta digital preliminar de inspección.</span>
+              <span>Respuesta técnica oportuna y plan progresivo con seguimiento conjunto.</span>
             </div>
           </div>
 

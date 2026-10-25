@@ -17,10 +17,10 @@ const SPECIMENS = [
     badgeVariant: 'amber',
     subtitle: 'Micro-geles de Efecto Cascada',
     description:
-      'Erradicación selectiva mediante geles biorracionales apetentes de última generación. Los individuos contaminados retornan al nido y eliminan la colonia por efecto dominó, sin necesidad de suspender operaciones.',
+      'Control progresivo mediante geles biorracionales apetentes de última generación. Los individuos expuestos transportan el principio activo reduciendo gradualmente la población sin necesidad de suspender operaciones.',
     techMethod: 'Geles termo-estables + Aspersión focalizada',
-    reentryTime: 'Reingreso Inmediato (Cero Olores)',
-    effectiveness: '99.7% Erradicación en 48h',
+    reentryTime: 'Reingreso Inmediato (Sin Olores Fuertes)',
+    effectiveness: 'Reducción progresiva comprobada',
     imageSrc: '/images/cards/card_cucarachas.jpg',
     actionLabel: 'Solicitar Tratamiento para Cucarachas',
     serviceKey: 'Control de Insectos - Cucarachas',
@@ -33,10 +33,10 @@ const SPECIMENS = [
     badgeVariant: 'purple',
     subtitle: 'Choque Térmico + Micro-encapsulado',
     description:
-      'Protocolo profundo que combina choque térmico con vapor seco sobrecalentado a 180°C para destruir huevos y ninfas, complementado con producto micro-encapsulado en zócalos y molduras.',
+      'Protocolo profundo que combina choque térmico con vapor seco sobrecalentado a 180°C para neutralizar ninfas y adultos, complementado con producto micro-encapsulado en zócalos y molduras.',
     techMethod: 'Vapor seco > 180°C + Aspersión residual',
     reentryTime: '< 3 horas para reocupación de habitaciones',
-    effectiveness: '100% Destrucción de huevos',
+    effectiveness: 'Impacto directo en ciclo biológico',
     imageSrc: '/images/cards/card_chinches.jpg',
     actionLabel: 'Solicitar Tratamiento para Chinches',
     serviceKey: 'Control de Insectos - Chinches',
@@ -49,10 +49,10 @@ const SPECIMENS = [
     badgeVariant: 'emerald',
     subtitle: 'Lámparas Atrapainsectos UV Inastillables',
     description:
-      'Dispositivos con tubos UV con protección inastillable (shatterproof) y láminas adhesivas con feromonas de atracción. Cero fragmentación ni electrocución cerca de áreas de procesamiento.',
+      'Dispositivos con tubos UV con protección inastillable (shatterproof) y láminas adhesivas con feromonas de atracción. Monitoreo constante sin dispersión ni contaminación en áreas de procesamiento.',
     techMethod: 'Atracción UV + Adhesivo de alta retención',
     reentryTime: 'Operación continua 24/7',
-    effectiveness: 'Monitoreo y conteo semanal',
+    effectiveness: 'Monitoreo y conteo periódico',
     imageSrc: '/images/cards/card_voladores.jpg',
     actionLabel: 'Instalar Lámparas UV Industriales',
     serviceKey: 'Control de Insectos - Voladores',
@@ -66,7 +66,7 @@ export const InsectsMatrix: React.FC<InsectsMatrixProps> = ({ onOpenQuote: _onOp
   return (
     <div className="w-full flex flex-col gap-4 lg:gap-5">
       {/* Specimen chips bar */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl bg-[#0e1927]/80 border border-white/10 backdrop-blur-xl">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl bg-[#0b1624]/90 border border-white/20 backdrop-blur-2xl shadow-2xl">
         {SPECIMENS.map((specimen, idx) => {
           const isActive = idx === selectedIdx;
           return (
@@ -75,8 +75,8 @@ export const InsectsMatrix: React.FC<InsectsMatrixProps> = ({ onOpenQuote: _onOp
               onClick={() => setSelectedIdx(idx)}
               className={`relative flex flex-row items-center gap-2.5 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-xl transition-all duration-300 text-left cursor-pointer select-none min-w-0 w-full ${
                 isActive
-                  ? 'bg-gradient-to-r from-[#0d2a23] to-[#0a1e1b] border border-emerald-400/40 shadow-[0_0_25px_rgba(16,185,129,0.2)] text-white'
-                  : 'hover:bg-white/5 border border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'bg-gradient-to-r from-[#0d2a23] to-[#0a1e1b] border border-emerald-400/50 shadow-[0_0_25px_rgba(16,185,129,0.25)] text-white'
+                  : 'hover:bg-white/10 border border-transparent text-slate-300 hover:text-white'
               }`}
             >
               <div
@@ -100,11 +100,11 @@ export const InsectsMatrix: React.FC<InsectsMatrixProps> = ({ onOpenQuote: _onOp
       </div>
 
       {/* Main Specimen Display Card */}
-      <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-gradient-to-b from-[#0e1d1b]/90 to-[#091414]/95 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.6)] p-5 sm:p-7">
+      <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-b from-[#0d1d1a]/95 to-[#071313]/98 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.65)] p-5 sm:p-7">
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.9fr] gap-6 items-center">
           {/* Left Details */}
           <div className="flex flex-col items-start text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-[11px] font-semibold text-emerald-300 mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-[11px] font-semibold text-emerald-300 mb-3 shadow-xs">
               <Sparkles className="h-3 w-3 text-emerald-400" />
               <span>{current.badge}</span>
             </div>
@@ -116,17 +116,17 @@ export const InsectsMatrix: React.FC<InsectsMatrixProps> = ({ onOpenQuote: _onOp
               Clasificación: {current.scientific}
             </span>
 
-            <p className="mt-3 text-xs sm:text-sm text-slate-300 leading-relaxed font-light max-w-xl">
+            <p className="mt-3 text-xs sm:text-sm text-slate-200/90 leading-relaxed font-light max-w-xl">
               {current.description}
             </p>
 
             {/* Quick Specs Grid */}
             <div className="mt-4 grid grid-cols-1 min-[380px]:grid-cols-2 gap-2 sm:gap-2.5 w-full max-w-md">
-              <div className="p-2.5 sm:p-3 rounded-xl bg-white/5 border border-white/10 min-w-0 flex flex-col justify-center">
+              <div className="p-2.5 sm:p-3 rounded-xl bg-[#050f0e]/90 border border-white/15 min-w-0 flex flex-col justify-center shadow-inner">
                 <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-medium">Método Técnico</span>
                 <span className="text-xs font-semibold text-slate-200 mt-1 block leading-snug break-words">{current.techMethod}</span>
               </div>
-              <div className="p-2.5 sm:p-3 rounded-xl bg-white/5 border border-white/10 min-w-0 flex flex-col justify-center">
+              <div className="p-2.5 sm:p-3 rounded-xl bg-[#050f0e]/90 border border-white/15 min-w-0 flex flex-col justify-center shadow-inner">
                 <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-medium">Tiempo Reingreso</span>
                 <span className="text-xs font-semibold text-emerald-300 mt-1 block leading-snug break-words">{current.reentryTime}</span>
               </div>
@@ -134,7 +134,7 @@ export const InsectsMatrix: React.FC<InsectsMatrixProps> = ({ onOpenQuote: _onOp
 
             <div className="mt-5 flex items-center gap-2 text-[11px] text-slate-400 font-light">
               <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
-              <span>Tratamientos certificados con actas digitales y ficha técnica INVIMA.</span>
+              <span>El control efectivo requiere consecutividad en las aplicaciones y seguimiento conjunto a las recomendaciones de higiene.</span>
             </div>
           </div>
 

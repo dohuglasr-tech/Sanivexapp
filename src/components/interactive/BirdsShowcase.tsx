@@ -12,14 +12,14 @@ const SYSTEMS = [
   {
     id: 'mallas',
     title: 'Mallas de Alta Tenacidad UV',
-    subtitle: '100% Hermetismo Mecánico Invisible',
+    subtitle: 'Exclusión Mecánica en Puntos Críticos',
     badge: 'Máxima Protección Estructural',
     badgeVariant: 'blue',
     description:
       'Redes de polietileno virgen de alta densidad tratadas contra rayos UV, sujetas con guayas perimetrales en acero inox 316. Bloquean cerchas y marquesinas sin afectar la ventilación ni la iluminación natural.',
-    features: ['Invisibles a media distancia', 'Cero afectación de flujo de aire', 'Garantía extendida de 5 años'],
-    metric: '100% Exclusión',
-    metricDesc: 'Bloqueo físico total sin daño',
+    features: ['Invisibles a media distancia', 'Mantiene el flujo de aire', 'Garantía de durabilidad'],
+    metric: 'Exclusión Física',
+    metricDesc: 'Barrera disuasiva sin maltrato animal',
     imageSrc: '/images/cards/card_mallas_aves.jpg',
     actionLabel: 'Cotizar Mallas Industriales',
     serviceKey: 'Control de Aves - Mallas',
@@ -32,9 +32,9 @@ const SYSTEMS = [
     badgeVariant: 'teal',
     description:
       'Varillas con puntas romas redondeadas montadas sobre bases flexibles con protección UV. Disuaden mecánicamente el posamiento y la anidación en cornisas, letreros corporativos y canales.',
-    features: ['Puntas romas no dañinas', 'Cero corrosión en intemperie', 'Adaptables a cualquier perfil arquitectónico'],
-    metric: '0% Posamiento',
-    metricDesc: 'En cornisas y marquesinas',
+    features: ['Puntas romas no dañinas', 'Alta resistencia a la intemperie', 'Adaptables a cualquier perfil arquitectónico'],
+    metric: 'Disuasión Activa',
+    metricDesc: 'Evita anidación en puntos estructurales',
     imageSrc: '/images/cards/card_puas_aves.jpg',
     actionLabel: 'Solicitar Púas Quirúrgicas',
     serviceKey: 'Control de Aves - Púas y Postes',
@@ -47,7 +47,7 @@ const SYSTEMS = [
     badgeVariant: 'purple',
     description:
       'Sistemas automatizados de haces de luz verde de longitud de onda específica que las aves perciben como una amenaza física inminente. Ideal para hangares, centros logísticos y silos de granos.',
-    features: ['Patrón aleatorio no habituable', 'Cobertura perimetral de miles de m²', 'Silencioso y de bajo consumo'],
+    features: ['Patrón aleatorio no habituable', 'Cobertura perimetral de grandes superficies', 'Silencioso y de bajo consumo'],
     metric: '24/7 Cobertura',
     metricDesc: 'En naves de gran volumen',
     imageSrc: '/images/cards/card_laser_aves.jpg',
@@ -63,7 +63,7 @@ export const BirdsShowcase: React.FC<BirdsShowcaseProps> = ({ onOpenQuote: _onOp
   return (
     <div className="w-full flex flex-col gap-4 lg:gap-5">
       {/* System Tabs */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl bg-[#0c1624]/80 border border-white/10 backdrop-blur-xl">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl bg-[#0c1624]/90 border border-white/20 backdrop-blur-2xl shadow-2xl">
         {SYSTEMS.map((system, idx) => {
           const isActive = idx === activeIdx;
           return (
@@ -72,8 +72,8 @@ export const BirdsShowcase: React.FC<BirdsShowcaseProps> = ({ onOpenQuote: _onOp
               onClick={() => setActiveIdx(idx)}
               className={`relative flex flex-row items-center gap-2.5 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl transition-all duration-300 text-left cursor-pointer select-none min-w-0 w-full ${
                 isActive
-                  ? 'bg-gradient-to-r from-[#14283f] to-[#0f1f33] border border-cyan-400/40 shadow-[0_0_25px_rgba(97,218,251,0.2)] text-white'
-                  : 'hover:bg-white/5 border border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'bg-gradient-to-r from-[#14283f] to-[#0f1f33] border border-cyan-400/50 shadow-[0_0_25px_rgba(97,218,251,0.25)] text-white'
+                  : 'hover:bg-white/10 border border-transparent text-slate-300 hover:text-white'
               }`}
             >
               <div
@@ -97,11 +97,11 @@ export const BirdsShowcase: React.FC<BirdsShowcaseProps> = ({ onOpenQuote: _onOp
       </div>
 
       {/* Main Showcase Stage Card */}
-      <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-gradient-to-b from-[#101d2d]/90 to-[#0b1420]/95 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.6)] p-5 sm:p-7">
+      <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-b from-[#101d2d]/95 to-[#08121c]/98 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.65)] p-5 sm:p-7">
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.9fr] gap-6 items-center">
           {/* Left info column */}
           <div className="flex flex-col items-start text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-[11px] font-semibold text-cyan-300 mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-[11px] font-semibold text-cyan-300 mb-3 shadow-xs">
               <Sparkles className="h-3 w-3 text-cyan-400" />
               <span>{current.badge}</span>
             </div>
@@ -109,16 +109,16 @@ export const BirdsShowcase: React.FC<BirdsShowcaseProps> = ({ onOpenQuote: _onOp
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight leading-snug">
               {current.title}
             </h3>
-            <p className="text-xs sm:text-sm font-medium text-cyan-200/80 mt-1">
+            <p className="text-xs sm:text-sm font-semibold text-cyan-300 mt-1">
               {current.subtitle}
             </p>
 
-            <p className="mt-3 text-xs sm:text-sm text-slate-300 leading-relaxed font-light max-w-xl">
+            <p className="mt-3 text-xs sm:text-sm text-slate-200/90 leading-relaxed font-light max-w-xl">
               {current.description}
             </p>
 
             {/* Feature Bullets + Metric Box */}
-            <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 py-2.5 px-3.5 sm:px-4 rounded-xl bg-white/5 border border-white/10 w-full max-w-md">
+            <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 py-2.5 px-3.5 sm:px-4 rounded-xl bg-[#060e18]/90 border border-white/15 w-full max-w-md shadow-inner">
               <div className="flex flex-col shrink-0">
                 <span className="text-xl sm:text-2xl font-black text-cyan-300 tracking-tight leading-none break-words">
                   {current.metric}
@@ -140,7 +140,7 @@ export const BirdsShowcase: React.FC<BirdsShowcaseProps> = ({ onOpenQuote: _onOp
 
             <div className="mt-5 flex items-center gap-2 text-[11px] text-slate-400 font-light">
               <CheckCircle2 className="h-3.5 w-3.5 text-cyan-400 shrink-0" />
-              <span>Sistemas de exclusión ética no cruenta con garantía de durabilidad estructural.</span>
+              <span>El control de avifauna combina barreras físicas con la eliminación de fuentes de alimento y anidación.</span>
             </div>
           </div>
 

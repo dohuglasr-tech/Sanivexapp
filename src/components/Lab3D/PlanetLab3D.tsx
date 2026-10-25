@@ -1161,9 +1161,9 @@ export default function PlanetLab3D() {
           <div className="mt-3 pt-2.5 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-300">
             <span className="flex items-center gap-1 text-slate-400">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              Eficacia Blindaje
+              Nivel de Control
             </span>
-            <span className="font-bold text-emerald-400">99.98%</span>
+            <span className="font-bold text-emerald-400">Progresivo Activo</span>
           </div>
         </div>
 
@@ -1212,7 +1212,7 @@ export default function PlanetLab3D() {
         <div className="p-3.5 rounded-2xl liquid-glass border border-white/10 text-xs">
           <div className="text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-2 flex items-center gap-1.5">
             <Shield className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Tipo de Blindaje 3D</span>
+            <span>Barrera de Protección 3D</span>
           </div>
           <div className="grid grid-cols-3 gap-1">
             {(['ion', 'quantum', 'vortex'] as const).map((mode) => (

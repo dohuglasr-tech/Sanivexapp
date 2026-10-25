@@ -13,7 +13,7 @@ const TREATMENTS = [
     id: 'ulv',
     icon: Wind,
     tabLabel: 'Micro-Nebulización ULV',
-    level: '99.999% Eficacia',
+    level: 'Amplio Espectro',
     levelColor: 'text-teal-300 bg-teal-500/10 border-teal-500/30',
     title: 'Micro-Nebulización ULV en Frío',
     subtitle: 'Desinfección Ambiental de Ultra Bajo Volumen',
@@ -25,7 +25,7 @@ const TREATMENTS = [
     reentryTime: '< 2 Horas',
     imageSrc: '/images/sanitization_clean.jpg',
     serviceKey: 'Sanitización - Micro-Nebulización ULV en Frío',
-    badges: ['Gotas 10-30μm', 'Cero Humedad en Racks', 'Norma INVIMA & MinSalud'],
+    badges: ['Gotas 10-30μm', 'Baja Humedad en Racks', 'Norma INVIMA & MinSalud'],
   },
   {
     id: 'quirurgica',
@@ -43,7 +43,7 @@ const TREATMENTS = [
     reentryTime: 'Reingreso Inmediato',
     imageSrc: '/images/hero_technician.jpg',
     serviceKey: 'Sanitización - Desinfección Quirúrgica de Alto Nivel',
-    badges: ['5ta Generación', 'Aprobado INVIMA', 'Cero Trazas Corrosivas'],
+    badges: ['5ta Generación', 'Aprobado INVIMA', 'No Corrosivo'],
   },
   {
     id: 'termonebulizacion',
@@ -61,7 +61,7 @@ const TREATMENTS = [
     reentryTime: '< 3 Horas',
     imageSrc: '/images/cards/card_blindaje_roedores.jpg',
     serviceKey: 'Sanitización - Termonebulización Masiva',
-    badges: ['Penetración 100%', 'Grandes Alturas', 'Acta Digital Certificada'],
+    badges: ['Alta Penetración', 'Grandes Alturas', 'Acta Digital Certificada'],
   },
 ];
 
@@ -72,7 +72,7 @@ export const SanitizationShowcase: React.FC<SanitizationShowcaseProps> = () => {
   return (
     <div className="w-full flex flex-col gap-4 lg:gap-5">
       {/* Treatment selection buttons */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl bg-[#0d1624]/80 border border-white/10 backdrop-blur-xl">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl bg-[#0c1624]/90 border border-white/20 backdrop-blur-2xl shadow-2xl">
         {TREATMENTS.map((treatment, idx) => {
           const Icon = treatment.icon;
           const isActive = idx === selectedIdx;
@@ -82,8 +82,8 @@ export const SanitizationShowcase: React.FC<SanitizationShowcaseProps> = () => {
               onClick={() => setSelectedIdx(idx)}
               className={`relative flex flex-row items-center gap-2.5 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl transition-all duration-300 text-left cursor-pointer select-none min-w-0 w-full ${
                 isActive
-                  ? 'bg-gradient-to-r from-[#0d2a2f] to-[#0a1e24] border border-teal-500/40 shadow-[0_0_25px_rgba(20,184,166,0.25)] text-white'
-                  : 'hover:bg-white/5 border border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'bg-gradient-to-r from-[#0d2a2f] to-[#0a1e24] border border-teal-500/50 shadow-[0_0_25px_rgba(20,184,166,0.25)] text-white'
+                  : 'hover:bg-white/10 border border-transparent text-slate-300 hover:text-white'
               }`}
             >
               <div
@@ -107,11 +107,11 @@ export const SanitizationShowcase: React.FC<SanitizationShowcaseProps> = () => {
       </div>
 
       {/* Main Interactive Stage Box - Homologado con las demás secciones */}
-      <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-gradient-to-b from-[#0e1d27]/90 to-[#081219]/95 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.6)] p-5 sm:p-7">
+      <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-b from-[#0e1d27]/95 to-[#071219]/98 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.65)] p-5 sm:p-7">
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.9fr] gap-6 items-center">
           {/* Left Details */}
           <div className="flex flex-col items-start text-left">
-            <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-[11px] font-semibold mb-3 ${current.levelColor}`}>
+            <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-[11px] font-semibold mb-3 shadow-xs ${current.levelColor}`}>
               <Sparkles className="h-3 w-3 shrink-0" />
               <span>Nivel: {current.level}</span>
             </div>
@@ -119,26 +119,26 @@ export const SanitizationShowcase: React.FC<SanitizationShowcaseProps> = () => {
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight leading-snug">
               {current.title}
             </h3>
-            <p className="text-xs sm:text-sm font-medium text-teal-200/80 mt-1">
+            <p className="text-xs sm:text-sm font-semibold text-teal-300 mt-1">
               {current.subtitle}
             </p>
 
             {/* Threat vs Solution Comparison Box */}
             <div className="mt-4 flex flex-col gap-2.5 w-full">
-              <div className="p-3 rounded-xl bg-teal-950/30 border border-teal-500/20 text-left">
+              <div className="p-3 rounded-xl bg-teal-950/40 border border-teal-500/30 text-left shadow-sm">
                 <span className="text-[10px] uppercase font-bold text-teal-300 tracking-wider block mb-1">
                   Vulnerabilidad Sanitaria
                 </span>
-                <p className="text-xs text-slate-300 leading-relaxed font-light">
+                <p className="text-xs text-slate-200/90 leading-relaxed font-normal">
                   {current.threat}
                 </p>
               </div>
 
-              <div className="p-3 rounded-xl bg-cyan-950/30 border border-cyan-500/20 text-left">
+              <div className="p-3 rounded-xl bg-cyan-950/40 border border-cyan-500/30 text-left shadow-sm">
                 <span className="text-[10px] uppercase font-bold text-cyan-300 tracking-wider block mb-1">
                   Protocolo Técnico Sanivex
                 </span>
-                <p className="text-xs text-slate-300 leading-relaxed font-light">
+                <p className="text-xs text-slate-200/90 leading-relaxed font-normal">
                   {current.solution}
                 </p>
               </div>
@@ -146,11 +146,11 @@ export const SanitizationShowcase: React.FC<SanitizationShowcaseProps> = () => {
 
             {/* Quick Specs Grid */}
             <div className="mt-4 grid grid-cols-1 min-[380px]:grid-cols-2 gap-2 sm:gap-2.5 w-full max-w-md">
-              <div className="p-2.5 sm:p-3 rounded-xl bg-white/5 border border-white/10 min-w-0 flex flex-col justify-center">
+              <div className="p-2.5 sm:p-3 rounded-xl bg-[#061219]/90 border border-white/15 min-w-0 flex flex-col justify-center shadow-inner">
                 <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-medium">Método</span>
                 <span className="text-xs font-semibold text-slate-200 mt-1 block leading-snug break-words">{current.techMethod}</span>
               </div>
-              <div className="p-2.5 sm:p-3 rounded-xl bg-white/5 border border-white/10 min-w-0 flex flex-col justify-center">
+              <div className="p-2.5 sm:p-3 rounded-xl bg-[#061219]/90 border border-white/15 min-w-0 flex flex-col justify-center shadow-inner">
                 <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-medium">Tiempo Reingreso</span>
                 <span className="text-xs font-semibold text-teal-300 mt-1 block leading-snug break-words">{current.reentryTime}</span>
               </div>
@@ -159,7 +159,7 @@ export const SanitizationShowcase: React.FC<SanitizationShowcaseProps> = () => {
             {/* Badges bar - Sin botón de cotización individual */}
             <div className="mt-5 flex flex-wrap items-center gap-2">
               {current.badges.map((b, i) => (
-                <span key={i} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[10px] text-slate-300 font-medium">
+                <span key={i} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 border border-white/15 text-[10px] text-slate-200 font-medium">
                   <CheckCircle2 className="h-3 w-3 text-teal-400" />
                   {b}
                 </span>
@@ -168,7 +168,7 @@ export const SanitizationShowcase: React.FC<SanitizationShowcaseProps> = () => {
 
             <div className="mt-4 flex items-center gap-2 text-[11px] text-slate-400 font-light">
               <ShieldCheck className="h-3.5 w-3.5 text-teal-400 shrink-0" />
-              <span>Certificación oficial expedida bajo directrices de MinSalud e INVIMA.</span>
+              <span>La inocuidad sostenida requiere planes de desinfección periódicos y protocolos de limpieza rutinaria.</span>
             </div>
           </div>
 

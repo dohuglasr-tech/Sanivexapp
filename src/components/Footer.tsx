@@ -41,10 +41,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuote }) => {
             Bioseguridad & Diagnóstico Sin Costo
           </div>
           <h3 className="text-lg sm:text-xl md:text-2xl font-extrabold text-white tracking-tight leading-tight">
-            ¿Listo para blindar tu empresa con los más altos estándares?
+            ¿Listo para iniciar un plan de control exhaustivo y profesional?
           </h3>
           <p className="mt-1 text-xs sm:text-[13px] text-slate-300/85 font-light leading-relaxed">
-            Atención prioritaria para industrias, plantas de alimentos, centros logísticos y hogares con actas de inspección certificadas.
+            Atención técnica especializada para industrias, plantas de alimentos y hogares con diagnósticos progresivos y actas certificadas.
           </p>
         </div>
 

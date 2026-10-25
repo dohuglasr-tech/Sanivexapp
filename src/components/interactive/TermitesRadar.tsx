@@ -14,11 +14,11 @@ const LEVELS = [
     level: 'Nivel 01 • Detección',
     title: 'Diagnóstico Acústico y Termografía',
     subtitle: 'Localización No Destructiva de Puntos Críticos',
-    badge: 'Cero Perforaciones Innecesarias',
+    badge: 'Diagnóstico Focalizado',
     description:
       'Utilizamos termografía infrarroja y sensores bio-acústicos de alta sensibilidad para detectar la actividad xilófaga oculta en el interior de vigas, marcos, entrepisos y cielorrasos sin alterar la estética arquitectónica.',
     method: 'Sensores acústicos + Termografía FLIR',
-    accuracy: '100% Precisión milimétrica',
+    accuracy: 'Alta precisión acústica y térmica',
     deliverable: 'Mapa térmico de actividad xilófaga',
     imageSrc: '/images/cards/card_termitas_diagnostico.jpg',
     actionLabel: 'Solicitar Diagnóstico No Destructivo',
@@ -26,33 +26,33 @@ const LEVELS = [
   },
   {
     id: '02',
-    level: 'Nivel 02 • Blindaje',
+    level: 'Nivel 02 • Barrera',
     title: 'Inyección y Sales de Boro',
     subtitle: 'Tratamiento Preventivo de Vigas y Cimientos',
-    badge: 'Protección Estructural de Por Vida',
+    badge: 'Tratamiento Estructural Preventivo',
     description:
       'Impregnación a presión de sales de boro micro-ionizadas en elementos estructurales de madera y creación de barrera química en juntas de dilatación y cimentación para cortar los túneles de avance.',
     method: 'Inyección a presión + Sellado con polímeros',
     accuracy: 'Protección profunda de albura y duramen',
     deliverable: 'Barrera química perimetral certificada',
     imageSrc: '/images/cards/card_termitas_blindaje.jpg',
-    actionLabel: 'Blindar Estructuras de Madera',
+    actionLabel: 'Tratar Estructuras de Madera',
     serviceKey: 'Termitas - Elementos Estructurales',
   },
   {
     id: '03',
-    level: 'Nivel 03 • Erradicación',
+    level: 'Nivel 03 • Control',
     title: 'Sistemas de Cebado IGR Sub-suelo',
-    subtitle: 'Colapso Total de la Reina y el Termitero',
-    badge: 'Erradicación Biológica Definitiva',
+    subtitle: 'Manejo Progresivo con Cebos IGR',
+    badge: 'Supresión Progresiva de la Colonia',
     description:
-      'Despliegue de estaciones de monitoreo subterráneo con reguladores de crecimiento de insectos (IGR). Las termitas obreras transportan el principio activo al nido, impidiendo la muda y extinguiendo la colonia.',
+      'Despliegue de estaciones de monitoreo subterráneo con reguladores de crecimiento de insectos (IGR). Las termitas obreras transportan el principio activo al nido, impidiendo la muda y reduciendo gradualmente la población de la colonia.',
     method: 'Inhibidores de síntesis de quitina (IGR)',
-    accuracy: 'Eliminación completa de la reina',
-    deliverable: 'Certificado de erradicación total',
+    accuracy: 'Interrupción del ciclo biológico',
+    deliverable: 'Certificado de tratamiento técnico y monitoreo',
     imageSrc: '/images/termite_macro.jpg',
-    actionLabel: 'Erradicar Colonias Subterráneas',
-    serviceKey: 'Termitas - Erradicación',
+    actionLabel: 'Controlar Colonias Subterráneas',
+    serviceKey: 'Termitas - Control Progresivo',
   },
 ];
 
@@ -131,7 +131,7 @@ export const TermitesRadar: React.FC<TermitesRadarProps> = ({ onOpenQuote: _onOp
 
             <div className="mt-5 flex items-center gap-2 text-[11px] text-slate-500 font-normal">
               <CheckCircle2 className="h-3.5 w-3.5 text-amber-700 shrink-0" />
-              <span>Inspección térmica no invasiva para protección de infraestructuras críticas.</span>
+              <span>El control xilófago requiere consecutividad en el monitoreo y seguimiento técnico continuo.</span>
             </div>
           </div>
 

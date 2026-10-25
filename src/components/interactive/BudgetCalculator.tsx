@@ -51,7 +51,7 @@ const NEEDS = [
     id: 'roedores',
     label: 'Control de Roedores',
     mappedOption: 'Control de Roedores',
-    desc: 'Erradicación y cebado georreferenciado',
+    desc: 'Manejo progresivo y cebado georreferenciado',
     icon: AlertTriangle,
   },
   {
@@ -79,7 +79,7 @@ const NEEDS = [
     id: 'sanitizacion',
     label: 'Sanitización y Desinfección',
     mappedOption: 'Sanitización y Desinfección',
-    desc: 'Micro-nebulización en frío ULV 99.999%',
+    desc: 'Micro-nebulización en frío ULV de amplio espectro',
     icon: Sparkles,
   },
 ];
@@ -87,7 +87,7 @@ const NEEDS = [
 const URGENCIES = [
   { id: 'urgente', label: 'Urgencia Prioritaria < 4h', desc: 'Cuadrilla técnica en ruta inmediata', icon: Zap },
   { id: 'normal', label: 'Inspección en 24 Horas', desc: 'Visita técnica y diagnóstico programado', icon: Clock },
-  { id: 'preventivo', label: 'Plan Preventivo Continuo', desc: 'Mantenimiento mensual y actas para auditorías', icon: Calendar },
+  { id: 'preventivo', label: 'Plan Preventivo Continuo', desc: 'Visitas consecutivas y seguimiento conjunto', icon: Calendar },
 ];
 
 export const BudgetCalculator: React.FC<BudgetCalculatorProps> = ({ onGenerateQuote }) => {

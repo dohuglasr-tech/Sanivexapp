@@ -189,7 +189,7 @@ const jsonLd = {
               "@type": "Service",
               "name": "Control Avanzado de Roedores",
               "description":
-                "Erradicación técnica y exclusión estructural de roedores protegiendo cableados y tableros eléctricos."
+                "Control técnico progresivo y exclusión estructural de roedores protegiendo cableados y tableros eléctricos."
             }
           },
           {
@@ -198,7 +198,7 @@ const jsonLd = {
               "@type": "Service",
               "name": "Control Integral de Insectos",
               "description":
-                "Erradicación de cucarachas, hormigas, chinches y moscas con geles biorracionales y trampas UV."
+                "Control progresivo de cucarachas, hormigas, chinches y moscas con geles biorracionales y trampas UV."
             }
           },
           {

@@ -29,7 +29,7 @@ const PILLARS = [
     tags: ['BPM', 'HACCP', 'AIB International', 'BRC'],
     color: 'from-sky-500/20 to-blue-600/10',
     borderColor: 'border-sky-500/40',
-    badgeText: 'Auditorías 100% Aprobadas',
+    badgeText: 'Acompañamiento en Auditorías',
   },
   {
     id: 'insumos',
@@ -66,20 +66,20 @@ export const AboutSanivex: React.FC<AboutSanivexProps> = ({ onOpenQuote: _onOpen
       {/* Top Header Section */}
       <div className="flex flex-col gap-1.5 mb-3 sm:mb-4 text-left">
         <div className="flex items-center gap-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-pill text-[11px] font-semibold text-[#61dafb] backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 border border-white/25 text-[11px] font-semibold text-white backdrop-blur-md shadow-xs">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-300 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-300"></span>
             </span>
             ¿Quiénes somos?
           </div>
-          <span className="text-white/20 text-xs hidden sm:inline">•</span>
-          <span className="text-slate-400 text-xs font-semibold tracking-wider uppercase hidden sm:inline">
+          <span className="text-white/30 text-xs hidden sm:inline">•</span>
+          <span className="text-slate-200 text-xs font-semibold tracking-wider uppercase hidden sm:inline">
             Perfil Institucional & Respaldo
           </span>
         </div>
 
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight drop-shadow-sm">
           SOBRE SANIVEX
         </h2>
       </div>
@@ -87,39 +87,39 @@ export const AboutSanivex: React.FC<AboutSanivexProps> = ({ onOpenQuote: _onOpen
       {/* Main Grid: Left Narrative & Pillars | Right Diagnostic Card */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
         {/* Left Column (col-span-7): Corporate Manifesto + Pillars */}
-        <div className="lg:col-span-7 flex flex-col justify-between gap-4 bg-[#0a1220]/70 border border-white/10 rounded-2xl p-5 sm:p-6 backdrop-blur-xl shadow-2xl overflow-hidden relative group text-left">
+        <div className="lg:col-span-7 flex flex-col justify-between gap-4 bg-[#091526]/85 border border-white/20 rounded-2xl p-5 sm:p-6 backdrop-blur-2xl shadow-[0_25px_60px_rgba(10,20,35,0.4)] overflow-hidden relative group text-left">
           {/* Subtle Ambient glow inside card */}
           <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-sky-500/10 blur-[90px] pointer-events-none" />
 
           {/* Statement Paragraphs */}
           <div className="flex flex-col gap-2.5 relative z-10">
-            <p className="text-xs sm:text-[13px] text-slate-200/90 leading-relaxed font-normal">
-              Es una compañía especializada en <span className="text-white font-semibold">Sanidad Ambiental y Control Integrado de Plagas (MIP)</span>, dedicada a la protección integral de entornos corporativos, industriales, comerciales y residenciales.
+            <p className="text-xs sm:text-[13px] text-slate-100 leading-relaxed font-normal">
+              Es una compañía especializada en <span className="text-white font-semibold underline decoration-cyan-400/40 underline-offset-2">Sanidad Ambiental y Control Integrado de Plagas (MIP)</span>, dedicada a la protección integral de entornos corporativos, industriales, comerciales y residenciales.
             </p>
 
-            <p className="text-xs sm:text-[13px] text-slate-300/80 leading-relaxed font-light">
+            <p className="text-xs sm:text-[13px] text-slate-200/90 leading-relaxed font-light">
               Diseñamos ecosistemas de protección preventivos, inteligentes y personalizados, garantizando la continuidad operativa y la bioseguridad en cada espacio.
             </p>
 
-            <div className="p-3 rounded-xl bg-gradient-to-r from-blue-950/60 to-[#0e1d33]/60 border border-cyan-500/25 text-xs sm:text-[12.5px] leading-relaxed">
+            <div className="p-3 rounded-xl bg-gradient-to-r from-blue-950/90 to-[#0e1d33]/90 border border-cyan-400/35 text-xs sm:text-[12.5px] leading-relaxed shadow-sm">
               <span className="font-bold text-white tracking-wide">Tu operación segura, nuestra razón de ser</span>
-              <span className="text-slate-300">, nos posicionamos como un aliado estratégico que combina precisión técnica, conciencia biológica y tecnología de vanguardia.</span>
+              <span className="text-slate-200">, nos posicionamos como un aliado estratégico que combina precisión técnica, conciencia biológica y tecnología de vanguardia.</span>
             </div>
           </div>
 
           {/* Subsection: Máximos Estándares y Respaldo Técnico */}
-          <div className="flex flex-col gap-2.5 relative z-10 pt-3 border-t border-white/10">
+          <div className="flex flex-col gap-2.5 relative z-10 pt-3 border-t border-white/15">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
               <h3 className="text-xs sm:text-sm font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-                <Target className="h-3.5 w-3.5 text-cyan-400" />
+                <Target className="h-3.5 w-3.5 text-cyan-300" />
                 Máximos Estándares y Respaldo Técnico
               </h3>
-              <span className="text-[10px] text-cyan-300 font-medium">
+              <span className="text-[10px] text-cyan-200 font-semibold">
                 Protocolos Internacionales
               </span>
             </div>
 
-            <p className="text-[11px] sm:text-xs text-slate-300/80 leading-relaxed font-light">
+            <p className="text-[11px] sm:text-xs text-slate-200/90 leading-relaxed font-light">
               Cada especialista de <strong className="text-white font-semibold">SANIVEX</strong> opera bajo estrictos protocolos internacionales y capacitación técnica continua, garantizando un servicio de alta eficiencia adaptado a los marcos normativos más rigurosos:
             </p>
 
@@ -134,11 +134,11 @@ export const AboutSanivex: React.FC<AboutSanivexProps> = ({ onOpenQuote: _onOpen
                     onClick={() => setActivePillar(idx)}
                     className={`flex items-center gap-2.5 sm:gap-2 px-3 py-2.5 rounded-xl transition-all text-left cursor-pointer select-none border min-w-0 w-full ${
                       isSelected
-                        ? 'bg-sky-500/20 border-cyan-400/60 text-white shadow-[0_0_15px_rgba(97,218,251,0.2)]'
-                        : 'bg-white/5 border-white/5 text-slate-400 hover:text-slate-200 hover:bg-white/10'
+                        ? 'bg-sky-500/30 border-cyan-300 text-white shadow-[0_0_15px_rgba(97,218,251,0.25)]'
+                        : 'bg-white/10 border-white/10 text-slate-200 hover:text-white hover:bg-white/15'
                     }`}
                   >
-                    <Icon className={`h-4 w-4 shrink-0 ${isSelected ? 'text-cyan-400' : 'text-slate-400'}`} />
+                    <Icon className={`h-4 w-4 shrink-0 ${isSelected ? 'text-cyan-300' : 'text-slate-300'}`} />
                     <span className="text-xs sm:text-[11px] font-semibold leading-snug break-words flex-1 min-w-0">
                       {pillar.short}
                     </span>
@@ -148,7 +148,7 @@ export const AboutSanivex: React.FC<AboutSanivexProps> = ({ onOpenQuote: _onOpen
             </div>
 
             {/* Active Pillar Detail Box */}
-            <div className="p-3.5 rounded-xl bg-[#070e1a]/90 border border-white/10 flex flex-col gap-2">
+            <div className="p-3.5 rounded-xl bg-[#060e1a]/95 border border-white/15 flex flex-col gap-2 shadow-inner">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2">
                 <div className="flex items-center gap-2 min-w-0">
                   <span className="h-2 w-2 rounded-full bg-cyan-400 shrink-0" />
@@ -156,12 +156,12 @@ export const AboutSanivex: React.FC<AboutSanivexProps> = ({ onOpenQuote: _onOpen
                     {current.title}
                   </span>
                 </div>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 font-medium shrink-0 self-start sm:self-auto">
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 font-semibold shrink-0 self-start sm:self-auto">
                   {current.badgeText}
                 </span>
               </div>
 
-              <p className="text-[11px] sm:text-xs text-slate-300 leading-relaxed font-light">
+              <p className="text-[11px] sm:text-xs text-slate-200 leading-relaxed font-light">
                 {current.description}
               </p>
 
@@ -170,7 +170,7 @@ export const AboutSanivex: React.FC<AboutSanivexProps> = ({ onOpenQuote: _onOpen
                 {current.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-[9.5px] sm:text-[10px] px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300 font-medium"
+                    className="text-[9.5px] sm:text-[10px] px-2 py-0.5 rounded-md bg-white/10 border border-white/15 text-slate-200 font-medium"
                   >
                     {tag}
                   </span>
@@ -181,9 +181,9 @@ export const AboutSanivex: React.FC<AboutSanivexProps> = ({ onOpenQuote: _onOpen
         </div>
 
         {/* Right Column (col-span-5): Executive Diagnostic Action Card */}
-        <div className="lg:col-span-5 flex flex-col justify-between gap-4 bg-gradient-to-br from-[#1c2a3e] via-[#152336] to-[#0e1928] border border-cyan-500/30 p-5 sm:p-6 rounded-2xl shadow-2xl relative overflow-hidden text-left">
+        <div className="lg:col-span-5 flex flex-col justify-between gap-4 bg-gradient-to-br from-[#122338]/95 via-[#0e1c2e]/95 to-[#091523]/95 border border-cyan-400/40 p-5 sm:p-6 rounded-2xl shadow-[0_25px_60px_rgba(10,20,35,0.4)] relative overflow-hidden text-left">
           {/* Glossy top highlight */}
-          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent" />
+          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent" />
           <div className="absolute -bottom-10 -right-10 w-44 h-44 rounded-full bg-cyan-500/10 blur-2xl pointer-events-none" />
 
           <div className="flex flex-col gap-2">
@@ -201,48 +201,48 @@ export const AboutSanivex: React.FC<AboutSanivexProps> = ({ onOpenQuote: _onOpen
             <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
               Iniciemos el proyecto.
             </h3>
-            <p className="text-xs sm:text-[13px] text-slate-300/90 leading-relaxed font-light">
-              El primer paso es un diagnóstico integral de tu operación. Evaluamos tus instalaciones y diseñamos un ecosistema de protección preventivo a la medida de tu sector.
+            <p className="text-xs sm:text-[13px] text-slate-200/90 leading-relaxed font-light">
+              El primer paso es un diagnóstico integral de tu operación. Evaluamos tus instalaciones y diseñamos un plan de control progresivo, donde la consecutividad de las visitas y el seguimiento conjunto garantizan resultados sostenibles.
             </p>
           </div>
 
           {/* Trust Guarantees */}
-          <div className="flex flex-col gap-2 py-2 border-y border-white/10 text-xs text-slate-300">
+          <div className="flex flex-col gap-2 py-2 border-y border-white/15 text-xs text-slate-200">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-3.5 w-3.5 text-cyan-400 shrink-0" />
+              <CheckCircle2 className="h-3.5 w-3.5 text-cyan-300 shrink-0" />
               <span>Protocolos certificados bajo normas BPM, HACCP & INVIMA</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
-              <span>Respuesta técnica y visita diagnóstica en menos de 24h</span>
+              <span>Respuesta técnica y visita diagnóstica oportuna</span>
             </div>
             <div className="flex items-center gap-2">
-              <ShieldCheck className="h-3.5 w-3.5 text-sky-400 shrink-0" />
-              <span>Cero paros en líneas productivas ni afectación al personal</span>
+              <ShieldCheck className="h-3.5 w-3.5 text-sky-300 shrink-0" />
+              <span>Mínimo impacto operativo: servicios adaptados a tus turnos de trabajo</span>
             </div>
           </div>
 
           {/* Manager Contact Details with Clickable links */}
-          <div className="p-3 rounded-xl bg-[#09111e]/85 border border-white/10 flex flex-col gap-1.5 text-xs text-slate-300">
+          <div className="p-3 rounded-xl bg-[#07111e]/90 border border-white/15 flex flex-col gap-1.5 text-xs text-slate-200">
             <div className="font-semibold text-white flex flex-wrap items-center gap-1.5 break-words">
               <span>Fernando Fernández</span>
-              <span className="text-slate-500">—</span>
+              <span className="text-slate-400">—</span>
               <span className="text-cyan-300 font-medium break-words">Gerente Comercial & Operativo</span>
             </div>
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-slate-300 pt-0.5">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-slate-200 pt-0.5">
               <a
                 href="tel:+573103387722"
                 className="hover:text-cyan-300 transition-colors flex items-center gap-1.5 cursor-pointer font-medium"
               >
-                <Phone className="h-3.5 w-3.5 text-cyan-400 shrink-0" />
+                <Phone className="h-3.5 w-3.5 text-cyan-300 shrink-0" />
                 <span>(+57) 310 338 7722</span>
               </a>
-              <span className="text-white/20 hidden sm:inline">•</span>
+              <span className="text-white/30 hidden sm:inline">•</span>
               <a
                 href="mailto:ventas@sanivex.com.co"
                 className="hover:text-cyan-300 transition-colors flex items-center gap-1.5 cursor-pointer font-medium"
               >
-                <Mail className="h-3.5 w-3.5 text-cyan-400 shrink-0" />
+                <Mail className="h-3.5 w-3.5 text-cyan-300 shrink-0" />
                 <span>ventas@sanivex.com.co</span>
               </a>
             </div>

@@ -541,7 +541,7 @@ export default function Home() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
                 </span>
-                <span>Somos los mejores en</span>
+                <span>Especialistas en Manejo y Control de Plagas</span>
               </div>
 
               {/* H1 Heading - Cuadrado, Profesional y Destacado en Móvil / Intacto en Web */}
@@ -562,7 +562,7 @@ export default function Home() {
                 }`}
                 style={{ '--hero-delay': '360ms' } as React.CSSProperties}
               >
-                Tu operación segura, nuestra razón de ser. Somos tu aliado estratégico en bioseguridad y manejo integrado para que tú y tu empresa estén 100% protegidos.
+                Tu operación segura, nuestra razón de ser. El control de plagas es un proceso técnico y progresivo: con visitas consecutivas, monitoreo riguroso y seguimiento conjunto a las recomendaciones, logramos un control exhaustivo y sostenible.
               </p>
 
               {/* Red Alert Pill */}
@@ -790,34 +790,33 @@ export default function Home() {
         </section>
 
         {/* ========================================================================= */}
-        {/* SECCIÓN 3: CONTROL DE ROEDORES (Diseño Asimétrico con Mucho Aire y Foco)   */}
+        {/* SECCIÓN 3: CONTROL DE ROEDORES (Diseño Limpio Fondo Blanco)                */}
         {/* ========================================================================= */}
         <section
           id="roedores"
-          className={`relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#121e2b] via-[#142130] to-[#111d2a] ${getSectionMotion('roedores')}`}
+          data-theme="light"
+          className={`relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-white text-slate-900 ${getSectionMotion('roedores')}`}
         >
-          {/* Subtle Ambient Red Glow */}
-          <div className="absolute top-1/4 right-1/4 h-80 w-80 rounded-full bg-red-500/10 blur-[130px] pointer-events-none" />
+          {/* Top and Bottom Smooth Transitions to integrate seamlessly with adjacent sections */}
+          <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#121e2b] via-[#121e2b]/50 to-transparent pointer-events-none z-10" />
+          <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#111d2a] via-[#111d2a]/50 to-transparent pointer-events-none z-10" />
 
-          {/* User's asas.jpg Asset on Right Side with Smooth Organic Alpha Mask (Zero middle cuts) */}
+          {/* User's asas_blanco.jpg Asset on Right Side with Smooth Organic Alpha Mask (Zero middle cuts) */}
           <div
-            className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-45 lg:opacity-85"
+            className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-25 lg:opacity-100"
             style={{
-              WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 22%, rgba(0,0,0,0.6) 38%, transparent 64%)',
-              maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 22%, rgba(0,0,0,0.6) 38%, transparent 64%)',
+              WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 25%, rgba(0,0,0,0.6) 45%, transparent 70%)',
+              maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 25%, rgba(0,0,0,0.6) 45%, transparent 70%)',
             }}
           >
             <div className="relative h-full w-full lg:w-[56%] ml-auto parallax-bg-media">
               <Image
-                src="/images/Propias/asas.jpg"
+                src="/images/Propias/asas_blanco.jpg"
                 alt="Control Avanzado de Roedores Sanivex"
                 fill
-                quality={90}
+                quality={95}
                 className="object-cover object-right"
               />
-              {/* Tinte azul tenue institucional para integrar con el fondo y no quitar protagonismo a los contenedores */}
-              <div className="absolute inset-0 bg-[#091522]/55 mix-blend-multiply pointer-events-none" />
-              <div className="absolute inset-0 bg-gradient-to-l from-[#091522]/60 via-[#0d1e2f]/50 to-[#121e2b]/90 pointer-events-none" />
             </div>
           </div>
 
@@ -825,29 +824,29 @@ export default function Home() {
             {/* Header */}
             <div className="mb-3 lg:mb-4 max-w-2xl">
               <div
-                className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-[11px] font-semibold text-red-300 mb-2 backdrop-blur-md motion-item ${
+                className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-300 text-[11px] font-semibold text-red-900 mb-2 shadow-xs motion-item ${
                   isSectionVisible('roedores') ? 'motion-item-visible' : 'motion-item-hidden'
                 }`}
                 style={{ '--motion-delay': '80ms' } as React.CSSProperties}
               >
-                <AlertTriangle className="h-3 w-3 text-red-400" />
+                <AlertTriangle className="h-3 w-3 text-red-700" />
                 Vectores de Alta Criticidad Sanitaria
               </div>
               <h2
-                className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight motion-item ${
+                className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#09111c] tracking-tight motion-item ${
                   isSectionVisible('roedores') ? 'motion-item-visible' : 'motion-item-hidden'
                 }`}
                 style={{ '--motion-delay': '160ms' } as React.CSSProperties}
               >
-                Control Avanzado de Roedores
+                Control Progresivo de Roedores
               </h2>
               <p
-                className={`mt-1 text-xs sm:text-sm text-slate-300 leading-relaxed font-light motion-item ${
+                className={`mt-1 text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal motion-item ${
                   isSectionVisible('roedores') ? 'motion-item-visible' : 'motion-item-hidden'
                 }`}
                 style={{ '--motion-delay': '240ms' } as React.CSSProperties}
               >
-                Erradicación técnica y exclusión estructural de Rattus norvegicus y Mus musculus. Protegemos la salud de tu equipo y el sistema eléctrico de tu empresa.
+                Manejo técnico escalonado y exclusión física de Rattus norvegicus y Mus musculus. La efectividad depende de la frecuencia del control y del cumplimiento conjunto de las medidas sanitarias y de hermetismo indicadas.
               </p>
             </div>
 
@@ -915,7 +914,7 @@ export default function Home() {
                 }`}
                 style={{ '--motion-delay': '240ms' } as React.CSSProperties}
               >
-                Erradicación de cucarachas (Blattodea), hormigas y moscas mediante geles biorracionales y trampas UV de captura limpia.
+                Manejo gradual de cucarachas (Blattodea), hormigas y moscas con geles biorracionales y trampas de monitoreo. La efectividad se consolida con servicios consecutivos y buenas prácticas de orden e higiene.
               </p>
             </div>
 
@@ -1007,6 +1006,10 @@ export default function Home() {
           data-theme="light"
           className={`relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-white text-slate-900 ${getSectionMotion('termitas')}`}
         >
+          {/* Top and Bottom Smooth Transitions to integrate seamlessly with adjacent sections */}
+          <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#101b28] via-[#101b28]/50 to-transparent pointer-events-none z-10" />
+          <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#101b27] via-[#101b27]/50 to-transparent pointer-events-none z-10" />
+
           {/* User's Termita Asset on Left Side with Smooth Organic Alpha Mask (Zero middle cuts) */}
           <div
             className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-25 lg:opacity-100"
@@ -1052,7 +1055,7 @@ export default function Home() {
                 }`}
                 style={{ '--motion-delay': '240ms' } as React.CSSProperties}
               >
-                Las termitas consumen celulosa desde el interior causando deterioro progresivo e invisible. Implementamos sistemas de detección temprana, blindaje estructural y erradicación biológica.
+                Las termitas consumen celulosa de forma progresiva e imperceptible. Implementamos diagnóstico temprano, barreras químicas perimetrales y monitoreo continuo para mantener bajo control la actividad xilófaga.
               </p>
             </div>
 
@@ -1075,8 +1078,27 @@ export default function Home() {
           id="sanitizacion"
           className={`relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#101b27] via-[#0d1622] to-[#0c1522] ${getSectionMotion('sanitizacion')}`}
         >
-          {/* Subtle Ambient Teal/Cyan Glow */}
+          {/* Subtle Ambient Teal/Cyan and Coral Glows behind the pathogen */}
+          <div className="absolute top-1/3 right-8 lg:right-20 h-[520px] w-[520px] rounded-full bg-teal-500/15 blur-[160px] pointer-events-none" />
+          <div className="absolute top-1/4 right-24 h-72 w-72 rounded-full bg-rose-500/12 blur-[130px] pointer-events-none" />
           <div className="absolute top-1/3 left-1/3 h-96 w-96 rounded-full bg-teal-500/10 blur-[150px] pointer-events-none" />
+
+          {/* User's COVID-19 Virion Asset on Right Side with Parallax */}
+          <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[50%] opacity-65 lg:opacity-90 pointer-events-none z-0 overflow-hidden flex items-center justify-end">
+            <div className="relative h-full w-full parallax-bg-media">
+              <Image
+                src="/images/Propias/covid_virion_trans.webp"
+                alt="Control de Patógenos y Sanitización de Alto Nivel Sanivex"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={95}
+                className="object-contain object-right lg:scale-105"
+              />
+            </div>
+            {/* Subtle Gradient Blend Masks to prevent harsh seams */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0d1622] via-[#0d1622]/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0c1522] via-transparent to-[#101b27]" />
+          </div>
 
           <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col my-auto">
             {/* Header */}
@@ -1155,11 +1177,15 @@ export default function Home() {
         {/* ========================================================================= */}
         <section
           id="sanivex"
-          className={`relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-[#0c1522] via-[#09111c] to-[#05080e] ${getSectionMotion('sanivex')}`}
+          className={`relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-20 lg:py-24 overflow-hidden bg-[#5c7090] ${getSectionMotion('sanivex')}`}
         >
+          {/* Top and Bottom Smooth Transitions to integrate seamlessly with adjacent sections */}
+          <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#0c1522] via-[#0c1522]/50 to-transparent pointer-events-none z-10" />
+          <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#09111c] via-[#09111c]/50 to-transparent pointer-events-none z-10" />
+
           {/* Subtle Ambient Glows */}
-          <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-cyan-500/10 blur-[160px] pointer-events-none" />
-          <div className="absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-blue-600/10 blur-[160px] pointer-events-none" />
+          <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-white/10 blur-[160px] pointer-events-none" />
+          <div className="absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-sky-200/15 blur-[160px] pointer-events-none" />
 
           <div
             className={`max-w-7xl mx-auto w-full h-full relative z-10 flex flex-col justify-center my-auto motion-item ${

@@ -226,7 +226,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                   <option value="Manejo Integrado de Plagas (MIP)">Manejo Integrado de Plagas (MIP)</option>
                   <option value="Control de Roedores">Control de Roedores de Importancia Sanitaria</option>
                   <option value="Control de Aves">Control y Exclusión de Aves Urbanas</option>
-                  <option value="Control de Termitas">Control y Erradicación de Termitas</option>
+                  <option value="Control de Termitas">Control Técnico de Termitas y Xilófagos</option>
                   <option value="Sanitización y Desinfección">Sanitización y Desinfección de Alto Nivel</option>
                   <option value="Plan Integral Empresa">Plan Integral Corporativo (BPM / HACCP)</option>
                 </select>
